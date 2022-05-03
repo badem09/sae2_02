@@ -8,10 +8,11 @@ public class Villes {
     private  File fileDistances ;
     private  File fileMembre ;
 
-    private ArrayList<String> tabVilles ;
-    private ArrayList<ArrayList<Integer>> tabDistances ;
+    private ArrayList<String> tabVilles ; // tableau des villes (indice important pour la suite)
+    private ArrayList<ArrayList<Integer>> tabDistances ; // tableau 2d des distances
     private HashMap<String,String> dicoDistances; // pertinent? pas défini !
-    private HashMap<String,ArrayList<String>> membreVilles;
+    private HashMap<String,ArrayList<String>> villesMembre; // ville = liste de membres
+    private HashMap<String,String> membreVilles; // membre = ville
 
     public Villes() throws IOException {
 
@@ -23,10 +24,29 @@ public class Villes {
         tabDistances = new  ArrayList<ArrayList<Integer>>();
         dicoDistances = new HashMap<>();
         membreVilles = new HashMap<>();
+        villesMembre = new HashMap<>();
 
         updateTabVilles();
         updateTabDistance();
+        updateVillesMembres();
         updateMembreVilles();
+    }
+
+    private void updateMembreVilles() throws IOException {
+        BufferedReader bufferEntree = new BufferedReader(new FileReader (fileMembre));
+        String ligne ;
+        StringTokenizer tokenizer;
+        do{
+            ligne = bufferEntree.readLine();
+            if(ligne!= null ){
+                tokenizer = new StringTokenizer(ligne," ");
+                String membre = tokenizer.nextToken();
+                String ville = tokenizer.nextToken();
+                membreVilles.put(membre,ville)
+;            }
+        }
+        while (ligne != null);
+        bufferEntree.close();
     }
 
     public void updateTabVilles() throws IOException {
@@ -69,7 +89,7 @@ public class Villes {
         bufferEntree.close();
     }
 
-    public void updateMembreVilles() throws IOException {
+    public void updateVillesMembres() throws IOException {
         BufferedReader bufferEntree = new BufferedReader(new FileReader (fileMembre));
         String ligne ;
         StringTokenizer tokenizer;
@@ -79,12 +99,12 @@ public class Villes {
                 tokenizer = new StringTokenizer(ligne," ");
                 String membre = tokenizer.nextToken();
                 String ville = tokenizer.nextToken();
-                if (! membreVilles.containsKey(ville)) {
-                    membreVilles.put(ville, new ArrayList<String>());
-                    membreVilles.get(ville).add(membre);
+                if (! villesMembre.containsKey(ville)) {
+                    villesMembre.put(ville, new ArrayList<String>());
+                    villesMembre.get(ville).add(membre);
                 }
                 else {
-                    membreVilles.get(ville).add(membre);
+                    villesMembre.get(ville).add(membre);
                 }
 
             }
@@ -92,8 +112,7 @@ public class Villes {
         while (ligne != null);
         bufferEntree.close();
     }
-
-
+    
     public ArrayList<String> getTabVilles(){
         return tabVilles;
     }
@@ -101,9 +120,11 @@ public class Villes {
         return tabDistances;
     }
 
-    public HashMap<String,ArrayList<String>> getMembreVilles(){
+    public HashMap<String,String> getMembreVilles(){
         return membreVilles;
     }
-
+    public HashMap<String,ArrayList<String>> getVillesMembre(){
+        return villesMembre;
+    }
 
 }
