@@ -1,8 +1,11 @@
 package modele;
 
+
+
 import java.io.*;
 import java.util.HashMap;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 public class Scenario {
@@ -10,14 +13,18 @@ public class Scenario {
     private Villes villes;
     private List<String>  listVendeurs ;
     private List<String>  listAcheteurs ;
-    private HashMap<String,ArrayList> dicoAcheteurs ;
-    private HashMap<String,ArrayList> dicoVendeurs ;
+    private HashMap<String,ArrayList> dicoAcheteurs ; // Vendeurs -> Acheteurs
+    private HashMap<String,ArrayList> dicoVendeurs ;  // Acheteurs - Vendeurs
+    private ArrayList<String> membreScenario ; //membres concernés par le scenario
+
     public Scenario() throws IOException {
         villes = new Villes();
         listVendeurs = new ArrayList<>();
         listAcheteurs= new ArrayList<>();
         dicoAcheteurs = new HashMap<>();
         dicoVendeurs = new HashMap<>();
+        membreScenario = new ArrayList<>();
+
 
     }
 
@@ -45,6 +52,7 @@ public class Scenario {
         while (ligne != null);
         bufferEntree.close();
         scenario.updateDico();
+        scenario.updateMembreScenario();
         return scenario;
     }
 
@@ -76,6 +84,14 @@ public class Scenario {
         }
     }
 
+    public void updateMembreScenario() {
+        /* Tout les membres inclus dans le scenario sans duplicats*/
+        ArrayList<String> l = new ArrayList<>(listAcheteurs);
+        l.addAll(listVendeurs);
+        ArrayList<String> membresUnique = (ArrayList<String>) l.stream()
+                .distinct().collect(Collectors.toList());
+        membreScenario = membresUnique;
+    }
 
     public List<String> getVendeurs(){
         return listVendeurs;
@@ -91,6 +107,8 @@ public class Scenario {
     public Villes getVilles(){
         return villes;
     }
-
+    public ArrayList<String> getMembreScenario(){
+        return membreScenario;
+    }
 
 }
