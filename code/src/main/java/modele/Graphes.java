@@ -14,7 +14,7 @@ public class Graphes {
 
     public Graphes(Scenario parScenario)  {
         scenario = parScenario;
-        listeAdj = scenario.getDicoVA();
+        listeAdj = scenario.getDicoVA(); // degrés entrants
         ordre = scenario.getMembreScenario().size();
     }
 
