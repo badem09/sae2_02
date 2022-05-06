@@ -10,9 +10,9 @@ public class Villes {
 
     private ArrayList<String> tabVilles ; // tableau des villes (indice important pour la suite)
     private ArrayList<ArrayList<Integer>> tabDistances ; // tableau 2d des distances
-    private HashMap<String,String> dicoDistances; // pertinent? pas défini !
-    private HashMap<String,ArrayList<String>> villesMembre; // ville = liste de membres
-    private HashMap<String,String> membreVilles; // membre = ville
+    private HashMap<ArrayList<String>,String> dicoDistances; // pertinent? pas défini !
+    private HashMap<String,ArrayList<String>> villesToMembre; // ville = liste de membres
+    private HashMap<String,String> membreToVilles; // membre = ville
 
     public Villes() throws IOException {
 
@@ -23,14 +23,15 @@ public class Villes {
         tabVilles = new ArrayList<String>();
         tabDistances = new  ArrayList<ArrayList<Integer>>();
         dicoDistances = new HashMap<>();
-        membreVilles = new HashMap<>();
-        villesMembre = new HashMap<>();
+        membreToVilles = new HashMap<>();
+        villesToMembre = new HashMap<>();
 
         updateTabVilles();
         updateTabDistance();
         updateVillesMembres();
         updateMembreVilles();
     }
+
 
     private void updateMembreVilles() throws IOException {
         BufferedReader bufferEntree = new BufferedReader(new FileReader (fileMembre));
@@ -42,7 +43,7 @@ public class Villes {
                 tokenizer = new StringTokenizer(ligne," ");
                 String membre = tokenizer.nextToken();
                 String ville = tokenizer.nextToken();
-                membreVilles.put(membre,ville)
+                membreToVilles.put(membre,ville)
 ;            }
         }
         while (ligne != null);
@@ -99,12 +100,12 @@ public class Villes {
                 tokenizer = new StringTokenizer(ligne," ");
                 String membre = tokenizer.nextToken();
                 String ville = tokenizer.nextToken();
-                if (! villesMembre.containsKey(ville)) {
-                    villesMembre.put(ville, new ArrayList<String>());
-                    villesMembre.get(ville).add(membre);
+                if (! villesToMembre.containsKey(ville)) {
+                    villesToMembre.put(ville, new ArrayList<String>());
+                    villesToMembre.get(ville).add(membre);
                 }
                 else {
-                    villesMembre.get(ville).add(membre);
+                    villesToMembre.get(ville).add(membre);
                 }
 
             }
@@ -112,7 +113,7 @@ public class Villes {
         while (ligne != null);
         bufferEntree.close();
     }
-    
+
     public ArrayList<String> getTabVilles(){
         return tabVilles;
     }
@@ -120,11 +121,11 @@ public class Villes {
         return tabDistances;
     }
 
-    public HashMap<String,String> getMembreVilles(){
-        return membreVilles;
+    public HashMap<String,String> getMembreToVilles(){
+        return membreToVilles;
     }
-    public HashMap<String,ArrayList<String>> getVillesMembre(){
-        return villesMembre;
+    public HashMap<String,ArrayList<String>> getVillesToMembre(){
+        return villesToMembre;
     }
 
 }
