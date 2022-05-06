@@ -34,6 +34,7 @@ public class TempsItineraire {
                 int indexApres = villes.getTabVilles().indexOf(apres);
                 sum += tabDistance.get(indexAvant).get(indexApres);
             }
+
             dicoItineraire.put(it, sum);
         }
     }
@@ -41,7 +42,7 @@ public class TempsItineraire {
     public HashMap<ArrayList<String>, Integer> getDicoItineraire(){
         return dicoItineraire;
     }
-    public String  getBestItinéraire(){
+    public String  getBestItineraire(){
         String r = "";
         long min = 1000000000;
         ArrayList<String> best = new ArrayList<>();
