@@ -41,7 +41,8 @@ public class TempsItineraire {
     public HashMap<ArrayList<String>, Integer> getDicoItineraire(){
         return dicoItineraire;
     }
-    public ArrayList<String>  getBestItinéraire(){
+    public String  getBestItinéraire(){
+        String r = "";
         long min = 1000000000;
         ArrayList<String> best = new ArrayList<>();
         for (ArrayList<String> s : dicoItineraire.keySet()){
@@ -50,7 +51,9 @@ public class TempsItineraire {
                 best = s;
             }
         }
-        return best ;
+        r += best + "\n" + TempsItineraire.membresToVilles(best)+ "\n"  +
+                "longueur : " + dicoItineraire.get(best) + "\n" +"\n";
+        return r ;
     }
 
     public static ArrayList<String> membresToVilles(ArrayList<String> itineraire){
