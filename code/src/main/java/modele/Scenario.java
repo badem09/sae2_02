@@ -11,21 +11,19 @@ import java.util.stream.Collectors;
 public class Scenario {
 
     private Villes villes;
-    private List<String>  listVendeurs ;
-    private List<String>  listAcheteurs ;
-    private HashMap<String,ArrayList> dicoAcheteurs ; // Vendeurs -> Acheteurs
-    private HashMap<String,ArrayList> dicoVendeurs ;  // Acheteurs - Vendeurs
+    private ArrayList<String>  listVendeurs ;
+    private ArrayList<String>  listAcheteurs ;
+    private HashMap<String,ArrayList> dicoVA ; // Vendeurs -> Acheteurs
+    private HashMap<String,ArrayList> dicoAV ;  // Acheteurs - Vendeurs
     private ArrayList<String> membreScenario ; //membres concernés par le scenario
 
     public Scenario() throws IOException {
         villes = new Villes();
         listVendeurs = new ArrayList<>();
         listAcheteurs= new ArrayList<>();
-        dicoAcheteurs = new HashMap<>();
-        dicoVendeurs = new HashMap<>();
+        dicoVA = new HashMap<>();
+        dicoAV = new HashMap<>();
         membreScenario = new ArrayList<>();
-
-
     }
 
     public static void ecritureS(String nomFichier, Scenario scenario) throws IOException{
@@ -37,7 +35,7 @@ public class Scenario {
         }
     }
 
-    public static Scenario lectureSenario (File fichier) throws IOException{
+    public static Scenario lectureScenario (File fichier) throws IOException{
         Scenario scenario = new Scenario();
         BufferedReader bufferEntree = new BufferedReader(new FileReader (fichier));
         String ligne ;
@@ -66,14 +64,14 @@ public class Scenario {
         for (int i = 0; i< listAcheteurs.size(); i++){
             String a = listAcheteurs.get(i);
             String v = listVendeurs.get(i);
-            if (! dicoVendeurs.containsKey(v)){
-                dicoVendeurs.put(v,new ArrayList());
+            if (! dicoAV.containsKey(v)){
+                dicoAV.put(v,new ArrayList());
             }
-            if (! dicoAcheteurs.containsKey(a)){
-                dicoAcheteurs.put(a,new ArrayList());
+            if (! dicoVA.containsKey(a)){
+                dicoVA.put(a,new ArrayList());
             }
-            ArrayList listV = dicoVendeurs.get(v);
-            ArrayList listA = dicoAcheteurs.get(a);
+            ArrayList listV = dicoAV.get(v);
+            ArrayList listA = dicoVA.get(a);
 
             if (! listV.contains(a)){
                 listV.add(a);
@@ -93,16 +91,40 @@ public class Scenario {
         membreScenario = membresUnique;
     }
 
-    public List<String> getVendeurs(){
+    public ArrayList<String> membresToVilles(ArrayList<String> tab){
+        ArrayList<String> villeScenario = new ArrayList<>();
+        HashMap<String,String> membresVilles = villes.getMembreToVilles();
+        for (String elem : tab){
+            villeScenario.add(membresVilles.get(elem));
+        }
+        return villeScenario ;
+    }
+
+    public HashMap<String, ArrayList> membresToVilles(HashMap<String, ArrayList> dico){
+        /* ne me semble pas tres pertinent */
+        //HashMap<String, ArrayList> villeScenario = new ArrayList<>();
+        HashMap<String,String> membresVilles = villes.getMembreToVilles();
+        HashMap<String, ArrayList> retour = new HashMap<>(dico);
+
+        for (String elem : retour.keySet()){
+            ArrayList<String> list = retour.get(elem);
+            for (int i = 0; i < list.size() ;i++) {
+                list.set(i,membresVilles.get(list.get(i))) ;
+            }
+        }
+        return retour ;
+    }
+
+    public ArrayList<String> getVendeurs(){
         return listVendeurs;
     }
 
-    public List<String> getAcheteurs(){
+    public ArrayList<String> getAcheteurs(){
         return listAcheteurs;
     }
 
     public String toString() {
-        return listVendeurs +"\n" + listAcheteurs + "\n" + dicoVendeurs + "\n" + dicoAcheteurs ;
+        return listVendeurs +"\n" + listAcheteurs + "\n" + dicoAV + "\n" + dicoVA ;
     }
     public Villes getVilles(){
         return villes;
@@ -110,5 +132,8 @@ public class Scenario {
     public ArrayList<String> getMembreScenario(){
         return membreScenario;
     }
+    public HashMap<String, ArrayList> getDicoVA() {return dicoVA;}
+
+    public HashMap<String,ArrayList> getDicoAV() {return dicoAV;}
 
 }
