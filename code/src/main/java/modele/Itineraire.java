@@ -1,38 +1,58 @@
 package modele;
 
+import java.io.IOException;
 import java.util.*;
 
 public class Itineraire {
 
-    private AbstractMap<String, ArrayList> listeAdj;
+    private static Villes villes;
+    private Graphes graphe;
+    public HashMap<String, ArrayList> listeAdj;
     private ArrayList<String> sources;
     private ArrayList<ArrayList<String>> itineraire;
     static ArrayList<ArrayList<String>> chAllPath;
 
-    public Itineraire(Scenario scenario) {
-        Graphes graphe = new Graphes(scenario);
-        sources = graphe.setSource();
-        listeAdj = graphe.getListeAdj();
+    public Itineraire(Scenario scenario) throws IOException {
+        villes = new Villes();
+        graphe = new Graphes(scenario);
+        listeAdj = new HashMap<>(graphe.getListeAdj());
         itineraire = new ArrayList<>();
         chAllPath = new ArrayList<>();
         rechercheItineraire();
-        getAllItineraire();
+        System.out.println(itineraire);
+        setAllItineraire();
+        System.out.println(this.listeAdj);
     }
 
     public ArrayList<ArrayList<String>> rechercheItineraire() {
         /* Itinéraire generale ou les possibilitées de choix entre 2 villes sont dans des listes*/
         // itineraire.add(sources);
         //sources = this.supprSource(sources);
-        while (listeAdj.size() != 0) {
+        sources = graphe.setSource(); //premiere source
+        while (listeAdj.size() != 0) { //recherche des autres  autre source
             for (String elem : listeAdj.keySet()) {
                 if (listeAdj.get(elem).size() == 0) {
                     sources.add(elem);
                 }
             }
-            if (sources.size() > 0) {
-                itineraire.add(sources);
-                sources = this.supprSource(sources);
+            if (itineraire.size()>0 ) {
+                if (conflitSource(sources, itineraire)) {
+                    for (String s : sources) {
+                        ArrayList<String> t = new ArrayList<>();
+                        t.add(s);
+                        itineraire.add(t);
+                    }
+                }
+                else{
+                    itineraire.add(sources);
+                }
             }
+            else{
+                    itineraire.add(sources);
+                }
+                sources = this.supprSource(sources);
+
+
         }
         // this.itineraire = itineraire;
         String v1 = "PrésidentDébut";
@@ -47,30 +67,40 @@ public class Itineraire {
         if (!itineraire.contains(l2)) {
             itineraire.add(itineraire.size(), l2);
         }
-        System.out.println(itineraire);
+       // System.out.println(itineraire);
         return itineraire;
+    }
+    public boolean conflitSource(ArrayList<String> sources, ArrayList<ArrayList<String>> itineraire) {
+        HashMap<String, ArrayList> listAjdOriginal = new HashMap<>(graphe.getListeAdj());
+        for (String currentSource : sources) {
+            for (String previousSource : itineraire.get(itineraire.size() - 1)) {
+                if (! graphe.setSource().contains(previousSource) && ! listAjdOriginal.get(previousSource).contains(currentSource))
+                    return true;
+            }
+        }
+        return false;
     }
 
     public ArrayList<String> supprSource(ArrayList<String> sources) {
 
         ArrayList<String> sourcetmp = new ArrayList<>();
-        for (String elem : listeAdj.keySet()) {
+       /* for (String elem : listeAdj.keySet()) {
             if (listeAdj.get(elem).size() == 0) {
                 sourcetmp.add(elem);
             }
-        }
-        for (String stmp : sourcetmp) {
-            if (listeAdj.containsKey(stmp)) {
-                listeAdj.remove(stmp);
+        }*/
+        for (String s : sources) { // enleve les source de la liste d'adjacence
+            if (listeAdj.containsKey(s)) {
+                listeAdj.remove(s);
             }
         }
         for (String elem : listeAdj.keySet()) {
             for (String s : sources) {
-                if (listeAdj.get(elem).contains(s)) {
+                if (listeAdj.get(elem).contains(s)) // enleve la/les source des autres sommets {
                     listeAdj.get(elem).remove(s);
                 }
             }
-        }
+
 
         return new ArrayList<>();
     }
@@ -186,7 +216,7 @@ public class Itineraire {
         //(restdeDuChemin(itineraireGen.get(s),listeP,i));
     }
 
-    public void getAllItineraire() {
+    public void setAllItineraire() {
         System.out.println(itineraire);
         TreeMap<String, Boolean> visite = new TreeMap<>();
         ArrayList<ArrayList<String>> allPath = new ArrayList<>();
@@ -288,21 +318,19 @@ public class Itineraire {
         for (ArrayList<String> l : chAllPath) {
             r += l.toString() + "\n";
         }
-        return r + "\n" + String.format("en tout %s chemins possibles", r.length());
+        return r + "\n" + String.format("en tout %s chemins possibles", chAllPath.size());
     }
 
     public ArrayList<ArrayList<String>> getAllPath() {
         return chAllPath;
     }
-
-
     public HashMap<String, ArrayList<String>> listSameLevel() {
         HashMap<String, ArrayList<String>> r = new HashMap<>();
         for (ArrayList a : itineraire) {
             for (Object s1 : a) {
                 for (Object s2 : a) {
                     if (s1 != s2) {
-                        if (r.containsKey((String) s1)) {
+                        if (r.containsKey((String) s1)){// && listeAdj.get(s1)) {
                             r.get((String) s1).add((String) s2);
                         } else {
                             r.put((String) s1, new ArrayList<>());
