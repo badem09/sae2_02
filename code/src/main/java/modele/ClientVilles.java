@@ -8,6 +8,6 @@ public class ClientVilles {
         Villes v1 = new Villes();
         System.out.println(v1.getTabVilles());
         System.out.println(v1.getTabDistances());
-        System.out.println(v1.getMembreVilles());
+        System.out.println(v1.getMembreToVilles());
     }
 }

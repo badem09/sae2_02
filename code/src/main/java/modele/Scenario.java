@@ -54,6 +54,7 @@ public class Scenario {
         return scenario;
     }
 
+
     public void ajoutVA(String nVendeur, String nAcheteur){
         listVendeurs.add(nVendeur);
         listAcheteurs.add(nAcheteur);
