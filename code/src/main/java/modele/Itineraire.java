@@ -35,24 +35,10 @@ public class Itineraire {
                     sources.add(elem);
                 }
             }
-            if (itineraire.size()>0 ) {
-                if (conflitSource(sources, itineraire)) {
-                    for (String s : sources) {
-                        ArrayList<String> t = new ArrayList<>();
-                        t.add(s);
-                        itineraire.add(t);
-                    }
-                }
-                else{
-                    itineraire.add(sources);
-                }
-            }
-            else{
-                    itineraire.add(sources);
-                }
+            if (sources.size() > 0) {
+                itineraire.add(sources);
                 sources = this.supprSource(sources);
-
-
+            }
         }
         // this.itineraire = itineraire;
         String v1 = "PrésidentDébut";
