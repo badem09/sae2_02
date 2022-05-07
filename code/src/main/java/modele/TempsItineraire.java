@@ -14,7 +14,6 @@ public class TempsItineraire {
         itineraire = parItineraire;
         dicoItineraire = new HashMap<>();
         villes = new Villes();
-
         setDicoItineraire();
     }
 
