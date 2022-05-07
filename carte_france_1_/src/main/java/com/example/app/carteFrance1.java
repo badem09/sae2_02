@@ -1,3 +1,5 @@
+// le lien : https://developers.arcgis.com/java/maps-2d/tutorials/display-a-map/
+
 package com.example.app;
 
 import com.esri.arcgisruntime.ArcGISRuntimeEnvironment;
@@ -42,7 +44,9 @@ public class carteFrance1 extends Application {
         mapView = new MapView();
         stackPane.getChildren().add(mapView);
 
-        ArcGISMap map = new ArcGISMap(BasemapStyle.ARCGIS_TOPOGRAPHIC);
+        ArcGISMap map = new ArcGISMap(BasemapStyle.ARCGIS_STREETS);
+        //possible de changer le type de carte
+        // ex : ARCGIS_TOPOGRAPHIC
 
         // set the map on the map view
         mapView.setMap(map);
