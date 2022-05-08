@@ -21,7 +21,7 @@ public class TempsItineraire {
         ArrayList<ArrayList<Integer>> tabDistance = villes.getTabDistances();
         HashMap<String, String> membresVilles = villes.getMembreToVilles();
        // System.out.println(this.itineraire.getAllPath());
-        for (ArrayList<String> it : itineraire.getAllPath()) {
+        for (ArrayList<String> it : itineraire.getAllItineraire()) {
             int sum = 0;
             for (int i = 0; i < it.size() - 1; i++) {
                 //System.out.println(it);
