@@ -17,9 +17,9 @@ public class Villes {
     public Villes() throws IOException {
 
         fileDistances =new File(
-                "/Users/badem/Documents/INFI1/SAE/algos2/Documentation/distances.txt");
+                "/Users/badem/Documents/INFI1/SAE/algos2/Data/distances.txt");
         fileMembre = new File(
-                "/Users/badem/Documents/INFI1/SAE/algos2/Documentation/membres_APLI.txt");
+                "/Users/badem/Documents/INFI1/SAE/algos2/Data/membres_APLI.txt");
         tabVilles = new ArrayList<String>();
         tabDistances = new  ArrayList<ArrayList<Integer>>();
         dicoDistances = new HashMap<>();
