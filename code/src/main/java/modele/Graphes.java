@@ -10,15 +10,15 @@ public class Graphes {
 
     private final Scenario scenario;
     private int ordre;
-    private final HashMap<String, ArrayList> listeAdj;
+    private final HashMap<String, ArrayList<String>> listeAdj;
 
     public Graphes(Scenario parScenario)  {
         scenario = parScenario;
-        listeAdj = scenario.getDicoVA(); // degrés entrants
+        listeAdj = new HashMap<>(scenario.getDicoVA()); // degrés entrants
         ordre = scenario.getMembreScenario().size();
     }
 
-    public Graphes(HashMap<String, ArrayList> parListeAdj) throws IOException {
+    public Graphes(HashMap<String, ArrayList<String>> parListeAdj) throws IOException {
         scenario = new Scenario();
         listeAdj = parListeAdj;
         ordre = scenario.getMembreScenario().size();
@@ -36,8 +36,8 @@ public class Graphes {
         return currentSources;
     }
 
-    public AbstractMap<String, ArrayList> getListeAdj(){
-        return listeAdj;
+    public HashMap<String, ArrayList<String>> getListeAdj(){
+        return new HashMap<>(scenario.getDicoVA());
     }
 
     public int getOrdre() {
