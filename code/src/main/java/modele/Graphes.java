@@ -1,7 +1,6 @@
 package modele;
 
 import java.io.IOException;
-import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -9,18 +8,18 @@ import java.util.HashSet;
 public class Graphes {
 
     private final Scenario scenario;
-    private int ordre;
-    private final HashMap<String, ArrayList<String>> listeAdj;
+    private final int ordre;
+    private final HashMap<String, ArrayList<String>> mapAjd;
 
     public Graphes(Scenario parScenario)  {
         scenario = parScenario;
-        listeAdj = new HashMap<>(scenario.getDicoVA()); // degrés entrants
+        mapAjd = new HashMap<>(scenario.getDicoVA()); // degrés entrants
         ordre = scenario.getMembreScenario().size();
     }
 
     public Graphes(HashMap<String, ArrayList<String>> parListeAdj) throws IOException {
         scenario = new Scenario();
-        listeAdj = parListeAdj;
+        mapAjd = parListeAdj;
         ordre = scenario.getMembreScenario().size();
     }
     public ArrayList<String> setSource(){
@@ -36,7 +35,7 @@ public class Graphes {
         return currentSources;
     }
 
-    public HashMap<String, ArrayList<String>> getListeAdj(){
+    public HashMap<String, ArrayList<String>> getMapAjd(){
         return new HashMap<>(scenario.getDicoVA());
     }
 
