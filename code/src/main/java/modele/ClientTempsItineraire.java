@@ -7,10 +7,10 @@ import java.util.ArrayList;
 public class ClientTempsItineraire {
     public static void main(String [] arg) throws IOException {
         Scenario s = Scenario.lectureScenario(new File(
-                "/Users/badem/Documents/INFI1/SAE/algos2/Documentation/scenario_1_1.txt"));
+                "/Users/badem/Documents/INFI1/SAE/algos2/Data/scenario_1_1.txt"));
 
         Itineraire it = new Itineraire(s);
-        System.out.println(it.listeAdj);
+        System.out.println(it.getItineraireGen());
         TempsItineraire ti = new TempsItineraire(it);
         //System.out.println(ti.getDic: oItineraire());
         //ArrayList<String> best = ti.getBestItinéraire();
