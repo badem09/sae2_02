@@ -13,8 +13,8 @@ public class Scenario {
     private Villes villes;
     private ArrayList<String>  listVendeurs ;
     private ArrayList<String>  listAcheteurs ;
-    private HashMap<String,ArrayList> dicoVA ; // Vendeurs -> Acheteurs
-    private HashMap<String,ArrayList> dicoAV ;  // Acheteurs - Vendeurs
+    private HashMap<String,ArrayList<String>> dicoVA ; // Vendeurs -> Acheteurs
+    private HashMap<String,ArrayList<String>> dicoAV ;  // Acheteurs - Vendeurs
     private ArrayList<String> membreScenario ; //membres concernés par le scenario
 
     public Scenario() throws IOException {
@@ -133,8 +133,16 @@ public class Scenario {
     public ArrayList<String> getMembreScenario(){
         return membreScenario;
     }
-    public HashMap<String, ArrayList> getDicoVA() {return dicoVA;}
+    //obligé d'iterer car je supprime dans supprsource() dans itineraire
+    public HashMap<String, ArrayList<String>> getDicoVA() {
+        HashMap<String, ArrayList<String>> copie = new HashMap<>();
+        for (String key: dicoVA.keySet()){
+            copie.put(new String (key),new ArrayList<>(dicoVA.get(key)));
+        }
+        return copie;
+    }
 
-    public HashMap<String,ArrayList> getDicoAV() {return dicoAV;}
+
+    public HashMap<String,ArrayList<String>> getDicoAV() {return new HashMap<>(dicoAV);}
 
 }
