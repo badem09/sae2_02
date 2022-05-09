@@ -1,12 +1,13 @@
 package modele;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Itineraire {
 
     private final Graphes graphe;
     private static ArrayList<ArrayList<String>> allItineraire;
-    private final HashMap<String, ArrayList<String>> mapAdj;
+    private HashMap<String, ArrayList<String>> mapAdj;
     private final ArrayList<ArrayList<String>> itineraireGen; // itinéraire Général.
 
     public Itineraire(Scenario parScenario){
@@ -122,6 +123,17 @@ public class Itineraire {
 
         currentPath.add(source);
         dfs(sourcesSuivantes, source, visite, currentPath, sourcesSameLevel());
+
+        ArrayList<ArrayList<String>> autresArriere = autresitinerairesArriere(allItineraire);
+        ArrayList<ArrayList<String>> autresAvant = autresitineraires(allItineraire);
+
+        for (ArrayList<String> autresIt :  autresArriere){
+            allItineraire.add(autresIt);
+        }
+        for (ArrayList<String> autresIt :  autresAvant){
+            allItineraire.add(autresIt);
+        }
+
     }
 
 
@@ -279,6 +291,101 @@ public class Itineraire {
      */
     public ArrayList<ArrayList<String>> getItineraireGen() {
         return itineraireGen;
+    }
+
+    /**
+     * Recherche les autres itineraires possibles à partir de ceux trouvés avec la rechercheItinéraire en échangeant
+     * les sommets si possible. C'est-à-dire si le sommet 1 n'a pas besoin du sommet 2. C'est-à-dire si
+     * le sommet 1 n'est pas vendeur du sommet 2.
+     * @return autres ArrayList<ArrayList<String>>
+     */
+   public ArrayList<ArrayList<String>> autresitinerairesArriere(ArrayList<ArrayList<String>> allItineraire){
+       /// faire un mode recursif
+        boolean ajout = true;
+        ArrayList<ArrayList<String>> copie =new ArrayList<>();
+       Iterator<ArrayList<String>> iterator = allItineraire.iterator();
+       while(iterator.hasNext())
+       {
+           //Add the object clones
+           copie.add((ArrayList<String>) iterator.next().clone());
+       }
+        ArrayList<ArrayList<String>> autres = new ArrayList<>();
+        mapAdj = graphe.getMapAjd();
+        for (ArrayList<String> autreItinéraire : copie){
+            for (int i = autreItinéraire.size()-1 ; i > 0 ; i-- ) {
+                int j = i - 1;
+                if (mapAdj.containsKey(autreItinéraire.get(i)) && mapAdj.containsKey(autreItinéraire.get(j))) {
+                    while (j > 1 && ! mapAdj.get(autreItinéraire.get(j)).contains(autreItinéraire.get(j))) {
+                        //System.out.println(autreItinéraire.get(i) + " " + autreItinéraire.get(j));
+                        Collections.swap(autreItinéraire, j, i);
+
+                        for (ArrayList<String> itRecur : allItineraire) {
+
+                            if ( sameListe(itRecur,autreItinéraire)) {
+                              //  System.out.println(itRecur + " \n " + autreItinéraire + "\n");
+                                ajout = false;
+                            }
+                        }
+                        if (ajout && !autres.contains(autreItinéraire)) {
+                            autres.add(autreItinéraire);
+                        }
+
+                        j--;
+                        ajout = true ;
+                    }
+                }
+            }
+        }
+        return autres;
+    }
+
+    public ArrayList<ArrayList<String>> autresitineraires(ArrayList<ArrayList<String>> allItineraire){
+        boolean ajout = true;
+        ArrayList<ArrayList<String>> copie =new ArrayList<>();
+        Iterator<ArrayList<String>> iterator = allItineraire.iterator();
+        while(iterator.hasNext())
+        {
+            copie.add((ArrayList<String>) iterator.next().clone());
+        }
+        ArrayList<ArrayList<String>> autres = new ArrayList<>();
+        mapAdj = graphe.getMapAjd();
+        for (ArrayList<String> autreItinéraire : copie){
+            for (int i = 0 ; i< autreItinéraire.size()-1 ; i++ ) {
+                int j = i + 1;
+                if (mapAdj.containsKey(autreItinéraire.get(i)) && mapAdj.containsKey(autreItinéraire.get(j))) {
+                    while (j < autreItinéraire.size()-1 && ! mapAdj.get(autreItinéraire.get(j)).contains(autreItinéraire.get(i))) {
+                        //System.out.println(autreItinéraire.get(i) + " " + autreItinéraire.get(j));
+                        Collections.swap(autreItinéraire, i, j);
+
+                        for (ArrayList<String> itRecur : allItineraire) {
+
+                            if ( sameListe(itRecur,autreItinéraire)) {
+                                //  System.out.println(itRecur + " \n " + autreItinéraire + "\n");
+                                ajout = false;
+                            }
+                        }
+                        if (ajout && !autres.contains(autreItinéraire)) {
+                            autres.add(autreItinéraire);
+                        }
+
+                        j++;
+                        ajout = true ;
+                    }
+                }
+            }
+        }
+        return autres;
+    }
+
+    public boolean sameListe (ArrayList<String> liste1 , ArrayList<String> liste2){
+        for (int i = 0; i< liste1.size();i++){
+            for (int j = 0; j < liste2.size(); j++){
+                if (liste1.get(i) != liste2.get(j) && i == j){
+                    return false;
+                }
+            }
+        }
+        return  true;
     }
 }
 
