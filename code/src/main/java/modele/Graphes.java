@@ -9,35 +9,25 @@ public class Graphes {
 
     private final Scenario scenario;
     private final int ordre;
-    private final HashMap<String, ArrayList<String>> mapAjd;
+    private final HashMap<String, ArrayList<String>> mapAjdEntrant;
+
+    private final HashMap<String, ArrayList<String>> mapAjdSortant;
 
     public Graphes(Scenario parScenario)  {
         scenario = parScenario;
-        mapAjd = new HashMap<>(scenario.getDicoVA()); // degrés entrants
+        mapAjdEntrant = new HashMap<>(scenario.getDicoAV()); // degrés entrants
+        mapAjdSortant =  new HashMap<>(scenario.getDicoVA());
         ordre = scenario.getMembreScenario().size();
     }
-
-    public Graphes(HashMap<String, ArrayList<String>> parListeAdj) throws IOException {
-        scenario = new Scenario();
-        mapAjd = parListeAdj;
-        ordre = scenario.getMembreScenario().size();
-    }
-    public ArrayList<String> setSource(){
-        ArrayList<String> currentSources = new ArrayList<>();
-        HashSet<String> acheteurs = new HashSet<>(scenario.getAcheteurs()); // en set pour suppr les doublons
-        HashSet<String> vendeurs = new HashSet<>(scenario.getVendeurs());
-
-        for (String elem : vendeurs){
-            if (! acheteurs.contains(elem)) {
-                currentSources.add(elem);
-            }
-        }
-        return currentSources;
+    
+    public HashMap<String, ArrayList<String>> getMapAjdEntrant(){
+        return mapAjdEntrant;
     }
 
-    public HashMap<String, ArrayList<String>> getMapAjd(){
-        return new HashMap<>(scenario.getDicoVA());
+    public HashMap<String, ArrayList<String>> getMapAjdSortant(){
+        return mapAjdSortant;
     }
+
 
     public int getOrdre() {
         return ordre;
