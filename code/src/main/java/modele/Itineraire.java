@@ -1,21 +1,23 @@
 package modele;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Itineraire {
 
     private final Graphes graphe;
     private static ArrayList<ArrayList<String>> allItineraire;
-    private HashMap<String, ArrayList<String>> mapAdj;
+    private HashMap<String, ArrayList<String>> mapAdjEntrant;
+
+    private HashMap<String, ArrayList<String>> mapAdjSortant;
     private final ArrayList<ArrayList<String>> itineraireGen; // itinéraire Général.
 
     public Itineraire(Scenario parScenario){
         graphe = new Graphes(parScenario);
-        mapAdj = new HashMap<>(graphe.getMapAjd());
+        mapAdjEntrant = new HashMap<>(graphe.getMapAjdEntrant());
+        mapAdjSortant = new HashMap<>(graphe.getMapAjdSortant());
         itineraireGen = new ArrayList<>();
         allItineraire = new ArrayList<>();
-        setItineraireGen();
+         setItineraireGen();
         setAllItineraire();
     }
 
@@ -26,13 +28,12 @@ public class Itineraire {
      * @author Ba Demba
      */
     public void setItineraireGen() {
-        ArrayList<String> sources = graphe.setSource(); //premiere source
 
-
-        while (mapAdj.size() != 0) {
+        ArrayList<String> sources = new ArrayList<>();
+        while (mapAdjEntrant.size() != 0) {
             //recherche des sources courantes.
-            for (String elem : mapAdj.keySet()) {
-                if (mapAdj.get(elem).size() == 0) {
+            for (String elem : mapAdjEntrant.keySet()) {
+                if (mapAdjEntrant.get(elem).size() == 0) {
                     sources.add(elem);
                 }
             }
@@ -43,7 +44,7 @@ public class Itineraire {
             }
         }
         // this.itineraire = itineraire;
-        String v1 = "PrésidentDébut";
+      /*  String v1 = "PrésidentDébut";
         String v2 = "PrésidentFin";
         ArrayList<String> l1 = new ArrayList<>();
         l1.add(v1);
@@ -57,6 +58,8 @@ public class Itineraire {
         }
 
         System.out.println(itineraireGen);
+
+       */
     }
 
     /**
@@ -67,12 +70,12 @@ public class Itineraire {
      */
     public ArrayList<String> supprSource(ArrayList<String> sources) {
         for (String s : sources) { // enleve les source de la liste d'adjacence
-            mapAdj.remove(s);
+            mapAdjEntrant.remove(s);
         }
-        for (String elem : mapAdj.keySet()) {
+        for (String elem : mapAdjEntrant.keySet()) {
             for (String s : sources) {
                 // enleve la/les source des autres sommets
-                mapAdj.get(elem).remove(s);
+                mapAdjEntrant.get(elem).remove(s);
             }
         }
         return new ArrayList<>();
@@ -124,7 +127,7 @@ public class Itineraire {
         currentPath.add(source);
         dfs(sourcesSuivantes, source, visite, currentPath, sourcesSameLevel());
 
-        ArrayList<ArrayList<String>> autresArriere = autresitinerairesArriere(allItineraire);
+      /*  ArrayList<ArrayList<String>> autresArriere = autresitinerairesArriere(allItineraire);
         ArrayList<ArrayList<String>> autresAvant = autresitineraires(allItineraire);
 
         for (ArrayList<String> autresIt :  autresArriere){
@@ -132,7 +135,7 @@ public class Itineraire {
         }
         for (ArrayList<String> autresIt :  autresAvant){
             allItineraire.add(autresIt);
-        }
+        }*/
 
     }
 
@@ -167,13 +170,13 @@ public class Itineraire {
         visite.put(source,true);
 
         // Si le parcours d'un chemin est fini, je le stocke.
-        if (sourcesSuivantes.get(source).size()==0 && !allItineraire.contains(currentPath) && currentPath.size() == 12) {
+        if (sourcesSuivantes.get(source).size()==0 && !allItineraire.contains(currentPath) ) {
             ArrayList<String> pathAjoute = new ArrayList<>(currentPath); // copie car sinon problème.
             allItineraire.add(pathAjoute);
 
         } // Sinon, je continue de chercher.
         else {
-            if (sameLevel.containsKey(source)) { // s'il y a plusieurs sources. On récupère celles du même niveau que
+          /*  if (sameLevel.containsKey(source)) { // s'il y a plusieurs sources. On récupère celles du même niveau que
                                                  //  le sommet courant
                 for ( String prochainSameLevel : sameLevel.get(source) ) {
                     // prochainSameLevel --> prochaine source du même niveau.
@@ -219,8 +222,8 @@ public class Itineraire {
                         }
                     }
                 }
-            }
-            else { // S'il n'y a qu'une seule source à ce niveau,
+            }*/
+          //  else { // S'il n'y a qu'une seule source à ce niveau,
                 // on va chercher les prochaines sources parmi les sommets adjacents.
                 for (String prochainNextLevel : sourcesSuivantes.get(source)){
                     if ( ! visite.containsKey(prochainNextLevel )
@@ -235,7 +238,7 @@ public class Itineraire {
                         }
                     }
                 }
-            }
+           // }
             visite.put(source,false);
         }
     }
@@ -277,6 +280,8 @@ public class Itineraire {
         return mapSameLevel;
     }
 
+
+
     /**
      * Accesseur
      * @return allItinéraire
@@ -299,7 +304,7 @@ public class Itineraire {
      * le sommet 1 n'est pas vendeur du sommet 2.
      * @return autres ArrayList<ArrayList<String>>
      */
-   public ArrayList<ArrayList<String>> autresitinerairesArriere(ArrayList<ArrayList<String>> allItineraire){
+ /*  public ArrayList<ArrayList<String>> autresitinerairesArriere(ArrayList<ArrayList<String>> allItineraire){
        /// faire un mode recursif
         boolean ajout = true;
         ArrayList<ArrayList<String>> copie =new ArrayList<>();
@@ -337,9 +342,9 @@ public class Itineraire {
             }
         }
         return autres;
-    }
+    }*/
 
-    public ArrayList<ArrayList<String>> autresitineraires(ArrayList<ArrayList<String>> allItineraire){
+  /*  public ArrayList<ArrayList<String>> autresitineraires(ArrayList<ArrayList<String>> allItineraire){
         boolean ajout = true;
         ArrayList<ArrayList<String>> copie =new ArrayList<>();
         Iterator<ArrayList<String>> iterator = allItineraire.iterator();
@@ -375,18 +380,11 @@ public class Itineraire {
             }
         }
         return autres;
-    }
+    }*/
 
-    public boolean sameListe (ArrayList<String> liste1 , ArrayList<String> liste2){
-        for (int i = 0; i< liste1.size();i++){
-            for (int j = 0; j < liste2.size(); j++){
-                if (liste1.get(i) != liste2.get(j) && i == j){
-                    return false;
-                }
-            }
-        }
-        return  true;
-    }
+
+
+
 }
 
 
