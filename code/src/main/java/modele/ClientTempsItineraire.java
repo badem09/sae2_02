@@ -6,8 +6,7 @@ import java.util.ArrayList;
 
 public class ClientTempsItineraire {
     public static void main(String [] arg) throws IOException {
-        Scenario s = Scenario.lectureScenario(new File(
-                "/Users/badem/Documents/INFI1/SAE/algos2/Data/scenario_1_1.txt"));
+        Scenario s = Scenario.lectureScenario(new File("src/main/resources/scenario_1_1.txt"));
 
         Itineraire it = new Itineraire(s);
         System.out.println(it.getItineraireGen());

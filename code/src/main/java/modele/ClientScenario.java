@@ -6,9 +6,9 @@ import java.io.File;
 public class ClientScenario {
     public static void main(String[] args) throws Exception{
         Scenario s1 = new Scenario();
-        s1 = Scenario.lectureScenario(new File(
-                "/Users/badem/Documents/INFI1/SAE/algos2/Data/scenario_1_1.txt"));
-        System.out.println(s1.getVilles().getTabDistances());
+        s1 = Scenario.lectureScenario(new File("src/main/resources/scenario_0.txt"));
+        System.out.println(s1.getDicoAV());
+        System.out.println(s1.getDicoVA());
 
 
     }
