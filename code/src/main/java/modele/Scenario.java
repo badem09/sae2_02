@@ -60,19 +60,35 @@ public class Scenario {
         listAcheteurs.add(nAcheteur);
     }
 
-    private void updateDico(){
+    public void ajoutSourcesDico(){
+        for( String a : listAcheteurs){
+            if (! dicoVA.containsKey(a)){
+                ArrayList<String> president = new ArrayList<>();
+                president.add("PresidentDébut");
+                dicoVA.put(a,president);
+            }
+        }
 
+        for( String v : listVendeurs){
+            if (! dicoAV.containsKey(v)){
+                ArrayList<String> president = new ArrayList<>();
+                president.add("PresidentFin");
+                dicoAV.put(v,new ArrayList<>());
+            }
+        }
+    }
+    private void updateDico(){
         for (int i = 0; i< listAcheteurs.size(); i++){
             String a = listAcheteurs.get(i);
             String v = listVendeurs.get(i);
-            if (! dicoAV.containsKey(v)){
-                dicoAV.put(v,new ArrayList());
+            if (! dicoVA.containsKey(v)){
+                dicoVA.put(v,new ArrayList());
             }
-            if (! dicoVA.containsKey(a)){
-                dicoVA.put(a,new ArrayList());
+            if (! dicoAV.containsKey(a)){
+                dicoAV.put(a,new ArrayList());
             }
-            ArrayList listV = dicoAV.get(v);
-            ArrayList listA = dicoVA.get(a);
+            ArrayList listV = dicoVA.get(v);
+            ArrayList listA = dicoAV.get(a);
 
             if (! listV.contains(a)){
                 listV.add(a);
@@ -81,6 +97,7 @@ public class Scenario {
                 listA.add(v);
             }
         }
+        ajoutSourcesDico();
     }
 
     public void updateMembreScenario() {
@@ -133,7 +150,7 @@ public class Scenario {
     public ArrayList<String> getMembreScenario(){
         return membreScenario;
     }
-    //obligé d'iterer car je supprime dans supprsource() dans itineraire
+
     public HashMap<String, ArrayList<String>> getDicoVA() {
         HashMap<String, ArrayList<String>> copie = new HashMap<>();
         for (String key: dicoVA.keySet()){
