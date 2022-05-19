@@ -7,7 +7,7 @@ import java.util.*;
 public class ClientItineraire {
     public static void main(String[] args) throws IOException {
         Scenario s = Scenario.lectureScenario(new File(
-                "/Users/badem/Documents/INFI1/SAE/algos2/Data/scenario_1_1.txt"));
+                "src/main/resources/scenario_1_1.txt"));
         Itineraire it = new Itineraire(s);
         //it.get()
 
