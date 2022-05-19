@@ -19,7 +19,7 @@ public class Graphes {
         mapAjdSortant =  new HashMap<>(scenario.getDicoVA());
         ordre = scenario.getMembreScenario().size();
     }
-    
+
     public HashMap<String, ArrayList<String>> getMapAjdEntrant(){
         return mapAjdEntrant;
     }
