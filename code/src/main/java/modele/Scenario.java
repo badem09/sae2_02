@@ -160,6 +160,13 @@ public class Scenario {
     }
 
 
-    public HashMap<String,ArrayList<String>> getDicoAV() {return new HashMap<>(dicoAV);}
+    public HashMap<String,ArrayList<String>> getDicoAV() {
+        HashMap<String, ArrayList<String>> copie = new HashMap<>();
+        for (String key: dicoAV.keySet()){
+            copie.put(new String (key),new ArrayList<>(dicoAV.get(key)));
+        }
+        return copie;
+    }
+
 
 }
