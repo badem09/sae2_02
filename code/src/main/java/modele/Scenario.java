@@ -96,8 +96,14 @@ public class Scenario {
             if (! listA.contains(v)){
                 listA.add(v);
             }
+            if (! listVendeurs.contains(a)){
+                dicoVA.put(a, new ArrayList<String>());
+            }
+            if (! listAcheteurs.contains(v)){
+                dicoAV.put(v, new ArrayList<String>());
+            }
         }
-        ajoutSourcesDico();
+        //ajoutSourcesDico();
     }
 
     public void updateMembreScenario() {
