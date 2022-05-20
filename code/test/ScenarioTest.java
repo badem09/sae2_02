@@ -3,7 +3,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -16,13 +15,15 @@ class ScenarioTest {
     }
 
     Scenario s1 = new Scenario();
-    Scenario s2 = Scenario.lectureSenario(new File(
-            "/Users/badem/Documents/INFI1/SAE/algos2/Documentation/scenario_0.txt"));
+    Scenario scenario_0 = Scenario.lectureScenario(new File(
+            "src/main/ressources/scenario_0.txt"));
+    Scenario scenario_1_1 = Scenario.lectureScenario(new File(
+            "src/main/ressources/scenario_1_1.txt"));
 
 
     @Test
     void testLectureScenarioNotNull()  {
-        assertNotEquals(s1,s2);
+        assertNotEquals(s1, scenario_0);
         System.out.println("testLectureScenarioNotNull : ok \nLe Scénario récupéré puis instancié" +
                 " n'est pas null. \n");
     }
@@ -33,8 +34,8 @@ class ScenarioTest {
         String[] attenduA =  new String[] {"Kokiyas", "Chenipan","Kokiyas" };
         String[] attenduV =  new String[] {"Sabelettenote", "Kokiyas", "Sablaireaunote" };
 
-        List<String> recuA =  s2.getAcheteurs();
-        List<String> recuV =  s2.getVendeurs();
+        List<String> recuA =  scenario_0.getAcheteurs();
+        List<String> recuV =  scenario_0.getVendeurs();
 
         Random r = new Random();
 
