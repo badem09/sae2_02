@@ -1,9 +1,7 @@
 package modele;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 
 public class Graphes {
 
@@ -26,6 +24,9 @@ public class Graphes {
 
     public HashMap<String, ArrayList<String>> getMapAjdSortant(){
         return mapAjdSortant;
+    }
+    public ArrayList<String> getSommets(){
+        return scenario.getMembreScenario();
     }
 
 
