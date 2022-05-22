@@ -1,21 +1,17 @@
 package modele;
 
-
-
 import java.io.*;
 import java.util.HashMap;
 import java.util.*;
-import java.util.stream.Collectors;
-
 
 public class Scenario {
 
-    private Villes villes;
-    private ArrayList<String>  listVendeurs ;
-    private ArrayList<String>  listAcheteurs ;
-    private HashMap<String,ArrayList<String>> dicoVA ; // Vendeurs -> Acheteurs
-    private HashMap<String,ArrayList<String>> dicoAV ;  // Acheteurs - Vendeurs
-    private ArrayList<String> membreScenario ; //membres concernés par le scenario
+    private final Villes villes;
+    private final ArrayList<String>  listVendeurs ;
+    private final ArrayList<String>  listAcheteurs ;
+    private final HashMap<String,ArrayList<String>> dicoVA ; // Vendeurs -> Acheteurs
+    private final HashMap<String,ArrayList<String>> dicoAV ;  // Acheteurs -> Vendeurs
+    private  ArrayList<String> membreScenario ; //membres concernés par le scenario
 
     public Scenario() throws IOException {
         villes = new Villes();
@@ -59,20 +55,18 @@ public class Scenario {
         listVendeurs.add(nVendeur);
         listAcheteurs.add(nAcheteur);
     }
-
     private void updateDico(){
-
         for (int i = 0; i< listAcheteurs.size(); i++){
             String a = listAcheteurs.get(i);
             String v = listVendeurs.get(i);
-            if (! dicoAV.containsKey(v)){
-                dicoAV.put(v,new ArrayList());
+            if (! dicoVA.containsKey(v)){
+                dicoVA.put(v,new ArrayList<>());
             }
-            if (! dicoVA.containsKey(a)){
-                dicoVA.put(a,new ArrayList());
+            if (! dicoAV.containsKey(a)){
+                dicoAV.put(a,new ArrayList<>());
             }
-            ArrayList listV = dicoAV.get(v);
-            ArrayList listA = dicoVA.get(a);
+            ArrayList<String> listV = dicoVA.get(v);
+            ArrayList<String> listA = dicoAV.get(a);
 
             if (! listV.contains(a)){
                 listV.add(a);
@@ -80,16 +74,21 @@ public class Scenario {
             if (! listA.contains(v)){
                 listA.add(v);
             }
+            if (! listVendeurs.contains(a)){
+                dicoVA.put(a, new ArrayList<>());
+            }
+            if (! listAcheteurs.contains(v)){
+                dicoAV.put(v, new ArrayList<>());
+            }
         }
+        //ajoutSourcesDico();
     }
 
     public void updateMembreScenario() {
         /* Tout les membres inclus dans le scenario sans duplicats*/
-        ArrayList<String> l = new ArrayList<>(listAcheteurs);
-        l.addAll(listVendeurs);
-        ArrayList<String> membresUnique = (ArrayList<String>) l.stream()
-                .distinct().collect(Collectors.toList());
-        membreScenario = membresUnique;
+        HashSet<String> membresUnique = new HashSet<>(listAcheteurs);
+        membresUnique.addAll(listVendeurs);
+        membreScenario = new ArrayList<>(membresUnique);
     }
 
     public ArrayList<String> membresToVilles(ArrayList<String> tab){
@@ -101,12 +100,10 @@ public class Scenario {
         return villeScenario ;
     }
 
-    public HashMap<String, ArrayList> membresToVilles(HashMap<String, ArrayList> dico){
+    public HashMap<String, ArrayList<String>> membresToVilles(HashMap<String, ArrayList<String>> dico){
         /* ne me semble pas tres pertinent */
-        //HashMap<String, ArrayList> villeScenario = new ArrayList<>();
         HashMap<String,String> membresVilles = villes.getMembreToVilles();
-        HashMap<String, ArrayList> retour = new HashMap<>(dico);
-
+        HashMap<String, ArrayList<String>> retour = new HashMap<>(dico);
         for (String elem : retour.keySet()){
             ArrayList<String> list = retour.get(elem);
             for (int i = 0; i < list.size() ;i++) {
@@ -125,24 +122,30 @@ public class Scenario {
     }
 
     public String toString() {
-        return listVendeurs +"\n" + listAcheteurs + "\n" + dicoAV + "\n" + dicoVA ;
+        return "Les Vendeurs" + listVendeurs +"\n" + "Les acheteurs" + listAcheteurs
+                + "\n" + "Acheteur -> Vendeur" + dicoAV + "\n" + "Vendeur -> Acheteur" + dicoVA ;
     }
-    public Villes getVilles(){
-        return villes;
-    }
+
     public ArrayList<String> getMembreScenario(){
         return membreScenario;
     }
-    //obligé d'iterer car je supprime dans supprsource() dans itineraire
+
     public HashMap<String, ArrayList<String>> getDicoVA() {
         HashMap<String, ArrayList<String>> copie = new HashMap<>();
         for (String key: dicoVA.keySet()){
-            copie.put(new String (key),new ArrayList<>(dicoVA.get(key)));
+            copie.put(key, (ArrayList<String>) dicoVA.get(key).clone());
         }
         return copie;
     }
 
 
-    public HashMap<String,ArrayList<String>> getDicoAV() {return new HashMap<>(dicoAV);}
+    public HashMap<String,ArrayList<String>> getDicoAV() {
+        HashMap<String, ArrayList<String>> copie = new HashMap<>();
+        for (String key: dicoAV.keySet()){
+            copie.put(key, (ArrayList<String>) dicoAV.get(key).clone());
+        }
+        return copie;
+    }
+
 
 }
