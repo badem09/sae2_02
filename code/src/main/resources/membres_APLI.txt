@@ -1,8 +1,12 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 PrésidentDébut Velizy
 PrésidentFin Velizy
 =======
 PresidentDébut Velizy
+=======
+PresidentDebut Velizy
+>>>>>>> rework
 PresidentFin Velizy
 >>>>>>> rework
 Bulbizarre Brest
