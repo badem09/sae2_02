@@ -13,11 +13,11 @@ public class ClientItineraire {
 
 
         //TreeMap<String, ArrayList<String>> t = it.mapSourcesSuivantes();
-     //   System.out.println(it.allItineraireToString());
+        System.out.println(it.allItineraireToString());
         //System.out.println(it.mapAdjSortant);
         //System.out.println(it.mapAdjSortant);
         Villes ville = new Villes();
-        System.out.println(ville.getMembreToVilles().get("PresidentDebut"));
+        //System.out.println(ville.getMembreToVilles().get("PresidentDebut"));
 
     }
 }
