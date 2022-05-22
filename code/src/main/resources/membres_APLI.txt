@@ -1,4 +1,4 @@
-PresidentDébut Velizy
+PresidentDebut Velizy
 PresidentFin Velizy
 Bulbizarre Brest
 Herbizarre Perpignan
