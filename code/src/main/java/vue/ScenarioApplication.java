@@ -19,23 +19,25 @@ import java.io.IOException;
 
 public class ScenarioApplication extends Application {
     private Scene currentScene;
+    //private String strScene;
     @Override
-    public void start(Stage stage) throws IOException {
-        VBox root = new VBox();
-        Scenario s1 = new Scenario();
-        Scene sceneAcceuil = new Scene(root,500,370);
-        root.getChildren().addAll(new VBoxAcceuil());
-        stage.setTitle("APLI");
-        stage.setScene(sceneAcceuil);
-        stage.show();
-        sceneAcceuil.setUserData("acceuil");
-        this.currentScene = sceneAcceuil;
+    public void start(Stage chStage) throws IOException {
+
+            VBox root = new VBox();
+            Scenario s1 = new Scenario();
+            currentScene = new Scene(root, 500, 370);
+            root.getChildren().addAll(new VBoxAcceuil());
+            chStage.setTitle("APLI");
+            chStage.setScene(currentScene);
+            chStage.show();
+            currentScene.setUserData("acceuil");
+          //  this.currentScene = sceneAcceuil;
+
     }
 
     public static void main(String[] args) {
         Application.launch(args);
     }
-
 
 }
 
