@@ -10,7 +10,6 @@ public class Itineraire {
 
     private HashMap<String, ArrayList<String>> mapAdjSortant;
 
-
     private final ArrayList<ArrayList<String>> itineraireGen; // itinéraire Général.
 
     public Itineraire(Scenario parScenario) {
@@ -24,24 +23,11 @@ public class Itineraire {
         updateMapAdjSortant();
         getChemin(new ArrayList<String>(), "", new ArrayList<>());
         ajoutPresident();
-
     }
 
-
-    /**
-     * Recherche le squelette des itinéraires en utilisant la méthode des sources.
-     * Chaque source est mise dans un niveau.
-     * Dans le cas ou il y plusieurs sources, elles sont placées dans le même niveau.
-     *
-     * @author Ba Demba
-     */
-
-
-    public String getNextSource() {
+    public String getNextSource() { //recherche des sources courantes.
         mapAdjEntrant = graphe.getMapAjdEntrant();
         String source = "";
-
-        //recherche des sources courantes.
         for (String elem : mapAdjEntrant.keySet()) {
             if (mapAdjEntrant.get(elem).size() == 0) {
                 source = elem;
@@ -50,30 +36,8 @@ public class Itineraire {
             }
         }
         return source;
-
-
-        // this.itineraire = itineraire;
-      /*  String v1 = "PrésidentDébut";
-        String v2 = "PrésidentFin";
-        ArrayList<String> l1 = new ArrayList<>();
-        l1.add(v1);
-        ArrayList<String> l2 = new ArrayList<>();
-        l2.add(v2);
-        if (!itineraireGen.contains(l1)) {
-            itineraireGen.add(0, l1);
-        }
-        if (!itineraireGen.contains(l2)) {
-            itineraireGen.add(itineraireGen.size(), l2);
-        }
-
-        System.out.println(itineraireGen);
-
-       */
     }
 
-    /**
-     *
-     */
     public void supprSource(String source) {
         mapAdjEntrant.remove(source);
         for (String elem : mapAdjEntrant.keySet()) {
@@ -82,7 +46,6 @@ public class Itineraire {
             mapAdjEntrant.get(elem).remove(source);
         }
     }
-
 
     public void setItineraireGen() {
         ArrayList<String> sources = new ArrayList<>(); //premiere source
@@ -134,7 +97,6 @@ public class Itineraire {
         return s1 < s2 || s1 == s2;
     }
 
-
     public void updateMapAdjSortant() {
         HashMap<String, ArrayList<String>> mapSameLevel = mapSameLevel();
         for (String sommet1 : graphe.getSommets()) {
@@ -151,7 +113,6 @@ public class Itineraire {
         if (source == "") {
             source = getNextSource();
         }
-
         currentPath.add(source);
         ArrayList<String> prochainSommets = (ArrayList<String>) mapAdjSortant.get(source).clone();
         if (listeProchainSautes.size() != 0) {
@@ -172,7 +133,6 @@ public class Itineraire {
                     getChemin((ArrayList<String>) currentPath.clone(), source, listeProchainSautes);
                     currentPath.remove(source);
                 }
-
             }
         }
         // if (mapAdjSortant.get(source).size() == 0 && tousPresent(currentPath) && ! nouveauPath(currentPath) ) {
@@ -190,7 +150,6 @@ public class Itineraire {
         return true;
     }
 
-
     public boolean tousPresent(ArrayList<String> currentPath) {
         for (String sommet : graphe.getSommets()) {
             if (!currentPath.contains(sommet)) {
@@ -199,14 +158,6 @@ public class Itineraire {
         }
         return true;
     }
-
-    /**
-     * A partir de l'itinéraire général des sources (itineraireGen), renvoie un dictionnaire ayant pour clé
-     * un sommet et en valeur les sources suivantes.
-     * @return sourcesSuivantes (Treemap) : key = sommet  // values = Arraylist (sources suivantes)
-     * @author Ba Demba
-     */
-
 
     /**
      * Renvoie tous les chemins sous forme d'un tableau.
@@ -253,8 +204,7 @@ public class Itineraire {
             path.add(path.size(), "PresidentFin");
         }
     }
-
-
+    
     /**
      * Accesseur
      *
