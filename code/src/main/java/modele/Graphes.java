@@ -19,14 +19,56 @@ public class Graphes {
     }
 
     public HashMap<String, ArrayList<String>> getMapAjdEntrant(){
-        return mapAjdEntrant;
+        HashMap<String, ArrayList<String>> newMapAjdEntrant = new HashMap<>();
+        for (String key : mapAjdEntrant.keySet()){
+            ArrayList<String> values = new ArrayList<>();
+            for (String elemValues : mapAjdEntrant.get(key) ){
+                values.add(elemValues);
+            }
+            newMapAjdEntrant.put(key,values);
+        }
+        return newMapAjdEntrant;
     }
 
     public HashMap<String, ArrayList<String>> getMapAjdSortant(){
-        return mapAjdSortant;
+        HashMap<String, ArrayList<String>> newMapAjdSortant = new HashMap<>();
+        for (String key : mapAjdSortant.keySet()){
+            ArrayList<String> values = new ArrayList<>();
+            for (String elemValues : mapAjdSortant.get(key) ){
+                values.add(elemValues);
+            }
+            newMapAjdSortant.put(key,values);
+        }
+        return newMapAjdSortant;
     }
     public ArrayList<String> getSommets(){
         return scenario.getMembreScenario();
+    }
+    public String mapAjdEntrantToString(){
+        String retour = "";
+        for (String key : mapAjdEntrant.keySet()){
+            retour += key + " : ";
+            String values = "";
+            for(String elem : mapAjdEntrant.get(key)){
+                values += elem + " ";
+            }
+            retour += values + "\n";
+        }
+        return retour;
+    }
+    public String mapAjdSortantToString(){
+        String retour = "";
+
+        for (String key : mapAjdSortant.keySet()){
+            retour += key + " : ";
+            String values = "";
+            for(String elem : mapAjdSortant.get(key)){
+                values += elem + " ";
+            }
+            retour += values + "\n";
+
+        }
+        return retour;
     }
 
 
