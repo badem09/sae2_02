@@ -7,13 +7,22 @@ import java.util.*;
 public class ClientItineraire {
     public static void main(String[] args) throws IOException {
         Scenario s = Scenario.lectureScenario(new File(
+<<<<<<< HEAD
                 "src/main/resources/scenario_1_1.txt"));
+=======
+                "src/main/resources/scenario_1_2.txt"));
+>>>>>>> rework
         Itineraire it = new Itineraire(s);
         //it.get()
 
 
-        TreeMap<String, ArrayList<String>> t = it.mapSourcesSuivantes();
-        System.out.println( it.getAllItineraire());
+        //TreeMap<String, ArrayList<String>> t = it.mapSourcesSuivantes();
+        System.out.println(it.allItineraireToString());
+        //System.out.println(it.mapAdjSortant);
+        //System.out.println(it.mapAdjSortant);
+        Villes ville = new Villes();
+        //System.out.println(ville.getMembreToVilles().get("PresidentDebut"));
+
     }
 }
 /*

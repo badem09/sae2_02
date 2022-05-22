@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 PrésidentDébut Velizy
 PrésidentFin Velizy
+=======
+PresidentDébut Velizy
+PresidentFin Velizy
+>>>>>>> rework
 Bulbizarre Brest
 Herbizarre Perpignan
 Florizarrenote Brest

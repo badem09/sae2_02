@@ -1,43 +1,76 @@
 package modele;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 
 public class Graphes {
 
     private final Scenario scenario;
     private final int ordre;
-    private final HashMap<String, ArrayList<String>> mapAjd;
+    private final HashMap<String, ArrayList<String>> mapAjdEntrant;
+
+    private final HashMap<String, ArrayList<String>> mapAjdSortant;
 
     public Graphes(Scenario parScenario)  {
         scenario = parScenario;
-        mapAjd = new HashMap<>(scenario.getDicoVA()); // degrés entrants
+        mapAjdEntrant = new HashMap<>(scenario.getDicoAV()); // degrés entrants
+        mapAjdSortant =  new HashMap<>(scenario.getDicoVA());
         ordre = scenario.getMembreScenario().size();
     }
 
-    public Graphes(HashMap<String, ArrayList<String>> parListeAdj) throws IOException {
-        scenario = new Scenario();
-        mapAjd = parListeAdj;
-        ordre = scenario.getMembreScenario().size();
-    }
-    public ArrayList<String> setSource(){
-        ArrayList<String> currentSources = new ArrayList<>();
-        HashSet<String> acheteurs = new HashSet<>(scenario.getAcheteurs()); // en set pour suppr les doublons
-        HashSet<String> vendeurs = new HashSet<>(scenario.getVendeurs());
-
-        for (String elem : vendeurs){
-            if (! acheteurs.contains(elem)) {
-                currentSources.add(elem);
+    public HashMap<String, ArrayList<String>> getMapAjdEntrant(){
+        HashMap<String, ArrayList<String>> newMapAjdEntrant = new HashMap<>();
+        for (String key : mapAjdEntrant.keySet()){
+            ArrayList<String> values = new ArrayList<>();
+            for (String elemValues : mapAjdEntrant.get(key) ){
+                values.add(elemValues);
             }
+            newMapAjdEntrant.put(key,values);
         }
-        return currentSources;
+        return newMapAjdEntrant;
     }
 
-    public HashMap<String, ArrayList<String>> getMapAjd(){
-        return new HashMap<>(scenario.getDicoVA());
+    public HashMap<String, ArrayList<String>> getMapAjdSortant(){
+        HashMap<String, ArrayList<String>> newMapAjdSortant = new HashMap<>();
+        for (String key : mapAjdSortant.keySet()){
+            ArrayList<String> values = new ArrayList<>();
+            for (String elemValues : mapAjdSortant.get(key) ){
+                values.add(elemValues);
+            }
+            newMapAjdSortant.put(key,values);
+        }
+        return newMapAjdSortant;
     }
+    public ArrayList<String> getSommets(){
+        return scenario.getMembreScenario();
+    }
+    public String mapAjdEntrantToString(){
+        String retour = "";
+        for (String key : mapAjdEntrant.keySet()){
+            retour += key + " : ";
+            String values = "";
+            for(String elem : mapAjdEntrant.get(key)){
+                values += elem + " ";
+            }
+            retour += values + "\n";
+        }
+        return retour;
+    }
+    public String mapAjdSortantToString(){
+        String retour = "";
+
+        for (String key : mapAjdSortant.keySet()){
+            retour += key + " : ";
+            String values = "";
+            for(String elem : mapAjdSortant.get(key)){
+                values += elem + " ";
+            }
+            retour += values + "\n";
+
+        }
+        return retour;
+    }
+
 
     public int getOrdre() {
         return ordre;

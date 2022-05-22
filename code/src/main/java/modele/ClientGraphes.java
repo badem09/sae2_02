@@ -10,10 +10,17 @@ public class ClientGraphes {
                 "src/main/resources/scenario_1_1.txt"));
         Graphes g = new Graphes(s);
        // System.out.println(s.membresToVilles(s.getDicoAV()));
-        System.out.println(g.setSource());
-        System.out.println(g.getMapAjd());
+       // System.out.println(g.getSource());
+        System.out.println(g.mapAjdEntrantToString());
+        System.out.println(g.mapAjdSortantToString());
 
-        System.out.println(s.getMembreScenario());
+       // System.out.println(s.getMembreScenario());
+      //  [Soporifik, Caratroc, Excelangue, Drattaknote, Nidoking, Maskadra, Spoink, N�nupiot, Flagadossnote, Drackhaus]
+/*
+[Soporifik, Flagadossnote, N�nupiot, Spoink, Caratroc, Maskadra, Drattaknote, Excelangue, Nidoking, Drackhaus]
+[Amiens, Angers, Biarritz, Bordeaux, Brest, Calais, Cherbourg, Clermond_Fd, Grenoble, Dijon]
+longueur : 4096
 
+ */
     }
 }

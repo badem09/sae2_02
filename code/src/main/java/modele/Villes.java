@@ -5,14 +5,16 @@ import java.util.*;
 
 public class Villes {
 
-    private  File fileDistances ;
-    private  File fileMembre ;
+    private final File fileDistances ;
+    private final File fileMembre ;
 
-    private ArrayList<String> tabVilles ; // tableau des villes (indice important pour la suite)
-    private ArrayList<ArrayList<Integer>> tabDistances ; // tableau 2d des distances
-    private HashMap<ArrayList<String>,String> dicoDistances; // pertinent? pas défini !
-    private HashMap<String,ArrayList<String>> villesToMembre; // ville = liste de membres
-    private HashMap<String,String> membreToVilles; // membre = ville
+    private final ArrayList<String> listeVilles ; // liste des villes (indice important avoir la distance)
+
+    private final ArrayList<ArrayList<Integer>> tabDistances ; // tableau 2d des distances
+
+    private final HashMap<String,ArrayList<String>> villesToMembre; // ville = liste de membres
+
+    private final HashMap<String,String> membreToVilles; // membre = ville
 
     public Villes() throws IOException {
 
@@ -20,9 +22,14 @@ public class Villes {
                 "src/main/resources/distances.txt");
         fileMembre = new File(
                 "src/main/resources/membres_APLI.txt");
+<<<<<<< HEAD
         tabVilles = new ArrayList<String>();
         tabDistances = new  ArrayList<ArrayList<Integer>>();
         dicoDistances = new HashMap<>();
+=======
+        listeVilles = new ArrayList<>();
+        tabDistances = new  ArrayList<>();
+>>>>>>> rework
         membreToVilles = new HashMap<>();
         villesToMembre = new HashMap<>();
 
@@ -58,7 +65,7 @@ public class Villes {
             ligne = bufferEntree.readLine();
             if(ligne!= null ){
                 tokenizer = new StringTokenizer(ligne," ");
-                tabVilles.add(tokenizer.nextToken());
+                listeVilles.add(tokenizer.nextToken());
             }
         }
         while (ligne != null);
@@ -69,7 +76,7 @@ public class Villes {
         BufferedReader bufferEntree = new BufferedReader(new FileReader (fileDistances));
         String ligne ;
         StringTokenizer tokenizer;
-        int nbVilles = tabVilles.size();
+        int nbVilles = listeVilles.size();
 
         do{
             ligne = bufferEntree.readLine();
@@ -115,7 +122,7 @@ public class Villes {
     }
 
     public ArrayList<String> getTabVilles(){
-        return tabVilles;
+        return listeVilles;
     }
     public ArrayList<ArrayList<Integer>> getTabDistances(){
         return tabDistances;
