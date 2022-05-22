@@ -1,5 +1,7 @@
 package vue;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -13,6 +15,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 public class VBoxAcceuil extends VBox {
+
+
 
     public VBoxAcceuil() throws FileNotFoundException {
         VBox vBoxPokeman = new VBox();
@@ -36,8 +40,15 @@ public class VBoxAcceuil extends VBox {
         VBox vBoxBienvenue = new VBox(bienvenue);
         vBoxBienvenue.setAlignment(Pos.CENTER);
 
-        Button commencer = new Button("Commencer");
-        VBox vBoxButtonCommencer = new VBox(commencer);
+        Button bouttonCommencer = new Button("Commencer");
+        bouttonCommencer.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                System.out.println("stage2");
+
+            }
+        });
+        VBox vBoxButtonCommencer = new VBox(bouttonCommencer);
         vBoxButtonCommencer.setAlignment(Pos.CENTER);
         vBoxBienvenue.setPadding(new Insets(30,30,30,30));
         vBoxButtonCommencer.setPadding(new Insets(30,30,30,30));
