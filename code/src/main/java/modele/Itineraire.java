@@ -2,13 +2,15 @@ package modele;
 
 import java.util.*;
 
-public class Itineraire {
+public class Itineraire{
 
     private final Graphes graphe;
-    private static ArrayList<ArrayList<String>> allItineraire;
+    private ArrayList<ArrayList<String>> allItineraire;
     private HashMap<String, ArrayList<String>> mapAdjEntrant;
 
     private HashMap<String, ArrayList<String>> mapAdjSortant;
+
+
     private final ArrayList<ArrayList<String>> itineraireGen; // itinéraire Général.
 
     public Itineraire(Scenario parScenario){
@@ -17,9 +19,15 @@ public class Itineraire {
         mapAdjSortant = new HashMap<>(graphe.getMapAjdSortant());
         itineraireGen = new ArrayList<>();
         allItineraire = new ArrayList<>();
-         setItineraireGen();
-        setAllItineraire();
+
+        setItineraireGen();
+        updateMapAdjSortant();
+        getChemin(new ArrayList<String>(),"",new ArrayList<>());
+        ajoutPresident();
+
     }
+
+
 
     /**
      * Recherche le squelette des itinéraires en utilisant la méthode des sources.
@@ -27,22 +35,24 @@ public class Itineraire {
      * Dans le cas ou il y plusieurs sources, elles sont placées dans le même niveau.
      * @author Ba Demba
      */
-    public void setItineraireGen() {
 
-        ArrayList<String> sources = new ArrayList<>();
-        while (mapAdjEntrant.size() != 0) {
+
+    public String getNextSource() {
+        mapAdjEntrant = graphe.getMapAjdEntrant();
+            String source = "";
+
             //recherche des sources courantes.
             for (String elem : mapAdjEntrant.keySet()) {
                 if (mapAdjEntrant.get(elem).size() == 0) {
-                    sources.add(elem);
+                    source = elem;
+                    this.supprSource(source);
+                    break;
                 }
             }
-            //Suppression des sources courantes.
-            if (sources.size() > 0) {
-                itineraireGen.add(sources);
-                sources = this.supprSource(sources);
-            }
-        }
+            return source;
+
+
+
         // this.itineraire = itineraire;
       /*  String v1 = "PrésidentDébut";
         String v2 = "PrésidentFin";
@@ -63,22 +73,163 @@ public class Itineraire {
     }
 
     /**
-     *Supprime les sources de la liste d'adjacence et renvoie une liste vide.
-     * @param sources : Sources précedentes
-     * @return Nouvelle liste vide
-     * @author Ba Demba
+
      */
-    public ArrayList<String> supprSource(ArrayList<String> sources) {
-        for (String s : sources) { // enleve les source de la liste d'adjacence
-            mapAdjEntrant.remove(s);
-        }
+    public void supprSource(String source) {
+        mapAdjEntrant.remove(source);
         for (String elem : mapAdjEntrant.keySet()) {
-            for (String s : sources) {
+
                 // enleve la/les source des autres sommets
-                mapAdjEntrant.get(elem).remove(s);
+                mapAdjEntrant.get(elem).remove(source);
             }
         }
-        return new ArrayList<>();
+
+        public void appelGetChemin(){
+        String source = "";
+        ArrayList<String> currentPath = new ArrayList<>();
+        ArrayList<String> listeProchainSautes = new ArrayList<>();
+        getChemin(currentPath, source, listeProchainSautes);
+        }
+
+    public void setItineraireGen() {
+        ArrayList<String> sources = new ArrayList<>(); //premiere source
+        HashMap<String, ArrayList<String>> mapAdj = new HashMap<>();
+        mapAdj.putAll(mapAdjEntrant);
+
+        while (mapAdj.size() != 0) {
+            //recherche des sources courantes.
+            for (String elem : mapAdj.keySet()) {
+                if (mapAdj.get(elem).size() == 0) {
+                    sources.add(elem);
+                }
+            }
+            //Suppression des sources courantes.
+            if (sources.size() > 0) {
+                itineraireGen.add(sources);
+                mapAdj = this.supprSource1(sources,mapAdj);
+                sources = new ArrayList<>();
+            }
+            System.out.println(itineraireGen);
+        }
+    }
+        public HashMap<String, ArrayList<String>> supprSource1(ArrayList<String> sources, HashMap<String,ArrayList<String>> mapAdj) {
+            for (String s : sources) { // enleve les source de la liste d'adjacence
+                mapAdj.remove(s);
+            }
+            for (String elem : mapAdj.keySet()) {
+                for (String s : sources) {
+                    // enleve la/les source des autres sommets
+                    mapAdj.get(elem).remove(s);
+                }
+            }
+            return mapAdj;
+        }
+
+        public boolean estDerriere(String sommet1,String sommet2){
+        //ou same level
+            int s1 = -1;
+            int s2 = -1;
+
+            for(ArrayList<String> level : itineraireGen){
+                if (level.contains(sommet1)){
+                    s1 = itineraireGen.indexOf(level);
+                }
+                if (level.contains(sommet2)){
+                    s2 = itineraireGen.indexOf(level);
+                }
+            }
+            return s1 < s2 || s1 == s2 ;
+        }
+     //   [Soporifik, Caratroc, Excelangue, Drattaknote, Nidoking, Maskadra, Spoink, N�nupiot, Flagadossnote, Drackhaus]
+
+
+
+        public void updateMapAdjSortant(){
+        HashMap<String, ArrayList<String>> mapSameLevel = mapSameLevel();
+        for (String sommet1 : graphe.getSommets()){
+            for (String sommet2 : graphe.getSommets()){
+                if ( sommet1 != sommet2 && estDerriere(sommet1,sommet2)) {
+                    if (! mapAdjSortant.get(sommet1).contains(sommet2))
+                    mapAdjSortant.get(sommet1).add(sommet2);
+                }
+            }
+        }
+    }
+    public void getChemin(ArrayList<String> currentPath, String source, ArrayList<String> listeProchainSautes) {
+        if (source == "") {
+            source = getNextSource();
+        }
+
+
+
+
+
+                currentPath.add(source);
+                ArrayList<String> prochainSommets = (ArrayList<String>) mapAdjSortant.get(source).clone();
+                if (listeProchainSautes.size() != 0) {
+                    for (String e : listeProchainSautes){
+                        if (! currentPath.contains(e) && !prochainSommets.contains(e) &&  ! mapAdjEntrant.get(e).contains(source)){
+                            prochainSommets.add(e);
+                        }
+                    }
+                }
+
+
+                if (prochainSommets.size()>0){
+                    for (String prochain : prochainSommets) {
+                        listeProchainSautes = (ArrayList<String>) prochainSommets.clone();
+                        listeProchainSautes.remove(prochain);
+                        if (!currentPath.contains(prochain) && tousPredecesseurPresent(prochain,currentPath)) {
+                           // currentPath.add(prochain);
+                            source = prochain;
+                            getChemin((ArrayList<String>) currentPath.clone(), source, listeProchainSautes);
+                            currentPath.remove(source);
+                        }
+
+                }
+            }
+       // if (mapAdjSortant.get(source).size() == 0 && tousPresent(currentPath) && ! nouveauPath(currentPath) ) {
+          if (currentPath.size() == graphe.getSommets().size() && tousPresent(currentPath)){
+            allItineraire.add(currentPath);
+            System.out.println( currentPath + " " + allItineraire.size());
+        }
+    }
+
+    private boolean tousPredecesseurPresent(String prochain, ArrayList<String> currentPath) {
+        for (String pred : mapAdjEntrant.get(prochain)){
+            if (! currentPath.contains(pred))
+                return false;
+        }
+        return true;
+    }
+        /*if (currentPath.size() == 10) {
+            System.out.println(currentPath);
+        }*/
+
+ public boolean nouveauPath(ArrayList<String> currentPath){
+
+     for (ArrayList<String> path : allItineraire){
+         for (int i =0; i< path.size(); i++){
+             for (int j=0 ; j< currentPath.size();j++ ){
+                 if (i == j && currentPath.get(j) != path.get(i) ){
+                     return true;
+
+                 }
+             }
+         }
+     }
+     return false;
+ }
+
+
+
+    public boolean tousPresent(ArrayList<String> currentPath){
+        for (String sommet : graphe.getSommets()){
+            if (! currentPath.contains(sommet)){
+                return  false ;
+            }
+        }
+        return  true ;
     }
 
     /**
@@ -125,7 +276,7 @@ public class Itineraire {
         String source = this.itineraireGen.get(0).get(0);
 
         currentPath.add(source);
-        dfs(sourcesSuivantes, source, visite, currentPath, sourcesSameLevel());
+        dfs(sourcesSuivantes, source, visite, currentPath, mapSameLevel());
 
       /*  ArrayList<ArrayList<String>> autresArriere = autresitinerairesArriere(allItineraire);
         ArrayList<ArrayList<String>> autresAvant = autresitineraires(allItineraire);
@@ -261,7 +412,7 @@ public class Itineraire {
      * rapport aux sources)
      * @return mapSameLevel : Dictionnaire ; key = sommet // values = listes des sommets de même niveau
      */
-    public HashMap<String, ArrayList<String>> sourcesSameLevel() {
+    public HashMap<String, ArrayList<String>> mapSameLevel() {
         HashMap<String, ArrayList<String>> mapSameLevel = new HashMap<>();
         for (ArrayList<String> niveau : itineraireGen) {  // pour chaque sous liste (niveau de sources)
             for (String s1 : niveau) {
@@ -278,6 +429,13 @@ public class Itineraire {
             }
         }
         return mapSameLevel;
+    }
+
+    public void ajoutPresident(){
+        for (ArrayList<String> path : allItineraire){
+            path.add(0,"PresidentDebut");
+            path.add(path.size(),"PresidentFin");
+        }
     }
 
 
