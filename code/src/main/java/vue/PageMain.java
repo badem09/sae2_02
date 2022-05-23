@@ -17,9 +17,12 @@ import java.lang.reflect.Member;
 public class PageMain extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-
-        MenuBar menuBar = new MenuBar();
-        VBoxMenu root = new VBoxMenu();
+        VBox root = new VBox();
+        //MenuBar menuBar = new MenuBar();
+        VBoxMenu vBoxMenu = new VBoxMenu();
+        // VBoxMembres vBoxMembres = new VBoxMembres();
+        GridPaneOrg gridPaneOrg = new GridPaneOrg();
+        root.getChildren().addAll(vBoxMenu,gridPaneOrg);
         Scenario s1 = new Scenario();
         stage.setTitle("APLI");
         Scene scene = new Scene(root, 700, 560);
