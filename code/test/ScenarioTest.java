@@ -15,7 +15,12 @@ class ScenarioTest {
     }
     Scenario s1 = new Scenario();
     Scenario s2 = Scenario.lectureScenario(new File(
+<<<<<<< HEAD
             "src/main/resources/scenario_0.txt"));
+=======
+            "/Users/badem/Documents/INFI1/SAE/algos2/Documentation/scenario_0.txt"));
+
+>>>>>>> bilal_travail
 
     @Test
     void testLectureScenarioNotNull()  {
