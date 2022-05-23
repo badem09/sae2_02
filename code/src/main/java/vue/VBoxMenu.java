@@ -9,19 +9,17 @@ public class VBoxMenu extends VBox implements IntitulesMenu {
 
     public VBoxMenu() {
         MenuBar menuBar = new MenuBar();
+        int i = 0;
         for(String intitules : ITEM_MENU) {
             Menu menu = new Menu(intitules);
             menuBar.getMenus().add(menu);
-            if (menuBar.getMenus().indexOf(menu) == 0){
-                for(int i = 0; i < SOUS_MENU.length; i++){
-                    MenuItem menuItem = new MenuItem(SOUS_MENU[i]);
-                    menuItem.setUserData(i);
-                    menuBar.getMenus().get(0).getItems().add(menuItem);
-                }
+            for(int j = 0; j < SOUS_MENU[i].length; j++){
+                MenuItem menuItem = new MenuItem(SOUS_MENU[i][j]);
+                menuItem.setUserData(j);
+                menuBar.getMenus().get(i).getItems().add(menuItem);
             }
+            i++;
         }
-
-
         this.getChildren().add(menuBar);
     }
 
