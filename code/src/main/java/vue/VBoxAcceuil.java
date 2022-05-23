@@ -4,12 +4,14 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -45,7 +47,10 @@ public class VBoxAcceuil extends VBox {
             @Override
             public void handle(ActionEvent actionEvent) {
                 System.out.println("stage2");
+                Scene secondScene = new Scene(new VBox(),100,100);
+                Stage secondStage = new Stage();
 
+                
             }
         });
         VBox vBoxButtonCommencer = new VBox(bouttonCommencer);
@@ -60,13 +65,13 @@ public class VBoxAcceuil extends VBox {
         vBoxCopyright.setAlignment(Pos.BOTTOM_RIGHT);
 
         Button buttonAide = new Button("Aide");
-        HBox vBoxButtonAide = new HBox(buttonAide);
-        vBoxButtonAide.setAlignment(Pos.BOTTOM_LEFT);
+        HBox hBoxAideCopyright = new HBox(buttonAide);
+        hBoxAideCopyright.setAlignment(Pos.BOTTOM_LEFT);
 
-        vBoxButtonAide.getChildren().add(vBoxCopyright);
-        vBoxButtonAide.setSpacing(320);
+        hBoxAideCopyright.getChildren().add(vBoxCopyright);
+        hBoxAideCopyright.setSpacing(320);
 
         this.getChildren().addAll(vBoxPokeman,vBoxBienvenue,
-                vBoxButtonCommencer,vBoxButtonAide);
+                vBoxButtonCommencer,hBoxAideCopyright);
     }
 }
