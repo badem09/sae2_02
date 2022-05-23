@@ -11,14 +11,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ScenarioTest {
 
-
     ScenarioTest() throws IOException {
     }
-
     Scenario s1 = new Scenario();
-    Scenario s2 = Scenario.lectureSenario(new File(
-            "/Users/badem/Documents/INFI1/SAE/algos2/Documentation/scenario_0.txt"));
-
+    Scenario s2 = Scenario.lectureScenario(new File(
+            "src/main/resources/scenario_0.txt"));
 
     @Test
     void testLectureScenarioNotNull()  {
@@ -46,7 +43,6 @@ class ScenarioTest {
         }
         System.out.println("testLectureScenarioCoherent : ok \nLe Scénario instancié" +
                 " est cohérent au fichier .txt fournit (ici scenario_0.txt). \n");
-
    }
 
 }
