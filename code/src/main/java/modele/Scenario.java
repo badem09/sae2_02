@@ -124,7 +124,12 @@ public class Scenario {
     public String toString() {
         String retour = "";
         for (int i = 0; i<listAcheteurs.size(); i++){
-            retour += i + " : "+ listAcheteurs.get(i) + " vends à " + listVendeurs.get(i) + "\n";
+            String a = listAcheteurs.get(i);
+            String v = listVendeurs.get(i);
+            retour += i + " : "+ a + " vends à " + v +
+                    "  " + villes.getMembreToVilles().get(a) +
+                    " --- " +
+                    "" + villes.getMembreToVilles().get(v) +"\n";
         }
         return retour;
     }
@@ -150,5 +155,11 @@ public class Scenario {
         return copie;
     }
 
-
+    public String getMembreToString(){
+        String retour = "Président : Vélizy" + "\n";
+        for (String membres : membreScenario){
+            retour += membres + " : " + villes.getMembreToVilles().get(membres) + "\n";
+        }
+        return retour;
+    }
 }
