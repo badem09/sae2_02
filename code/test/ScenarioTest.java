@@ -16,7 +16,7 @@ class ScenarioTest {
     }
 
     Scenario s1 = new Scenario();
-    Scenario s2 = Scenario.lectureSenario(new File(
+    Scenario s2 = Scenario.lectureScenario(new File(
             "/Users/badem/Documents/INFI1/SAE/algos2/Documentation/scenario_0.txt"));
 
 
