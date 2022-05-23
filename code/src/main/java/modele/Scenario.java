@@ -122,8 +122,11 @@ public class Scenario {
     }
 
     public String toString() {
-        return "Les Vendeurs" + listVendeurs +"\n" + "Les acheteurs" + listAcheteurs
-                + "\n" + "Acheteur -> Vendeur" + dicoAV + "\n" + "Vendeur -> Acheteur" + dicoVA ;
+        String retour = "";
+        for (int i = 0; i<listAcheteurs.size(); i++){
+            retour += i + " : "+ listAcheteurs.get(i) + " vends à " + listVendeurs.get(i) + "\n";
+        }
+        return retour;
     }
 
     public ArrayList<String> getMembreScenario(){
