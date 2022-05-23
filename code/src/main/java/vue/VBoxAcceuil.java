@@ -1,4 +1,5 @@
 package vue;
+// 3UqnbRTBFQhJA3sJKjPm
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -50,7 +51,7 @@ public class VBoxAcceuil extends VBox {
                 Scene secondScene = new Scene(new VBox(),100,100);
                 Stage secondStage = new Stage();
 
-                
+
             }
         });
         VBox vBoxButtonCommencer = new VBox(bouttonCommencer);
