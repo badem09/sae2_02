@@ -17,6 +17,8 @@ public class Itineraire {
     private final ArrayList<ArrayList<String>> itineraireGen; // itinéraire Général.
 
     public Itineraire(Scenario parScenario) {
+        //Refaire un toString qui prennent qu'un intervale psk pour le dernier Scenario
+        // Faire un seul string prend trop de temps.
         graphe = new Graphes(parScenario);
         mapAdjEntrant = new HashMap<>(graphe.getMapAjdEntrant());
         mapAdjSortant = new HashMap<>(graphe.getMapAjdSortant());
@@ -25,9 +27,8 @@ public class Itineraire {
 
         setItineraireGen();
         updateMapAdjSortant();
-        getChemin(new ArrayList<>(), "", new ArrayList<>(),false);
+        getChemin(new ArrayList<>(), "", new ArrayList<>());
         ajoutPresident();
-        allItineraireToString();
     }
 
     public String getNextSource() { //recherche des sources une par une
@@ -112,9 +113,7 @@ public class Itineraire {
         }
     }
 
-    public void getChemin(ArrayList<String> currentPath, String source, ArrayList<String> listeProchainSautes,boolean fin ) {
-
-
+    public void getChemin(ArrayList<String> currentPath, String source, ArrayList<String> listeProchainSautes) {
         if (source.equals("")) { // Si à la premiere etape du premier appel
             source = getNextSource();
         }
@@ -134,7 +133,7 @@ public class Itineraire {
                 listeProchainSautes.remove(prochain);
                 if (!currentPath.contains(prochain) && tousPredecesseurPresent(prochain, currentPath)) {
                     source = prochain;
-                    getChemin((ArrayList<String>) currentPath.clone(), source, listeProchainSautes,fin);
+                    getChemin((ArrayList<String>) currentPath.clone(), source, listeProchainSautes);
                     currentPath.remove(source);
                 }
             }
@@ -143,13 +142,6 @@ public class Itineraire {
         if (currentPath.size() == graphe.getSommets().size() && tousPresent(currentPath)) {// tousPresent inutile
             allItineraire.add(currentPath);
             System.out.println( allItineraire.size() + " " + currentPath);
-        }
-        if (allItineraire.size() == 205200){
-            System.out.println("hello");
-
-            exit(3);
-            return;
-
         }
     }
 
