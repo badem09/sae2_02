@@ -3,15 +3,18 @@ package modele;
 import java.io.*;
 import java.util.HashMap;
 import java.util.*;
+import java.util.zip.ZipEntry;
 
 public class Scenario {
 
-    private final Villes villes;
+    private static  Villes villes;
     private final ArrayList<String>  listVendeurs ;
     private final ArrayList<String>  listAcheteurs ;
     private final HashMap<String,ArrayList<String>> dicoVA ; // Vendeurs -> Acheteurs
     private final HashMap<String,ArrayList<String>> dicoAV ;  // Acheteurs -> Vendeurs
     private  ArrayList<String> membreScenario ; //membres concernés par le scenario
+    private static ArrayList<String> listScenarioConnus ;
+
 
     public Scenario() throws IOException {
         villes = new Villes();
@@ -20,6 +23,7 @@ public class Scenario {
         dicoVA = new HashMap<>();
         dicoAV = new HashMap<>();
         membreScenario = new ArrayList<>();
+
     }
 
     public static void ecritureS(String nomFichier, Scenario scenario) throws IOException{
@@ -31,23 +35,84 @@ public class Scenario {
         }
     }
 
-    public static Scenario lectureScenario (File fichier) throws IOException{
-        Scenario scenario = new Scenario();
-        BufferedReader bufferEntree = new BufferedReader(new FileReader (fichier));
-        String ligne ;
-        StringTokenizer tokenizer;
-        do{
+
+
+    public static void suiviScenario(File fileScenario) throws FileNotFoundException, IOException {
+
+        File suiviScenario = new File("src/main/resources/suivi_scenarios.txt");
+        boolean nouveau = suiviScenario.createNewFile();
+        System.out.println(nouveau);
+
+        getListeSuivi(suiviScenario);
+        System.out.println(suiviScenario);
+        if (!listScenarioConnus.contains(fileScenario.getName())) {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(suiviScenario, true));
+            writer.write(fileScenario.getName());
+            writer.newLine();
+            writer.close();
+            listScenarioConnus.add(fileScenario.getName());
+        }
+
+        System.out.println(listScenarioConnus);
+    }
+
+    public static boolean getListeSuivi(File fileSuivi) throws IOException {
+
+        if (listScenarioConnus == null) {
+            listScenarioConnus = new ArrayList<>();
+        }
+        BufferedReader bufferEntree = new BufferedReader(new FileReader(fileSuivi));
+        String ligne;
+        do {
             ligne = bufferEntree.readLine();
-            if(ligne!= null ){
-                tokenizer = new StringTokenizer(ligne," ->");
-                scenario.ajoutVA(tokenizer.nextToken(),tokenizer.nextToken());
+            if (ligne != null) {
+                listScenarioConnus.add(ligne);
             }
         }
         while (ligne != null);
-        bufferEntree.close();
-        scenario.updateDico();
-        scenario.updateMembreScenario();
-        return scenario;
+        if (listScenarioConnus.size() > 0) return true;
+        else return false;
+    }
+
+    /**
+     * Ecrit dans un fichier texte les scenarios deja connu du lappli.
+     */
+
+    public static Scenario lectureScenario (String path) throws IOException {
+        boolean succes = true;
+        try{
+            File fichier = new File(path);
+            FileReader fr =  new FileReader(fichier);
+            Scenario scenario = new Scenario();
+            BufferedReader bufferEntree = new BufferedReader(fr);
+            String ligne;
+            StringTokenizer tokenizer;
+            do {
+                ligne = bufferEntree.readLine();
+                if (ligne != null) {
+                    tokenizer = new StringTokenizer(ligne, " ->");
+                    scenario.ajoutVA(tokenizer.nextToken(), tokenizer.nextToken());
+                }
+            }
+            while (ligne != null);
+            bufferEntree.close();
+            scenario.updateDico();
+            scenario.updateMembreScenario();
+
+            Scenario.suiviScenario(fichier);
+            return scenario;
+        }
+        catch (Exception e){
+            succes = false;
+            System.out.println("Le fichier est introuvable.\nVeuillez vérifier son chemin d'accès" ) ;
+            System.exit(5);
+
+        }
+        return null;
+    }
+
+    public static ArrayList<String> getSuiviScenario() {
+        return listScenarioConnus;
     }
 
 
@@ -113,14 +178,6 @@ public class Scenario {
         return retour ;
     }
 
-    public ArrayList<String> getVendeurs(){
-        return listVendeurs;
-    }
-
-    public ArrayList<String> getAcheteurs(){
-        return listAcheteurs;
-    }
-
     public String toString() {
         String retour = "";
         for (int i = 0; i<listAcheteurs.size(); i++){
@@ -161,5 +218,13 @@ public class Scenario {
             retour += membres + " : " + villes.getMembreToVilles().get(membres) + "\n";
         }
         return retour;
+    }
+
+    public ArrayList<String> getVendeurs(){
+        return listVendeurs;
+    }
+
+    public ArrayList<String> getAcheteurs(){
+        return listAcheteurs;
     }
 }
