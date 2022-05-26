@@ -13,6 +13,8 @@ public class Scenario {
     private final HashMap<String,ArrayList<String>> dicoVA ; // Vendeurs -> Acheteurs
     private final HashMap<String,ArrayList<String>> dicoAV ;  // Acheteurs -> Vendeurs
     private  ArrayList<String> membreScenario ; //membres concernés par le scenario
+
+
     private static ArrayList<String> listScenarioConnus ;
 
 
@@ -23,7 +25,6 @@ public class Scenario {
         dicoVA = new HashMap<>();
         dicoAV = new HashMap<>();
         membreScenario = new ArrayList<>();
-
     }
 
     public static void ecritureS(String nomFichier, Scenario scenario) throws IOException{
@@ -57,7 +58,7 @@ public class Scenario {
     }
 
     public static boolean getListeSuivi(File fileSuivi) throws IOException {
-
+        fileSuivi.createNewFile();
         if (listScenarioConnus == null) {
             listScenarioConnus = new ArrayList<>();
         }
@@ -65,7 +66,7 @@ public class Scenario {
         String ligne;
         do {
             ligne = bufferEntree.readLine();
-            if (ligne != null) {
+            if (ligne != null && ! listScenarioConnus.contains(ligne)) {
                 listScenarioConnus.add(ligne);
             }
         }
@@ -98,7 +99,6 @@ public class Scenario {
             bufferEntree.close();
             scenario.updateDico();
             scenario.updateMembreScenario();
-
             Scenario.suiviScenario(fichier);
             return scenario;
         }
@@ -146,7 +146,9 @@ public class Scenario {
                 dicoAV.put(v, new ArrayList<>());
             }
         }
-        //ajoutSourcesDico();
+       // Collections.sort(listVendeurs);
+        //Collections.sort(listAcheteurs);
+
     }
 
     public void updateMembreScenario() {
@@ -154,6 +156,7 @@ public class Scenario {
         HashSet<String> membresUnique = new HashSet<>(listAcheteurs);
         membresUnique.addAll(listVendeurs);
         membreScenario = new ArrayList<>(membresUnique);
+        Collections.sort(membreScenario);
     }
 
     public ArrayList<String> membresToVilles(ArrayList<String> tab){
@@ -227,4 +230,9 @@ public class Scenario {
     public ArrayList<String> getAcheteurs(){
         return listAcheteurs;
     }
-}
+
+    public static ArrayList<String> getListScenarioConnus() {
+        return listScenarioConnus;
+    }
+
+    }
