@@ -17,25 +17,13 @@ import java.lang.reflect.Member;
 public class PageMain extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        VBox root = new VBox();
-        //MenuBar menuBar = new MenuBar();
-        VBoxMenu vBoxMenu = new VBoxMenu();
-        // VBoxMembres vBoxMembres = new VBoxMembres();
-        GridPaneOrg gridPaneOrg = new GridPaneOrg();
-        root.getChildren().addAll(vBoxMenu,gridPaneOrg);
-        Scenario s1 = new Scenario();
-        stage.setTitle("APLI");
-        Scene scene = new Scene(root, 700, 560);
-        stage.setScene(scene);
-        stage.getIcons().add(new Image(new FileInputStream(
-                "src/main/resources/pokeman.png")));
+        stage = new StageScenarioConnu();
         stage.show();
-
-
     }
 
     public static void main(String[] args) {
         Application.launch(args);
     }
+
 
 }
