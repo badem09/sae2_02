@@ -23,21 +23,26 @@ public class GridPaneOrg extends GridPane {
         this.setVgap(10);
         this.setGridLinesVisible(false);
 
-        chScenario = Scenario.lectureScenario(new File(
-                "src/main/resources/scenario_0.txt"));
+        chScenario = Scenario.lectureScenario(
+                "src/main/resources/scenario_2_1.txt");
 
         chMembres = chScenario.getMembreToString();
         TextArea textMembres = new TextArea(chMembres);
-        Scenario scenario = Scenario.lectureScenario(
-                new File("src/main/resources/scenario_2_1.txt"));
-        TempsItineraire ti =new TempsItineraire(new Itineraire(scenario));
+
+        TempsItineraire ti =new TempsItineraire(new Itineraire(chScenario));
         String bestIt = ti.getBestItineraire();
 
         TextArea textBestIt = new TextArea(bestIt);
         textBestIt.setWrapText(true);
 
-        VBox vBoxBestItineraire = new VBox (textBestIt);
-        VBox vBoxSenario =  new VBox(new TextArea(scenario.toString()));
+        TextArea textScenario = new TextArea(chScenario.toString());
+        textScenario.setPrefHeight(300);
+        textScenario.setPrefWidth(700);
+
+        textScenario.setEditable(false);
+        textBestIt.setEditable(false);
+        textMembres.setEditable(false);
+
 
         Label labelScenario = new Label("Détail du scénario.");
         Label labelMembre = new Label("Les membres impliqués");
@@ -48,11 +53,11 @@ public class GridPaneOrg extends GridPane {
         this.add(labelScenario,0,ligne,1,1);
         this.add(labelMembre,1,ligne,1,1);
         ligne ++;
-        this.add(vBoxSenario,0,ligne,1,1);
-        this.add(textMembres,1,ligne,2,1);
+        this.add(textScenario,0,ligne,1,1);
+        this.add(textMembres,1,ligne,1,1);
         ligne +=1;
         this.add(labelBestit,0,ligne,1,1);
         ligne +=1;
-        this.add(vBoxBestItineraire,0,ligne,3,1);
+        this.add(textBestIt,0,ligne,2,1);
     }
 }
