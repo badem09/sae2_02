@@ -1,23 +1,21 @@
 package vue;
 
+import Controleur.ControleurMenu;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.image.Image;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import modele.Scenario;
-
-
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.lang.reflect.Member;
 
 public class PageMain extends Application {
+
+    private static StageScenarioConnu currentStage;
+
+    private static ControleurMenu controleurMenu;
     @Override
     public void start(Stage stage) throws IOException {
-        stage = new StageScenarioConnu();
+        currentStage = new StageScenarioConnu();
+        stage = currentStage;
+        controleurMenu = new ControleurMenu(currentStage.getvBoxMenu());
         stage.show();
     }
 
@@ -25,5 +23,11 @@ public class PageMain extends Application {
         Application.launch(args);
     }
 
+    public void setScene(Scene parScene){
 
+    }
+
+    public static StageScenarioConnu getCurrentStage() {
+        return currentStage;
+    }
 }
