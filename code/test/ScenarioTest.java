@@ -14,14 +14,9 @@ class ScenarioTest {
     ScenarioTest() throws IOException {
     }
     Scenario s1 = new Scenario();
-    Scenario s2 = Scenario.lectureScenario(new File(
-<<<<<<< HEAD
-            "src/main/resources/scenario_0.txt"));
-=======
-            "/Users/badem/Documents/INFI1/SAE/algos2/Documentation/scenario_0.txt"));
+    Scenario s2 = Scenario.lectureScenario(
 
->>>>>>> bilal_travail
-
+            "src/main/resources/scenario_0.txt");
     @Test
     void testLectureScenarioNotNull()  {
         assertNotEquals(s1,s2);
