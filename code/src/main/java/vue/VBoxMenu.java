@@ -1,26 +1,62 @@
 package vue;
 
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
+import Controleur.ControleurMenu;
+import javafx.beans.Observable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.ComboBoxListCell;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import modele.Scenario;
+
+import java.io.File;
+import java.io.IOException;
 
 public class VBoxMenu extends VBox implements IntitulesMenu {
 
-    public VBoxMenu() {
-        MenuBar menuBar = new MenuBar();
+    private ControleurMenu controleurMenu;
+    private MenuBar chMenuBar;
+    private Scenario scenario;
+
+
+    private ComboBox<String> comboBoxScenario;
+    public VBoxMenu() throws IOException {
+        controleurMenu = new ControleurMenu(this);
+       // PageMain.getControleurStage().setVBoxMenu(this);
+       // controleurStage = PageMain.getControleurStage();
+
+        scenario = new Scenario();
+        File suiviScenario = new File("src/main/resources/suivi_scenarios.txt");
+        scenario.getListeSuivi(suiviScenario);
+        comboBoxScenario =
+                new ComboBox<>( FXCollections.observableArrayList(scenario.getListScenarioConnus()));
+        comboBoxScenario.setValue("Séléctionner votre Scénario");
+        comboBoxScenario.setOnAction(controleurMenu);
+
+        chMenuBar = new MenuBar();
         int i = 0;
         for(String intitules : ITEM_MENU) {
             Menu menu = new Menu(intitules);
-            menuBar.getMenus().add(menu);
+            chMenuBar.getMenus().add(menu);
             for(int j = 0; j < SOUS_MENU[i].length; j++){
                 MenuItem menuItem = new MenuItem(SOUS_MENU[i][j]);
-                menuItem.setUserData(j);
-                menuBar.getMenus().get(i).getItems().add(menuItem);
+                menuItem.setUserData(SOUS_MENU[i][j]);
+                menuItem.setOnAction(controleurMenu);
+                chMenuBar.getMenus().get(i).getItems().add(menuItem);
             }
             i++;
         }
-        this.getChildren().add(menuBar);
+        System.out.println(scenario.getListScenarioConnus());
+        this.getChildren().addAll(chMenuBar,comboBoxScenario);
     }
+
+    public MenuBar getChMenuBar(){
+        return  chMenuBar;
+    }
+    public ComboBox<String> getComboBoxScenario() {
+        return comboBoxScenario;
+    }
+
 
 }
