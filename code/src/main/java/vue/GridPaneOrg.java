@@ -16,6 +16,11 @@ public class GridPaneOrg extends GridPane {
     String chMembres;
     Scenario chScenario;
 
+    TextArea textBestIt ;
+    TextArea textMembres;
+    TextArea textScenario;
+
+
 
     public GridPaneOrg() throws IOException {
         this.setPadding(new Insets(20));
@@ -23,26 +28,22 @@ public class GridPaneOrg extends GridPane {
         this.setVgap(10);
         this.setGridLinesVisible(false);
 
-        chScenario = Scenario.lectureScenario(
-                "src/main/resources/scenario_2_1.txt");
 
-        chMembres = chScenario.getMembreToString();
-        TextArea textMembres = new TextArea(chMembres);
+        textMembres = new TextArea();
 
-        TempsItineraire ti =new TempsItineraire(new Itineraire(chScenario));
-        String bestIt = ti.getBestItineraire();
+     //   TempsItineraire ti =new TempsItineraire(new Itineraire(chScenario));
+      //  String bestIt = ti.getBestItineraire();
 
-        TextArea textBestIt = new TextArea(bestIt);
+        textBestIt = new TextArea();
         textBestIt.setWrapText(true);
 
-        TextArea textScenario = new TextArea(chScenario.toString());
+        textScenario = new TextArea();
         textScenario.setPrefHeight(300);
         textScenario.setPrefWidth(700);
 
         textScenario.setEditable(false);
         textBestIt.setEditable(false);
         textMembres.setEditable(false);
-
 
         Label labelScenario = new Label("Détail du scénario.");
         Label labelMembre = new Label("Les membres impliqués");
@@ -59,5 +60,38 @@ public class GridPaneOrg extends GridPane {
         this.add(labelBestit,0,ligne,1,1);
         ligne +=1;
         this.add(textBestIt,0,ligne,2,1);
+    }
+
+    private void setContent() throws IOException {
+        TempsItineraire ti =new TempsItineraire(new Itineraire(chScenario));
+        String bestIt = ti.getBestItineraire();
+
+        textBestIt.clear();
+        textBestIt.setText(bestIt);
+
+        textMembres.clear();
+        textMembres.setText(chScenario.getMembreToString());
+
+        textScenario.clear();
+        textScenario.setText(chScenario.toString());
+
+    }
+    public void setChMembres(String chMembres) {
+        this.chMembres = chMembres;
+    }
+
+    public TextArea getTextMembres() {
+        return textMembres;
+    }
+    public TextArea getTextScenario() {
+        return textScenario;
+    }
+    public TextArea getTextBestIt() {
+        return textBestIt;
+    }
+
+    public void setScenario(Scenario scenario) throws IOException {
+        chScenario = scenario;
+        setContent();
     }
 }
