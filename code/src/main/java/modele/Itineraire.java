@@ -27,7 +27,8 @@ public class Itineraire {
 
         setItineraireGen();
         updateMapAdjSortant();
-        getChemin(new ArrayList<>(), "", new ArrayList<>());
+        appelGetChemins();
+        //getChemin(new ArrayList<>(), "", new ArrayList<>());
         ajoutPresident();
     }
 
@@ -113,10 +114,13 @@ public class Itineraire {
         }
     }
 
-    public void getChemin(ArrayList<String> currentPath, String source, ArrayList<String> listeProchainSautes) {
-        if (source.equals("")) { // Si à la premiere etape du premier appel
-            source = getNextSource();
+    public void appelGetChemins(){
+        for (String sourcePrimaires : itineraireGen.get(0)){
+            getChemin(new ArrayList<>(),sourcePrimaires,new ArrayList<>());
         }
+    }
+
+    public void getChemin(ArrayList<String> currentPath, String source, ArrayList<String> listeProchainSautes) {
 
         currentPath.add(source);
         ArrayList<String> prochainSommets = (ArrayList<String>) mapAdjSortant.get(source).clone();
