@@ -9,12 +9,22 @@ public class TempsItineraire {
     private Itineraire itineraire;
     private static Villes villes;
     private HashMap<ArrayList<String>, Integer> dicoItineraire;
+    private int nbPages;
+
 
     public TempsItineraire(Itineraire parItineraire) throws IOException {
         itineraire = parItineraire;
         dicoItineraire = new HashMap<>();
         villes = new Villes();
         setDicoItineraire();
+        if (itineraire.getAllItineraire().size() % 8 == 0) {
+            nbPages = itineraire.getAllItineraire().size() / 8;
+        }
+        else {
+            nbPages = itineraire.getAllItineraire().size() / 8+1;
+
+        }
+
     }
 
     private void setDicoItineraire() {
@@ -75,5 +85,26 @@ public class TempsItineraire {
         }
         return r;
     }
+    public String toString(int start, int stop){
+        ArrayList<ArrayList<String>> tabItineraire = itineraire.getAllItineraire();
+        String retour = "";
+        if(stop > tabItineraire.size()){
+            stop = tabItineraire.size();
+        }
+        if (start < 0 ){
+            start = 0;
+        }
+        for (int i = start; i < stop ; i++){
+            retour += tabItineraire.get(i) + "\n" +
+                    TempsItineraire.membresToVilles(tabItineraire.get(i)) +
+                    "\n" + "longueur : " + dicoItineraire.get(tabItineraire.get(i)) +"\n" +"\n";
+        }
+        return retour;
+    }
+
+    public int getNbPages() {
+        return nbPages;
+    }
+
 }
 
