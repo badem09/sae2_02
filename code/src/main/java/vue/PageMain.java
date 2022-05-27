@@ -23,7 +23,7 @@ public class PageMain extends Application {
     public void start(Stage stage) throws IOException {
        // currentStage = new StageScenarioConnu();
         ///stage = currentStage;
-        root = new VBoxRoot();
+        root = new VBoxRoot(stage);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         File css = new File("css"+File.separator+"style.css");

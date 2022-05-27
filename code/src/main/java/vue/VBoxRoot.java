@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -18,10 +19,10 @@ public class VBoxRoot extends VBox {
     private static VBoxAllItineraire vBoxAllItineraire;
 
 
-    public VBoxRoot() throws IOException {
+    public VBoxRoot(Stage stage) throws IOException {
         vBoxMenu = new VBoxMenu(this);
         vBoxScenario = new VBoxScenarioConnu(this);
-        vBoxAjout = new VBoxAjoutScenario();
+        vBoxAjout = new VBoxAjoutScenario(stage);
         vBoxAllItineraire = new VBoxAllItineraire();
 
         Node [] components = new Node[3];
