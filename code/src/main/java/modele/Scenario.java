@@ -3,7 +3,6 @@ package modele;
 import java.io.*;
 import java.util.HashMap;
 import java.util.*;
-import java.util.zip.ZipEntry;
 
 public class Scenario {
 
@@ -15,7 +14,7 @@ public class Scenario {
     private  ArrayList<String> membreScenario ; //membres concernés par le scenario
 
 
-    private static ArrayList<String> listScenarioConnus ;
+    private static SuiviScenario suiviScenario;
 
 
     public Scenario() throws IOException {
@@ -25,6 +24,7 @@ public class Scenario {
         dicoVA = new HashMap<>();
         dicoAV = new HashMap<>();
         membreScenario = new ArrayList<>();
+        suiviScenario = new SuiviScenario();
     }
 
     public static void ecritureS(String nomFichier, Scenario scenario) throws IOException{
@@ -38,42 +38,9 @@ public class Scenario {
 
 
 
-    public static void suiviScenario(File fileScenario) throws FileNotFoundException, IOException {
 
-        File suiviScenario = new File("src/main/resources/suivi_scenarios.txt");
-        boolean nouveau = suiviScenario.createNewFile();
-        System.out.println(nouveau);
 
-        getListeSuivi(suiviScenario);
-        System.out.println(suiviScenario);
-        if (!listScenarioConnus.contains(fileScenario.getName())) {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(suiviScenario, true));
-            writer.write(fileScenario.getName());
-            writer.newLine();
-            writer.close();
-            listScenarioConnus.add(fileScenario.getName());
-        }
 
-        System.out.println(listScenarioConnus);
-    }
-
-    public static boolean getListeSuivi(File fileSuivi) throws IOException {
-        fileSuivi.createNewFile();
-        if (listScenarioConnus == null) {
-            listScenarioConnus = new ArrayList<>();
-        }
-        BufferedReader bufferEntree = new BufferedReader(new FileReader(fileSuivi));
-        String ligne;
-        do {
-            ligne = bufferEntree.readLine();
-            if (ligne != null && ! listScenarioConnus.contains(ligne)) {
-                listScenarioConnus.add(ligne);
-            }
-        }
-        while (ligne != null);
-        if (listScenarioConnus.size() > 0) return true;
-        else return false;
-    }
 
     /**
      * Ecrit dans un fichier texte les scenarios deja connu du lappli.
@@ -99,7 +66,7 @@ public class Scenario {
             bufferEntree.close();
             scenario.updateDico();
             scenario.updateMembreScenario();
-            Scenario.suiviScenario(fichier);
+            SuiviScenario.writeSuiviScenario(fichier);
             return scenario;
         }
         catch (Exception e){
@@ -111,9 +78,6 @@ public class Scenario {
         return null;
     }
 
-    public static ArrayList<String> getSuiviScenario() {
-        return listScenarioConnus;
-    }
 
 
     public void ajoutVA(String nVendeur, String nAcheteur){
@@ -229,10 +193,6 @@ public class Scenario {
 
     public ArrayList<String> getAcheteurs(){
         return listAcheteurs;
-    }
-
-    public static ArrayList<String> getListScenarioConnus() {
-        return listScenarioConnus;
     }
 
     }
