@@ -1,14 +1,14 @@
 package vue;
 
 import Controleur.ControleurMenu;
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.ComboBoxListCell;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import modele.Scenario;
+import modele.SuiviScenario;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,21 +18,21 @@ public class VBoxMenu extends VBox implements IntitulesMenu {
     private ControleurMenu controleurMenu;
     private MenuBar chMenuBar;
     private Scenario scenario;
+    private VBoxRoot vBoxRoot;
 
 
     private ComboBox<String> comboBoxScenario;
-    public VBoxMenu() throws IOException {
-        controleurMenu = new ControleurMenu(this);
+    public VBoxMenu(VBoxRoot parVboxRoot) throws IOException {
+        vBoxRoot = parVboxRoot;
+        controleurMenu = new ControleurMenu(this,parVboxRoot);
+        System.out.println(this.getParent());
        // PageMain.getControleurStage().setVBoxMenu(this);
        // controleurStage = PageMain.getControleurStage();
 
         scenario = new Scenario();
         File suiviScenario = new File("src/main/resources/suivi_scenarios.txt");
-        scenario.getListeSuivi(suiviScenario);
-        comboBoxScenario =
-                new ComboBox<>( FXCollections.observableArrayList(scenario.getListScenarioConnus()));
-        comboBoxScenario.setValue("Séléctionner votre Scénario");
-        comboBoxScenario.setOnAction(controleurMenu);
+        SuiviScenario.RecupereListeSuivi(suiviScenario);
+
 
         chMenuBar = new MenuBar();
         int i = 0;
@@ -47,8 +47,8 @@ public class VBoxMenu extends VBox implements IntitulesMenu {
             }
             i++;
         }
-        System.out.println(scenario.getListScenarioConnus());
-        this.getChildren().addAll(chMenuBar,comboBoxScenario);
+        System.out.println(SuiviScenario.getListeScenarioSuivi());
+        this.getChildren().addAll(chMenuBar);
     }
 
     public MenuBar getChMenuBar(){
