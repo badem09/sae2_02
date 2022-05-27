@@ -2,11 +2,9 @@ package vue;
 
 public interface IntitulesMenu {
 
-    String[] ITEM_MENU  = {"Scénarios", "Itinéraires"};
-  /*  String[][] SOUS_MENU = {{"Scenario 0","Scenario 1.1" , "Scenario 1.2", "Scenario 2.1",
-            "Scenario 2.2 (Optionnel)"},
-            {"Tous les itinéraires", "Votre itinéraire"}
-    };*/
-    String[][] SOUS_MENU = {{"Ajout d'un scénario","Scénario connus"},{"Tous les itinéraires","Votre itinéraire"}};
+    String[] ITEM_MENU  = {"_Scénarios", "_Itinéraires"};
+
+    String[][] SOUS_MENU = {{"_Ajout d'un scénario","Scénarios _connus"}
+            ,{"Tous les itinéraires","Votre itinéraire"}};
 }
 
