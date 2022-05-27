@@ -42,7 +42,8 @@ public class VBoxAllItineraire extends VBox {
                     tempsItineraire = new TempsItineraire(it);
                     // textItineraire.setText(tempsItineraire.toString(0,8));
                     nbPages = tempsItineraire.getNbPages();
-                    pagination.setLabelCurrentPage("0");
+                    pagination.setLabelCurrentPage("1");
+                    textItineraire.setText(tempsItineraire.toString(0,8));
                     pagination.setLabelMaxPage(String.valueOf(nbPages));
                     System.out.println(nbPages);
                 } catch (IOException e) {
