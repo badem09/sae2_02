@@ -78,6 +78,37 @@ public class Scenario {
         return null;
     }
 
+    public static Scenario lectureScenario (File fichier) throws IOException {
+        boolean succes = true;
+        try{
+            FileReader fr =  new FileReader(fichier);
+            Scenario scenario = new Scenario();
+            BufferedReader bufferEntree = new BufferedReader(fr);
+            String ligne;
+            StringTokenizer tokenizer;
+            do {
+                ligne = bufferEntree.readLine();
+                if (ligne != null) {
+                    tokenizer = new StringTokenizer(ligne, " ->");
+                    scenario.ajoutVA(tokenizer.nextToken(), tokenizer.nextToken());
+                }
+            }
+            while (ligne != null);
+            bufferEntree.close();
+            scenario.updateDico();
+            scenario.updateMembreScenario();
+            SuiviScenario.writeSuiviScenario(fichier);
+            return scenario;
+        }
+        catch (FileNotFoundException fnfe){
+            succes = false;
+            System.out.println("Le fichier est introuvable.\nVeuillez vérifier son chemin d'accès" ) ;
+           // System.exit(5);
+
+        }
+        return null;
+    }
+
 
 
     public void ajoutVA(String nVendeur, String nAcheteur){
