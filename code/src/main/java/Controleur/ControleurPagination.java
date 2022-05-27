@@ -42,7 +42,7 @@ public class ControleurPagination implements EventHandler {
                 if (pagination.getCurrentPage() < pagination.getMaxPage()) {
                     pagination.setLabelCurrentPage(pagination.getLabelMaxPage().getText());
                     String currentPage = vBoxItineraire.getTempsItineraire().toString(
-                            pagination.getMaxPage() % 8, pagination.getMaxPage());
+                            pagination.getMaxPage()*8 - 8, (pagination.getMaxPage()+1)*8);
                     vBoxItineraire.getTextItineraire().setText(currentPage);
                 }
             }
