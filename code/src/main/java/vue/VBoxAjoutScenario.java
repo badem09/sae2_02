@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import modele.Scenario;
 
 import java.io.File;
+import java.io.IOException;
 
 public class VBoxAjoutScenario extends VBox {
     private TextArea textAreaScenario;
@@ -16,16 +17,22 @@ public class VBoxAjoutScenario extends VBox {
 
     public VBoxAjoutScenario(Stage stage){
         FileChooser fileChooser = new FileChooser();
-        textAreaScenario = new TextArea("A venir...");
+        textAreaScenario = new TextArea();
 
         fileChooser.getExtensionFilters().add(
                 new FileChooser.ExtensionFilter("Text Files", "*.txt"));
         Button button = new Button("Select File");
         button.setOnAction(e -> {
             File selectedFile = fileChooser.showOpenDialog(stage);
-            textAreaScenario.setText(String.valueOf(selectedFile));
-           // scenario = Scenario.lectureScenario(String.valueOf(selectedFile));
+          //  textAreaScenario.setText(String.valueOf(selectedFile));
+            try {
+                scenario = Scenario.lectureScenario(String.valueOf(selectedFile));
+                textAreaScenario.setText(scenario.toString());
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         });
+
 
         VBox vBox = new VBox(button);
         Scene scene = new Scene(vBox, 960, 600);
