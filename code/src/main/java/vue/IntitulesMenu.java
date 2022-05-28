@@ -4,9 +4,9 @@ public interface IntitulesMenu {
 
     String[] ITEM_MENU  = {"_Scénarios", "_Itinéraires"};
 
-    String[][] SOUS_MENU = {{"_Ajout d'un scénario","Scénarios _connus"}
-            ,{"Tous les itinéraires","Votre itinéraire"}};
+    String[][] SOUS_MENU = {{"_Nouveau Scénario","Scénarios _Enregistrés"}
+            ,{"_Tous les itinéraires","_Votre itinéraire"}};
 
-    String[][] MNEMONIQUES = {{"A","C"},{"T","V"}};
+    String[][] MNEMONIQUES = {{"N","E"},{"T","V"}};
 }
 
