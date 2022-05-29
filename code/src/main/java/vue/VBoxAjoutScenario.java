@@ -51,16 +51,15 @@ public class VBoxAjoutScenario extends VBox {
         buttonToScenario.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
+
                 StackPane stackPane = root.getStackPane();
-
-
                 try {
-                    Scenario s = Scenario.lectureScenario(selectedFile);
+                    Scenario s = Scenario.lectureScenario(selectedFile,false);
                     root.getvBoxAjoutPreview().setScenario(s);
-                int last = stackPane.getChildren().size() - 1;
-                while (!(stackPane.getChildren().get(last) instanceof VBoxAjoutPreview)) {
-                    stackPane.getChildren().get(0).toFront();
-                }
+                    int last = stackPane.getChildren().size() - 1;
+                    while (!(stackPane.getChildren().get(last) instanceof VBoxAjoutPreview)) {
+                        stackPane.getChildren().get(0).toFront();
+                    }
                 } catch (Exception e) {
                     System.out.println(e);
                     Alert mauvaisformat = new Alert(Alert.AlertType.ERROR);
@@ -76,8 +75,7 @@ public class VBoxAjoutScenario extends VBox {
         Scene scene = new Scene(vBox, 960, 600);
         stage.setScene(scene);
         stage.show();
-        this.getChildren().addAll(button,labelTransition,
-                textAreaScenario,buttonToScenario);
+        this.getChildren().addAll(button,labelTransition, textAreaScenario, buttonToScenario);
         this.setSpacing(10);
         this.setId("opaque");
 
