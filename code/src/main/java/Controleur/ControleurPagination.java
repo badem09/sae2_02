@@ -20,6 +20,7 @@ public class ControleurPagination implements EventHandler {
             if (((Button) event.getSource()).getAccessibleText() == "avancer") {
                 if (pagination.getMaxPage() > pagination.getCurrentPage()) {
                     int anciennePage = Integer.valueOf(pagination.getLabelCurrentPage().getText()) +1;
+                    String newPageNumber = " " + String.valueOf(anciennePage);
                     pagination.setLabelCurrentPage(String.valueOf(anciennePage));
                     String currentPage = vBoxItineraire.getTempsItineraire().toString(8*(anciennePage-1), 8*anciennePage);
                     vBoxItineraire.getTextItineraire().setText(currentPage);
