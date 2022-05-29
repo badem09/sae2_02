@@ -38,7 +38,7 @@ public class VBoxAllItineraire extends VBox {
                 System.out.println(((ComboBox<?>) event.getSource()).getSelectionModel().getSelectedItem());
                 String scenarioCourant = (String) ((ComboBox<?>) event.getSource()).getSelectionModel().getSelectedItem();
                 try {
-                    currentScenario = Scenario.lectureScenario("src/main/resources/" + scenarioCourant);
+                    currentScenario = Scenario.lectureScenario("src/main/resources/" + scenarioCourant,false);
                     Itineraire it = new Itineraire(currentScenario);
                     tempsItineraire = new TempsItineraire(it);
                     // textItineraire.setText(tempsItineraire.toString(0,8));
