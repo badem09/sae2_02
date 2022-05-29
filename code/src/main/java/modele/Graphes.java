@@ -75,6 +75,10 @@ public class Graphes {
     public int getOrdre() {
         return ordre;
     }
+
+    public Scenario getScenario() {
+        return scenario;
+    }
 }
 
 
