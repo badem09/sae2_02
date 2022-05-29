@@ -203,4 +203,8 @@ public class Itineraire {
     public ArrayList<ArrayList<String>> getItineraireGen() {
         return itineraireGen;
     }
+
+    public Scenario getScenario(){
+        return  graphe.getScenario();
+    }
 }
