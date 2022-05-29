@@ -24,7 +24,8 @@ public class VBoxAllItineraire extends VBox {
 
     public VBoxAllItineraire(){
         this.setId("opaque");
-        this.setPadding(new Insets(10));
+        this.setSpacing(10);
+
         pagination = new HBoxPagination(this);
         textItineraire = new TextArea();
         textItineraire.setPrefHeight(570);
