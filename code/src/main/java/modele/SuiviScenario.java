@@ -2,6 +2,7 @@ package modele;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class SuiviScenario {
     private static ArrayList<String> listeScenarioSuivi;
@@ -24,11 +25,10 @@ public class SuiviScenario {
             }
         }
         while (ligne != null);
-        if (listeScenarioSuivi.size() > 0) return true;
-        else return false;
+        return listeScenarioSuivi.size() > 0;
     }
 
-    public static void writeSuiviScenario(File fileScenario) throws FileNotFoundException, IOException {
+    public static void writeSuiviScenario(File fileScenario) throws  IOException {
 
         File suiviScenario = new File("src/main/resources/suivi_scenarios.txt");
         boolean nouveau = suiviScenario.createNewFile();
@@ -42,6 +42,7 @@ public class SuiviScenario {
             writer.newLine();
             writer.close();
             listeScenarioSuivi.add(fileScenario.getName());
+            Collections.sort(listeScenarioSuivi);
         }
 
    //     System.out.println(listeScenarioSuivi);
