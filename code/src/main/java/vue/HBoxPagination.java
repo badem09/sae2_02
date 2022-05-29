@@ -22,7 +22,7 @@ public class HBoxPagination extends HBox {
         vBoxItineraire = parVboxIt;
 
         controleurPage = new ControleurPagination(vBoxItineraire,this);
-        labelMaxPage = new Label("1");
+        labelMaxPage = new Label(" 1");
         labelCurrentPage = new Label("1");
         buttonAvancer = new Button(">");
         buttonReculer = new Button("<");
@@ -42,7 +42,7 @@ public class HBoxPagination extends HBox {
 
 
         this.getChildren().addAll(buttonDebut,buttonReculer,
-                labelCurrentPage,new Label(" sur "), labelMaxPage, new Label(" pages."),
+                labelCurrentPage,new Label(" sur "), labelMaxPage, new Label(" pages "),
                 buttonAvancer,buttonFin);
     }
 
