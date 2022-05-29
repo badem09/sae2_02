@@ -56,6 +56,7 @@ public class TempsItineraire {
         return dicoItineraire;
     }
     public String  getBestItineraire(){
+        // What if yen a 2?
         String r = "";
         long min = 1000000000;
         ArrayList<String> best = new ArrayList<>();
