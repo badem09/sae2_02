@@ -13,7 +13,7 @@ public class Scenario {
     private final HashMap<String,ArrayList<String>> dicoAV ;  // Acheteurs -> Vendeurs
     private  ArrayList<String> membreScenario ; //membres concernés par le scenario
 
-
+    private HashMap<String,String> membreToVille ;
     private static SuiviScenario suiviScenario;
 
 
@@ -25,6 +25,20 @@ public class Scenario {
         dicoAV = new HashMap<>();
         membreScenario = new ArrayList<>();
         suiviScenario = new SuiviScenario();
+        membreToVille = new HashMap<>();
+    }
+
+    public HashMap<String, String> getMembreInconnus() {
+      //  System.out.println(membreScenario);
+        HashMap<String,String> retour = villes.getMembreToVilles();
+        for (String membre : membreScenario){
+            if (! retour.containsKey(membre)){
+                retour.put(membre," Ville inconnue !");
+            }
+        }
+      //
+        //  System.out.println(retour);
+        return retour;
     }
 
     public static void ecritureS(String nomFichier, Scenario scenario) throws IOException{
@@ -46,7 +60,7 @@ public class Scenario {
      * Ecrit dans un fichier texte les scenarios deja connu du lappli.
      */
 
-    public static Scenario lectureScenario (String path) throws IOException {
+    public static Scenario lectureScenario (String path, boolean save) throws IOException {
         boolean succes = true;
         try{
             File fichier = new File(path);
@@ -66,11 +80,15 @@ public class Scenario {
             bufferEntree.close();
             scenario.updateDico();
             scenario.updateMembreScenario();
-            SuiviScenario.writeSuiviScenario(fichier);
+            if (save) {
+                SuiviScenario.writeSuiviScenario(fichier);
+            }
             return scenario;
         }
         catch (Exception e){
             succes = false;
+            System.out.println(e);
+            System.out.println(path);
             System.out.println("Le fichier est introuvable.\nVeuillez vérifier son chemin d'accès" ) ;
             System.exit(5);
 
@@ -78,7 +96,7 @@ public class Scenario {
         return null;
     }
 
-    public static Scenario lectureScenario (File fichier) throws IOException {
+    public static Scenario lectureScenario (File fichier,boolean save ) throws IOException {
         boolean succes = true;
         try{
             FileReader fr =  new FileReader(fichier);
@@ -97,7 +115,9 @@ public class Scenario {
             bufferEntree.close();
             scenario.updateDico();
             scenario.updateMembreScenario();
-            SuiviScenario.writeSuiviScenario(fichier);
+            if (save) {
+                SuiviScenario.writeSuiviScenario(fichier);
+            }
             return scenario;
         }
         catch (FileNotFoundException fnfe){
@@ -152,25 +172,26 @@ public class Scenario {
         membresUnique.addAll(listVendeurs);
         membreScenario = new ArrayList<>(membresUnique);
         Collections.sort(membreScenario);
+        membreToVille = getMembreInconnus();
     }
 
     public ArrayList<String> membresToVilles(ArrayList<String> tab){
         ArrayList<String> villeScenario = new ArrayList<>();
-        HashMap<String,String> membresVilles = villes.getMembreToVilles();
+        //HashMap<String,String> membresVilles = villes.getMembreToVilles();
         for (String elem : tab){
-            villeScenario.add(membresVilles.get(elem));
+            villeScenario.add(membreToVille.get(elem));
         }
         return villeScenario ;
     }
 
     public HashMap<String, ArrayList<String>> membresToVilles(HashMap<String, ArrayList<String>> dico){
         /* ne me semble pas tres pertinent */
-        HashMap<String,String> membresVilles = villes.getMembreToVilles();
+       // HashMap<String,String> membresVilles = villes.getMembreToVilles();
         HashMap<String, ArrayList<String>> retour = new HashMap<>(dico);
         for (String elem : retour.keySet()){
             ArrayList<String> list = retour.get(elem);
             for (int i = 0; i < list.size() ;i++) {
-                list.set(i,membresVilles.get(list.get(i))) ;
+                list.set(i,membreToVille.get(list.get(i))) ;
             }
         }
         return retour ;
@@ -181,10 +202,11 @@ public class Scenario {
         for (int i = 0; i<listAcheteurs.size(); i++){
             String a = listAcheteurs.get(i);
             String v = listVendeurs.get(i);
+
             retour += i + " : "+ a + " vends à " + v +
-                    "  " + villes.getMembreToVilles().get(a) +
+                    "  " + membreToVille.get(a) +
                     " --- " +
-                    "" + villes.getMembreToVilles().get(v) +"\n";
+                    "" + membreToVille.get(v) +"\n";
         }
         return retour;
     }
@@ -213,7 +235,7 @@ public class Scenario {
     public String getMembreToString(){
         String retour = "Président : Vélizy" + "\n";
         for (String membres : membreScenario){
-            retour += membres + " : " + villes.getMembreToVilles().get(membres) + "\n";
+            retour += membres + " : " + membreToVille.get(membres) + "\n";
         }
         return retour;
     }
