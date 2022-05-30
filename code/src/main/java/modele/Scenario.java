@@ -135,6 +135,11 @@ public class Scenario {
         listVendeurs.add(nVendeur);
         listAcheteurs.add(nAcheteur);
     }
+
+    public static SuiviScenario getSuiviScenario() {
+        return suiviScenario;
+    }
+
     private void updateDico(){
         for (int i = 0; i< listAcheteurs.size(); i++){
             String a = listAcheteurs.get(i);
