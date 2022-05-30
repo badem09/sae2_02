@@ -32,7 +32,7 @@ public class VBoxAjoutScenario extends VBox {
         Label labelTransition = new Label("Le fichier séléctionné : ");
         fileChooser.getExtensionFilters().add(
                 new FileChooser.ExtensionFilter("Text Files", "*.txt"));
-        Button button = new Button("Select File");
+        Button button = new Button("Choisissez votre Fichier");
         button.setOnAction(e -> {
             selectedFile = fileChooser.showOpenDialog(stage);
           //  textAreaScenario.setText(String.valueOf(selectedFile));
@@ -56,6 +56,7 @@ public class VBoxAjoutScenario extends VBox {
                 try {
                     Scenario s = Scenario.lectureScenario(selectedFile,false);
                     root.getvBoxAjoutPreview().setScenario(s);
+                    root.getvBoxAjoutPreview().setSelectedFile(selectedFile);
                     int last = stackPane.getChildren().size() - 1;
                     while (!(stackPane.getChildren().get(last) instanceof VBoxAjoutPreview)) {
                         stackPane.getChildren().get(0).toFront();
@@ -72,6 +73,8 @@ public class VBoxAjoutScenario extends VBox {
             }
         });
         VBox vBox = new VBox(button);
+
+
         Scene scene = new Scene(vBox, 960, 600);
         stage.setScene(scene);
         stage.show();
