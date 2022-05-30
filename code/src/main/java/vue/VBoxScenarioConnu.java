@@ -9,6 +9,8 @@ import modele.Scenario;
 import modele.SuiviScenario;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class VBoxScenarioConnu extends VBox {
     private VBoxMenu vBoxMenu;
@@ -18,7 +20,9 @@ public class VBoxScenarioConnu extends VBox {
     public VBoxScenarioConnu(VBoxRoot root) throws IOException {
         this.setId("opaque");
 
-        comboBoxScenario = new ComboBox<>(FXCollections.observableArrayList(SuiviScenario.getListeScenarioSuivi()));
+        ArrayList<String> liste = SuiviScenario.getListeScenarioSuivi();
+        Collections.sort(liste);
+        comboBoxScenario = new ComboBox<>(FXCollections.observableArrayList(liste));
         comboBoxScenario.setValue("Séléctionner votre Scénario");
         comboBoxScenario.setOnAction(new EventHandler<ActionEvent>() {
             @Override
