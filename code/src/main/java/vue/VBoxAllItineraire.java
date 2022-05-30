@@ -13,6 +13,8 @@ import modele.SuiviScenario;
 import modele.TempsItineraire;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class VBoxAllItineraire extends VBox {
     private Scenario currentScenario ;
@@ -29,7 +31,9 @@ public class VBoxAllItineraire extends VBox {
         pagination = new HBoxPagination(this);
         textItineraire = new TextArea();
         textItineraire.setPrefHeight(570);
-        comboBoxScenario = new ComboBox<>(FXCollections.observableArrayList(SuiviScenario.getListeScenarioSuivi()));
+        ArrayList<String> liste = SuiviScenario.getListeScenarioSuivi();
+        Collections.sort(liste);
+        comboBoxScenario = new ComboBox<>(FXCollections.observableArrayList(liste));
         comboBoxScenario.setValue("Séléctionner votre Scénario");
         comboBoxScenario.setOnAction(new EventHandler<ActionEvent>() {
             @Override
