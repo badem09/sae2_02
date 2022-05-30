@@ -39,6 +39,8 @@ public class VBoxAjoutPreview extends VBox {
                         root.getVboxScenario().setScenario(s);
                     }
                     Scenario.getSuiviScenario().writeSuiviScenario(selectedFile);
+                    stackPane.getChildren().remove(last);
+                    stackPane.getChildren().add(new VBoxScenarioConnu(root));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
