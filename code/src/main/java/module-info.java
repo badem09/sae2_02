@@ -9,5 +9,6 @@ module com.example.scenario {
 
     exports vue;
     exports modele;
+    exports Controleur;
 
 }
