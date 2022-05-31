@@ -4,7 +4,9 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 import modele.Itineraire;
@@ -57,7 +59,13 @@ public class VBoxAllItineraire extends VBox {
             }
 
         });
-        this.getChildren().addAll(comboBoxScenario,textItineraire,pagination);
+
+        Label labelTitre = new Label("Tous les itinéraires");
+        labelTitre.setAlignment(Pos.TOP_CENTER );
+        VBox vBoxTitre = new VBox(labelTitre);
+        vBoxTitre.setAlignment(Pos.CENTER);
+
+        this.getChildren().addAll(vBoxTitre,comboBoxScenario,textItineraire,pagination);
     }
 
     public TextArea getTextItineraire() {
