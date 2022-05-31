@@ -1,9 +1,11 @@
 package vue;
 
 import Controleur.ControleurPagination;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class HBoxPagination extends HBox {
 
@@ -22,8 +24,8 @@ public class HBoxPagination extends HBox {
         vBoxItineraire = parVboxIt;
 
         controleurPage = new ControleurPagination(vBoxItineraire,this);
-        labelMaxPage = new Label(" 1");
-        labelCurrentPage = new Label("1");
+        labelMaxPage = new Label(" 1 ");
+        labelCurrentPage = new Label("1 ");
         buttonAvancer = new Button(">");
         buttonReculer = new Button("<");
         buttonDebut = new Button("<<");
@@ -40,10 +42,10 @@ public class HBoxPagination extends HBox {
         buttonAvancer.setOnAction(controleurPage);
 
 
+        HBox hBoxNumPage = new HBox(labelCurrentPage,new Label("sur"), labelMaxPage, new Label("pages"));
+        hBoxNumPage.setSpacing(3);
+        this.getChildren().addAll(buttonDebut,buttonReculer,hBoxNumPage, buttonAvancer,buttonFin);
 
-        this.getChildren().addAll(buttonDebut,buttonReculer,
-                labelCurrentPage,new Label(" sur "), labelMaxPage, new Label(" pages "),
-                buttonAvancer,buttonFin);
     }
 
     public void setLabelCurrentPage(String strMin) {
