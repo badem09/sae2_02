@@ -4,8 +4,8 @@ import Controleur.ControleurMenu;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.VBox;
-import modele.Scenario;
-import modele.SuiviScenario;
+import modele.*;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -42,8 +42,9 @@ public class VBoxMenu extends VBox implements IntitulesMenu {
                 MenuItem menuItem = new MenuItem(SOUS_MENU[i][j]);
                 menuItem.setUserData(SOUS_MENU[i][j]);
                 menuItem.setOnAction(controleurMenu);
-                menuItem.setAccelerator(KeyCombination.keyCombination(
-                        "shortcut+" + MNEMONIQUES[i][j]));
+               // menuItem.setAccelerator(KeyCombination.keyCombination(
+                 //"shortcut+" + MNEMONIQUES[i][j]));
+               
                 menuItem.setMnemonicParsing(true);
                 chMenuBar.getMenus().get(i).getItems().add(menuItem);
             }
