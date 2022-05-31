@@ -3,7 +3,9 @@ package vue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import modele.Scenario;
 import modele.SuiviScenario;
@@ -38,7 +40,12 @@ public class VBoxScenarioConnu extends VBox {
             }
         });
         gridPaneOrg = new GridPaneOrg();
-        this.getChildren().addAll(comboBoxScenario,gridPaneOrg);
+        Label labelTitre = new Label("Les scénarios enregistrés.");
+        labelTitre.setLabelFor(gridPaneOrg);
+        labelTitre.setAlignment(Pos.TOP_CENTER );
+        VBox vBoxTitre = new VBox(labelTitre);
+        vBoxTitre.setAlignment(Pos.CENTER);
+        this.getChildren().addAll(vBoxTitre,comboBoxScenario,gridPaneOrg);
     }
 
     public VBoxMenu getvBoxMenu() {
