@@ -1,5 +1,6 @@
 package Controleur;
 
+import modele.*;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -7,8 +8,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.StackPane;
-import modele.Scenario;
-import modele.SuiviScenario;
+
 import vue.*;
 
 import java.io.IOException;
