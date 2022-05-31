@@ -3,6 +3,7 @@ package vue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -73,12 +74,16 @@ public class VBoxAjoutScenario extends VBox {
             }
         });
         VBox vBox = new VBox(button);
-
-
         Scene scene = new Scene(vBox, 960, 600);
         stage.setScene(scene);
         stage.show();
-        this.getChildren().addAll(button,labelTransition, textAreaScenario, buttonToScenario);
+
+        Label labelTitre = new Label("L'ajout d'un fichier");
+        labelTitre.setAlignment(Pos.TOP_CENTER );
+        VBox vBoxTitre = new VBox(labelTitre);
+        vBoxTitre.setAlignment(Pos.CENTER);
+
+        this.getChildren().addAll(vBoxTitre,button,labelTransition, textAreaScenario, buttonToScenario);
         this.setSpacing(10);
         this.setId("opaque");
 
