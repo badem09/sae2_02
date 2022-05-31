@@ -2,10 +2,10 @@ package vue;
 
 public interface IntitulesMenu {
 
-    String[] ITEM_MENU  = {"_Scénarios", "_Itinéraires"};
+    String[] ITEM_MENU  = {"_" + "Scénarios",  "_" + "Itinéraires"};
 
-    String[][] SOUS_MENU = {{"_Nouveau Scénario","Scénarios _Enregistrés"}
-            ,{"_Tous les itinéraires","_Votre itinéraire"}};
+    String[][] SOUS_MENU = {{"_" + "Nouveau Scénario","Scénarios " + "_" +"Enregistrés"}
+            ,{"_" + "Tous les itinéraires","_" + "Votre itinéraire"}};
 
     String[][] MNEMONIQUES = {{"N","E"},{"T","V"}};
 }
