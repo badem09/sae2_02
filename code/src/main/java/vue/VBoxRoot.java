@@ -29,7 +29,7 @@ public class VBoxRoot extends VBox {
         vBoxMenu = new VBoxMenu(this);
         vBoxScenario = new VBoxScenarioConnu(this);
         vBoxAjout = new VBoxAjoutScenario(stage,this);
-        vBoxAllItineraire = new VBoxAllItineraire();
+        vBoxAllItineraire = new VBoxAllItineraire(this);
         vBoxAjoutPreview = new VBoxAjoutPreview(this);
         comboBoxScenario = new ComboBoxScenario();
 
