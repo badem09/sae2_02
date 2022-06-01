@@ -22,6 +22,7 @@ public class VBoxRoot extends VBox {
     private static VBoxAllItineraire vBoxAllItineraire;
     private static VBoxAjoutPreview vBoxAjoutPreview;
     private static ControleurMenu controleurMenu;
+    private ComboBoxScenario comboBoxScenario;
 
 
     public VBoxRoot(Stage stage) throws IOException {
@@ -30,6 +31,7 @@ public class VBoxRoot extends VBox {
         vBoxAjout = new VBoxAjoutScenario(stage,this);
         vBoxAllItineraire = new VBoxAllItineraire();
         vBoxAjoutPreview = new VBoxAjoutPreview(this);
+        comboBoxScenario = new ComboBoxScenario();
 
         Node [] components = new Node[4];
         components[0] = vBoxScenario;
@@ -59,5 +61,9 @@ public class VBoxRoot extends VBox {
 
     public static VBoxAjoutPreview getvBoxAjoutPreview() {
         return vBoxAjoutPreview;
+    }
+
+    public static VBoxAllItineraire getvBoxAllItineraire() {
+        return vBoxAllItineraire;
     }
 }
