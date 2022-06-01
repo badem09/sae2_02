@@ -26,7 +26,7 @@ public class VBoxAjoutPreview extends VBox {
 
     public VBoxAjoutPreview(VBoxRoot root) throws IOException {
         this.setId("opaque");
-        gridPaneOrg = new GridPaneOrg();
+        gridPaneOrg = new GridPaneOrg(root);
 
         Button buttonValider = new Button("Valider");
         buttonValider.setAccessibleText("validerAjoutScenario");
