@@ -19,6 +19,8 @@ import modele.TempsItineraire;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 public class VBoxAllItineraire extends VBox {
     private Scenario currentScenario ;
@@ -28,10 +30,14 @@ public class VBoxAllItineraire extends VBox {
     private HBoxPagination pagination;
     private TempsItineraire tempsItineraire;
     private Label labelNbItineraire;
+    private VBoxRoot root ;
+    private Map<String,TempsItineraire> mapItineraire;
 
-    public VBoxAllItineraire(){
+    public VBoxAllItineraire(VBoxRoot parRoot){
         this.setId("opaque");
         this.setSpacing(10);
+        mapItineraire = new HashMap<>();
+        root = parRoot;
         labelNbItineraire = new Label();
         pagination = new HBoxPagination(this);
         textItineraire = new TextArea();
@@ -48,9 +54,18 @@ public class VBoxAllItineraire extends VBox {
                 String scenarioCourant = (String) ((ComboBox<?>) event.getSource()).getSelectionModel().getSelectedItem();
                 try {
                     currentScenario = Scenario.lectureScenario("src/main/resources/" + scenarioCourant,false);
-                    Itineraire it = new Itineraire(currentScenario);
-                    tempsItineraire = new TempsItineraire(it);
+                  //  Itineraire it = new Itineraire(currentScenario);
+                   // tempsItineraire = new TempsItineraire(it);
+                   // tempsItineraire = root.getVboxScenario().getGridPaneOrg().getMapItineraire().get(scenarioCourant);
                     // textItineraire.setText(tempsItineraire.toString(0,8));
+                    if ( ! mapItineraire.containsKey(scenarioCourant)){
+                        Itineraire it = new Itineraire(currentScenario);
+                        tempsItineraire = new TempsItineraire(it);
+                        root.getVboxScenario().getGridPaneOrg().updateMapItineraire(scenarioCourant,tempsItineraire);
+                    }
+                    else {
+                        tempsItineraire = mapItineraire.get(scenarioCourant);
+                    }
                     nbPages = tempsItineraire.getNbPages();
                     pagination.setLabelCurrentPage("1");
                     textItineraire.setText(tempsItineraire.toString(0,8));
@@ -88,5 +103,9 @@ public class VBoxAllItineraire extends VBox {
 
     public void updateCombo(ObservableList<String> liste){
         comboBoxScenario.setItems(liste);
+    }
+
+    public void updateMapItineraire(String fileName , TempsItineraire ti){
+        mapItineraire.put(fileName,ti);
     }
 }
