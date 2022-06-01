@@ -36,8 +36,8 @@ public class TempsItineraire {
         for (ArrayList<String> it : itineraire.getAllItineraire()) {
             int sum = 0;
             for (int i = 0; i < it.size() - 1; i++) {
-                if (membresVilles.get(it.get(i)) == "Ville inconnue !" ||
-                     membresVilles.get(it.get(i + 1)) == "Ville inconnue !" ){
+                if (membresVilles.get(it.get(i)) == "Ville non renseignée !" ||
+                     membresVilles.get(it.get(i + 1)) == "Ville non renseignée !" ){
                  break;
                  //Si 1 ville est inconnue: itinéraire incalculable
              }
@@ -68,7 +68,7 @@ public class TempsItineraire {
             }
         }
         r += best + "\n" + membresToVilles(best)+ "\n"  +
-                "longueur : " + dicoItineraire.get(best) + "\n" +"\n";
+                "longueur : " + dicoItineraire.get(best) + " km" + "\n" +"\n";
         return r ;
     }
 
@@ -87,7 +87,7 @@ public class TempsItineraire {
         for (ArrayList<String> s : dicoItineraire.keySet()){
          //  System.out.println(s);
            r += s + "\n" + membresToVilles(s)+ "\n"  +
-                   "longueur : " + dicoItineraire.get(s) + "\n" +"\n";
+                   "longueur : " + dicoItineraire.get(s) + " km" + "\n" +"\n";
         }
         return r;
     }
@@ -103,7 +103,7 @@ public class TempsItineraire {
         for (int i = start; i < stop ; i++){
             retour += tabItineraire.get(i) + "\n" +
                     membresToVilles(tabItineraire.get(i)) +
-                    "\n" + "longueur : " + dicoItineraire.get(tabItineraire.get(i)) +"\n" +"\n";
+                    "\n" + "longueur : " + dicoItineraire.get(tabItineraire.get(i)) + " km" +"\n" +"\n";
         }
         return retour;
     }
