@@ -39,7 +39,7 @@ public class VBoxScenarioConnu extends VBox {
                 }
             }
         });
-        gridPaneOrg = new GridPaneOrg();
+        gridPaneOrg = new GridPaneOrg(root);
         Label labelTitre = new Label("Les scénarios enregistrés.");
         labelTitre.setLabelFor(gridPaneOrg);
         labelTitre.setAlignment(Pos.TOP_CENTER );
