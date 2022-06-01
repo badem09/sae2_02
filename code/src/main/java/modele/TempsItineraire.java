@@ -112,5 +112,9 @@ public class TempsItineraire {
         return nbPages;
     }
 
+    public int getNbItineraire(){
+        return itineraire.getAllItineraire().size();
+    }
+
 }
 
