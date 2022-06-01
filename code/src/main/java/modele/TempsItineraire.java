@@ -36,16 +36,17 @@ public class TempsItineraire {
         for (ArrayList<String> it : itineraire.getAllItineraire()) {
             int sum = 0;
             for (int i = 0; i < it.size() - 1; i++) {
-                //System.out.println(it);
-                //System.out.println(it.get(i));
-                //System.out.println(it.get(i+1));
-                if (villes.getTabVilles().contains(it.get(i)) && villes.getTabVilles().contains(it.get(i) )) {
+                if (membresVilles.get(it.get(i)) == "Ville inconnue !" ||
+                     membresVilles.get(it.get(i + 1)) == "Ville inconnue !" ){
+                 break;
+                 //Si 1 ville est inconnue: itinéraire incalculable
+             }
                     String avant = membresVilles.get(it.get(i));
                     String apres = membresVilles.get(it.get(i + 1));
                     int indexAvant = villes.getTabVilles().indexOf(avant);
                     int indexApres = villes.getTabVilles().indexOf(apres);
                     sum += tabDistance.get(indexAvant).get(indexApres);
-                }
+
             }
 
             dicoItineraire.put(it, sum);
