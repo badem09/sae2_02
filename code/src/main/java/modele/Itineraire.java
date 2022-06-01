@@ -1,10 +1,6 @@
 package modele;
 
-import javafx.scene.paint.Stop;
-
 import java.util.*;
-
-import static java.lang.System.exit;
 
 public class Itineraire {
 
@@ -145,7 +141,7 @@ public class Itineraire {
         // if (mapAdjSortant.get(source).size() == 0 && tousPresent(currentPath) && ! nouveauPath(currentPath) ) {
         if (currentPath.size() == graphe.getSommets().size() && tousPresent(currentPath)) {// tousPresent inutile
             allItineraire.add(currentPath);
-            System.out.println( allItineraire.size() + " " + currentPath);
+           // System.out.println( allItineraire.size() + " " + currentPath);
         }
     }
 
@@ -207,4 +203,18 @@ public class Itineraire {
     public Scenario getScenario(){
         return  graphe.getScenario();
     }
+
+    public ArrayList<String> parcoursProgressif(String depart, ArrayList<String> currentPath){
+        if (depart == ""){
+            return itineraireGen.get(0);
+        }
+        ArrayList<String> possibilites = mapAdjSortant.get(depart);
+        for (String sommet : (ArrayList<String>)possibilites.clone()){
+            if (! tousPredecesseurPresent(sommet, currentPath) ){
+                possibilites.remove(sommet);
+            }
+        }
+        return possibilites;
+    }
+
 }
