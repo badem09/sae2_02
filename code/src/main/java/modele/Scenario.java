@@ -33,7 +33,7 @@ public class Scenario {
         HashMap<String,String> retour = villes.getMembreToVilles();
         for (String membre : membreScenario){
             if (! retour.containsKey(membre)){
-                retour.put(membre," Ville inconnue !");
+                retour.put(membre,"Ville inconnue !");
             }
         }
       //
@@ -62,7 +62,7 @@ public class Scenario {
 
     public static Scenario lectureScenario (String path, boolean save) throws IOException {
         boolean succes = true;
-        try{
+   //     try{
             File fichier = new File(path);
             FileReader fr =  new FileReader(fichier);
             Scenario scenario = new Scenario();
@@ -83,17 +83,18 @@ public class Scenario {
             if (save) {
                 SuiviScenario.writeSuiviScenario(fichier);
             }
-            return scenario;
-        }
-        catch (Exception e){
-            succes = false;
-            System.out.println(e);
-            System.out.println(path);
-            System.out.println("Le fichier est introuvable.\nVeuillez vérifier son chemin d'accès" ) ;
-            System.exit(5);
 
-        }
-        return null;
+  //      }
+     //   catch (Exception e){
+        //    succes = false;
+          //  System.out.println(e);
+            System.out.println(path);
+       //     System.out.println("Le fichier est introuvable.\nVeuillez vérifier son chemin d'accès" ) ;
+         //   System.exit(5);
+            return scenario;
+
+      //  }
+   //     return null;
     }
 
     public static Scenario lectureScenario (File fichier,boolean save ) throws IOException {
