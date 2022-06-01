@@ -59,6 +59,10 @@ public class VBoxScenarioConnu extends VBox {
     public void setScenario(Scenario parScenario) throws IOException {
         PageMain.getvBoxScenario().getGridPaneOrg().setScenario(parScenario);
     }
+
+    public ComboBox<String> getCombo(){
+        return comboBoxScenario;
+    }
 }
 
 
