@@ -33,7 +33,7 @@ public class Scenario {
         HashMap<String,String> retour = villes.getMembreToVilles();
         for (String membre : membreScenario){
             if (! retour.containsKey(membre)){
-                retour.put(membre,"Ville inconnue !");
+                retour.put(membre,"Ville non renseignée !");
             }
         }
       //
