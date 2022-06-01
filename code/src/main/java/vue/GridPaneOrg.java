@@ -22,16 +22,18 @@ public class GridPaneOrg extends GridPane {
     TextArea textMembres;
     TextArea textScenario;
     private Map<String , TempsItineraire> mapItineraire;
+    private VBoxRoot root;
 
 
 
 
-    public GridPaneOrg() throws IOException {
+    public GridPaneOrg(VBoxRoot parRoot) throws IOException {
         this.setPadding(new Insets(20));
         this.setHgap(10);
         this.setVgap(10);
         this.setGridLinesVisible(false);
         mapItineraire = new HashMap<>();
+        root = parRoot;
 
         textMembres = new TextArea();
 
@@ -96,11 +98,21 @@ public class GridPaneOrg extends GridPane {
     }
 
     public void setScenario(Scenario parScenario) throws IOException {
-        if ( ! mapItineraire.containsKey(parScenario.getFileName())){
-            mapItineraire.put(parScenario.getFileName(),new TempsItineraire(new Itineraire(parScenario)));
+        String fileName = parScenario.getFileName();
+        if ( ! mapItineraire.containsKey(fileName)){
+            TempsItineraire ti = new TempsItineraire(new Itineraire(parScenario));
+            mapItineraire.put(fileName,ti);
+            root.getvBoxAllItineraire().updateMapItineraire(fileName, ti);
         }
         chScenario = parScenario;
         setContent();
     }
 
+    public Map<String, TempsItineraire> getMapItineraire() {
+        return mapItineraire;
+    }
+
+    public void updateMapItineraire(String fileName, TempsItineraire tempsItineraire) {
+        mapItineraire.put(fileName,tempsItineraire);
+    }
 }
