@@ -8,6 +8,8 @@ import javafx.geometry.Pos;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import modele.Itineraire;
 import modele.Scenario;
@@ -25,11 +27,12 @@ public class VBoxAllItineraire extends VBox {
     private  int nbPages;
     private HBoxPagination pagination;
     private TempsItineraire tempsItineraire;
+    private Label labelNbItineraire;
 
     public VBoxAllItineraire(){
         this.setId("opaque");
         this.setSpacing(10);
-
+        labelNbItineraire = new Label();
         pagination = new HBoxPagination(this);
         textItineraire = new TextArea();
         textItineraire.setPrefHeight(570);
@@ -52,6 +55,7 @@ public class VBoxAllItineraire extends VBox {
                     pagination.setLabelCurrentPage("1");
                     textItineraire.setText(tempsItineraire.toString(0,8));
                     pagination.setLabelMaxPage(String.valueOf(nbPages));
+                    labelNbItineraire.setText("Total : " + tempsItineraire.getNbItineraire() + " itinéraires");
                     System.out.println(nbPages);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -64,8 +68,11 @@ public class VBoxAllItineraire extends VBox {
         labelTitre.setAlignment(Pos.TOP_CENTER );
         VBox vBoxTitre = new VBox(labelTitre);
         vBoxTitre.setAlignment(Pos.CENTER);
-
-        this.getChildren().addAll(vBoxTitre,comboBoxScenario,textItineraire,pagination);
+        labelNbItineraire.setAlignment(Pos.BOTTOM_RIGHT);
+        BorderPane paneTotal = new BorderPane();
+        paneTotal.setRight(labelNbItineraire);
+        paneTotal.setLeft(pagination);
+        this.getChildren().addAll(vBoxTitre,comboBoxScenario,textItineraire,paneTotal);
     }
 
     public TextArea getTextItineraire() {
