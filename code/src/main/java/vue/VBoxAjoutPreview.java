@@ -1,6 +1,7 @@
 package vue;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -12,6 +13,8 @@ import modele.SuiviScenario;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class VBoxAjoutPreview extends VBox {
 
@@ -39,8 +42,11 @@ public class VBoxAjoutPreview extends VBox {
                         root.getVboxScenario().setScenario(s);
                     }
                     Scenario.getSuiviScenario().writeSuiviScenario(selectedFile);
-                    stackPane.getChildren().remove(last);
-                    stackPane.getChildren().add(new VBoxScenarioConnu(root));
+                    ArrayList<String> liste = SuiviScenario.getListeScenarioSuivi();
+                    ((VBoxScenarioConnu) stackPane.getChildren().get(last)).getCombo().setItems(
+                            FXCollections.observableArrayList(liste));
+                   // stackPane.getChildren().remove(last);
+                    //stackPane.getChildren().add(new VBoxScenarioConnu(root));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
