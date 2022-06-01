@@ -15,6 +15,8 @@ public class Scenario {
 
     private HashMap<String,String> membreToVille ;
     private static SuiviScenario suiviScenario;
+    private String fileName;
+
 
 
     public Scenario() throws IOException {
@@ -64,6 +66,7 @@ public class Scenario {
         boolean succes = true;
    //     try{
             File fichier = new File(path);
+            String fileName = fichier.getName();
             FileReader fr =  new FileReader(fichier);
             Scenario scenario = new Scenario();
             BufferedReader bufferEntree = new BufferedReader(fr);
@@ -91,6 +94,7 @@ public class Scenario {
             System.out.println(path);
        //     System.out.println("Le fichier est introuvable.\nVeuillez vérifier son chemin d'accès" ) ;
          //   System.exit(5);
+        scenario.fileName = fileName;
             return scenario;
 
       //  }
@@ -100,6 +104,7 @@ public class Scenario {
     public static Scenario lectureScenario (File fichier,boolean save ) throws IOException {
         boolean succes = true;
         try{
+            String fileName = fichier.getName();
             FileReader fr =  new FileReader(fichier);
             Scenario scenario = new Scenario();
             BufferedReader bufferEntree = new BufferedReader(fr);
@@ -119,6 +124,7 @@ public class Scenario {
             if (save) {
                 SuiviScenario.writeSuiviScenario(fichier);
             }
+            scenario.fileName = fileName ; // bizarre coz encapsulation non ??
             return scenario;
         }
         catch (FileNotFoundException fnfe){
@@ -254,4 +260,7 @@ public class Scenario {
         return listAcheteurs;
     }
 
+    public String getFileName() {
+        return fileName;
+    }
     }
