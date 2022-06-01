@@ -45,6 +45,7 @@ public class VBoxAjoutPreview extends VBox {
                     ArrayList<String> liste = SuiviScenario.getListeScenarioSuivi();
                     ((VBoxScenarioConnu) stackPane.getChildren().get(last)).getCombo().setItems(
                             FXCollections.observableArrayList(liste));
+                    root.getvBoxAllItineraire().updateCombo( FXCollections.observableArrayList(liste));
                    // stackPane.getChildren().remove(last);
                     //stackPane.getChildren().add(new VBoxScenarioConnu(root));
                 } catch (IOException e) {
