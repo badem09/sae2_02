@@ -11,6 +11,8 @@ import modele.TempsItineraire;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class GridPaneOrg extends GridPane {
     String chMembres;
@@ -19,6 +21,8 @@ public class GridPaneOrg extends GridPane {
     TextArea textBestIt ;
     TextArea textMembres;
     TextArea textScenario;
+    private Map<String , TempsItineraire> mapItineraire;
+
 
 
 
@@ -27,7 +31,7 @@ public class GridPaneOrg extends GridPane {
         this.setHgap(10);
         this.setVgap(10);
         this.setGridLinesVisible(false);
-
+        mapItineraire = new HashMap<>();
 
         textMembres = new TextArea();
 
@@ -63,7 +67,8 @@ public class GridPaneOrg extends GridPane {
     }
 
     private void setContent() throws IOException {
-        TempsItineraire ti =new TempsItineraire(new Itineraire(chScenario));
+        //TempsItineraire ti =new TempsItineraire(new Itineraire(chScenario));
+        TempsItineraire ti = mapItineraire.get(chScenario.getFileName());
         String bestIt = ti.getBestItineraire();
 
         textBestIt.clear();
@@ -90,8 +95,12 @@ public class GridPaneOrg extends GridPane {
         return textBestIt;
     }
 
-    public void setScenario(Scenario scenario) throws IOException {
-        chScenario = scenario;
+    public void setScenario(Scenario parScenario) throws IOException {
+        if ( ! mapItineraire.containsKey(parScenario.getFileName())){
+            mapItineraire.put(parScenario.getFileName(),new TempsItineraire(new Itineraire(parScenario)));
+        }
+        chScenario = parScenario;
         setContent();
     }
+
 }
