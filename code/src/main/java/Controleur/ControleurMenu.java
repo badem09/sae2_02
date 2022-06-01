@@ -68,6 +68,16 @@ public class ControleurMenu implements EventHandler,IntitulesMenu {
                     stackPane.getChildren().get(0).toFront();
                 }
             }
+
+            if (((MenuItem) event.getSource()).getUserData() == SOUS_MENU[1][1]) {
+                System.out.println(SuiviScenario.getListeScenarioSuivi());
+                System.out.println(((MenuItem) event.getSource()).getUserData());
+                StackPane stackPane = root.getStackPane();
+                int last = stackPane.getChildren().size() - 1;
+                while (!(stackPane.getChildren().get(last) instanceof VBoxItinerairePerso)) {
+                    stackPane.getChildren().get(0).toFront();
+                }
+            }
         }
     }
 }
