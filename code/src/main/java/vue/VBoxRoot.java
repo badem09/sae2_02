@@ -33,7 +33,7 @@ public class VBoxRoot extends VBox {
         vBoxAllItineraire = new VBoxAllItineraire(this);
         vBoxAjoutPreview = new VBoxAjoutPreview(this);
         comboBoxScenario = new ComboBoxScenario();
-        vBoxItinerairePerso = new VBoxItinerairePerso();
+        vBoxItinerairePerso = new VBoxItinerairePerso(this);
 
         Node [] components = new Node[5];
         components[0] = vBoxScenario;
