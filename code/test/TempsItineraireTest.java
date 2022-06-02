@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TempsItineraireTest {
     TempsItineraireTest() throws IOException {
     }
+
     Scenario s1 = Scenario.lectureScenario(
 
             "src/main/resources/scenario_0.txt");
@@ -19,17 +20,23 @@ public class TempsItineraireTest {
     TempsItineraire tempsItineraire1 = new TempsItineraire(itineraire1);
 
     @Test
-    void testBestItineraire() {
-        System.out.println(tempsItineraire1.getBestItineraire());
+    void testTempsItineraire() {
+        String[] attenduBestItineraire = new String[]{"PresidentDebut","Sabelettenote", "Sablaireaunote", "Kokiyas", "Chenipan","PresidentFin"};
+        for(int i =0;i<tempsItineraire1.getListBest().size();i++)
+            assertEquals( attenduBestItineraire[i],tempsItineraire1.getListBest().toArray()[i]);
+    }
+    void testGetListBest() {
+        System.out.println(tempsItineraire1.getListBest());
     }
 
+
+
+
     void testGetAllItineraire() {
-        String[] attenduBestItineraire =  new String[] {"Velizy", "Tours","Lyon", Paris, Grenoble, Velizy] };
         //System.out.println(itineraire1.getAllItineraire());
     }
 
 
-    //void testTempsItineraire() {
-        //System.out.println(itineraire1.getB);
-    }
+
+}
 
