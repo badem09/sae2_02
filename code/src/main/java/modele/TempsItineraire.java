@@ -116,5 +116,9 @@ public class TempsItineraire {
         return itineraire.getAllItineraire().size();
     }
 
+    public Itineraire getItineraire() {
+        return itineraire;
+    }
 }
+
 
