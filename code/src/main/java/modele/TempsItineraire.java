@@ -102,6 +102,20 @@ public class TempsItineraire {
         return retour;
     }
 
+    public ArrayList<String> getListBest(){
+        // retourne en liste le meilleur itinéraire.
+        String r = "";
+        long min = 1000000000;
+        ArrayList<String> best = new ArrayList<>();
+        for (ArrayList<String> s : dicoItineraire.keySet()){
+            if (dicoItineraire.get(s)<min){
+                min = dicoItineraire.get(s);
+                best = s;
+            }
+        }
+        return best ;
+    }
+
     public int getNbPages() {
         return nbPages;
     }
