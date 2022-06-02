@@ -42,6 +42,7 @@ public class VBoxAllItineraire extends VBox {
         pagination = new HBoxPagination(this);
         textItineraire = new TextArea();
         textItineraire.setPrefHeight(570);
+        textItineraire.setWrapText(true);
         ArrayList<String> liste = SuiviScenario.getListeScenarioSuivi();
         Collections.sort(liste);
         comboBoxScenario = new ComboBox<>(FXCollections.observableArrayList(liste));
