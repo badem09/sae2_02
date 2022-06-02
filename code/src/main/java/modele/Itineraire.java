@@ -210,7 +210,7 @@ public class Itineraire {
         }
         ArrayList<String> possibilites = mapAdjSortant.get(depart);
         for (String sommet : (ArrayList<String>)possibilites.clone()){
-            if (! tousPredecesseurPresent(sommet, currentPath) ){
+            if (! tousPredecesseurPresent(sommet, currentPath) || currentPath.contains(sommet)) {
                 possibilites.remove(sommet);
             }
         }
