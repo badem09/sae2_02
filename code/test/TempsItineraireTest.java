@@ -16,12 +16,20 @@ public class TempsItineraireTest {
 
             "src/main/resources/scenario_0.txt");
     Itineraire itineraire1 = new Itineraire(s1);
-    //TempsItineraire tempsItineraire1 = new TempsItineraire(itineraire1);
+    TempsItineraire tempsItineraire1 = new TempsItineraire(itineraire1);
 
     @Test
-    void testGetAllItineraire() {
-        System.out.println(itineraire1.getAllItineraire());
+    void testBestItineraire() {
+        System.out.println(tempsItineraire1.getBestItineraire());
     }
 
+    void testGetAllItineraire() {
+        String[] attenduBestItineraire =  new String[] {"Velizy", "Tours","Lyon", Paris, Grenoble, Velizy] };
+        //System.out.println(itineraire1.getAllItineraire());
+    }
+
+
+    //void testTempsItineraire() {
+        //System.out.println(itineraire1.getB);
     }
 
