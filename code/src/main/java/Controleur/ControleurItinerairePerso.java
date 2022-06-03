@@ -31,6 +31,8 @@ public class ControleurItinerairePerso implements EventHandler {
     private Itineraire currentItineraire;
     private ArrayList<String> possibilitesCourantes;
     private Villes villes ;
+    private TempsItineraire curentTempIt ;
+
 
     public ControleurItinerairePerso(VBoxItinerairePerso root , Map<String , TempsItineraire> parMap) throws IOException {
         this.root = root;
@@ -41,6 +43,8 @@ public class ControleurItinerairePerso implements EventHandler {
         villes = new Villes();
 
     }
+
+    // bug quand appuie 2 fois sur valider sans radioButton
 
 
 
@@ -55,9 +59,13 @@ public class ControleurItinerairePerso implements EventHandler {
                 Scenario scenario = Scenario.lectureScenario("src/main/resources/" + fileName, false);
                 if (mapItineraire.containsKey(fileName)) {
                     currentItineraire = mapItineraire.get(scenario).getItineraire();
+                    curentTempIt = mapItineraire.get(scenario);
                 } else {
                     currentItineraire = new Itineraire(scenario);
+                    curentTempIt = new TempsItineraire(currentItineraire);
                 }
+
+                System.out.println(curentTempIt);
                 possibilitesCourantes = currentItineraire.parcoursProgressif(currentSource,currentPath);
                     VBox vBox = new VBox();
                     ToggleGroup toggleGroup = new ToggleGroup();
@@ -84,7 +92,7 @@ public class ControleurItinerairePerso implements EventHandler {
 
         if (event.getSource() instanceof Button){
             if (((Button) event.getSource()).getText() == "Valider"){
-                root.getTextItineraire().setText(currentPath.toString());
+               root.getTextItineraire().setText(curentTempIt.getCurrentDistance(currentPath));
                 root.getTextMembres().appendText(currentSource + " : " +
                         villes.getMembreToVilles().get(currentSource) + "\n");
                 ArrayList<String> sautes = (ArrayList<String>) possibilitesCourantes.clone();
