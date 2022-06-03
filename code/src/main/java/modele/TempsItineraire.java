@@ -122,6 +122,26 @@ public class TempsItineraire {
         return best ;
     }
 
+    public String getCurrentDistance(ArrayList<String> currentPath){
+
+        int sum = 0;
+        for (int i = 0; i < currentPath.size() - 1; i++) {
+            if (membresVilles.get(currentPath.get(i)) == "Ville non renseignée !" ||
+                    membresVilles.get(currentPath.get(i + 1)) == "Ville non renseignée !" ){
+                break;
+                //Si 1 ville est inconnue: itinéraire incalculable
+            }
+            String avant = membresVilles.get(currentPath.get(i));
+            String apres = membresVilles.get(currentPath.get(i + 1));
+            int indexAvant = villes.getTabVilles().indexOf(avant);
+            int indexApres = villes.getTabVilles().indexOf(apres);
+            sum += villes.getTabDistances().get(indexAvant).get(indexApres);
+
+        }
+        String retour = currentPath.toString() + "\n" + sum;
+        return retour;
+    }
+
     public int getNbPages() {
         return nbPages;
     }
