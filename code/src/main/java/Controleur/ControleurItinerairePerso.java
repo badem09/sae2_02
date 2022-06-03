@@ -3,10 +3,7 @@ package Controleur;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import modele.Itineraire;
 import modele.Scenario;
@@ -40,6 +37,7 @@ public class ControleurItinerairePerso implements EventHandler {
         currentSource = "";
         prochaineSource = "";
         currentPath = new ArrayList<>();
+        currentPath.add("PresidentDebut");
         villes = new Villes();
 
     }
@@ -85,14 +83,13 @@ public class ControleurItinerairePerso implements EventHandler {
         if (event.getSource() instanceof RadioButton){
 
             currentSource = ((RadioButton) event.getSource()).getText();
-            currentPath.add(currentSource);
-
             System.out.println(currentSource);
         }
 
         if (event.getSource() instanceof Button){
-            if (((Button) event.getSource()).getText() == "Valider"){
-               root.getTextItineraire().setText(curentTempIt.getCurrentDistance(currentPath));
+            if (((Button) event.getSource()).getText() == "Valider" && ! currentPath.contains(currentSource)){
+                currentPath.add(currentSource);
+                root.getTextItineraire().setText(curentTempIt.getCurrentDistance(currentPath));
                 root.getTextMembres().appendText(currentSource + " : " +
                         villes.getMembreToVilles().get(currentSource) + "\n");
                 ArrayList<String> sautes = (ArrayList<String>) possibilitesCourantes.clone();
@@ -102,14 +99,21 @@ public class ControleurItinerairePerso implements EventHandler {
                 // pour merge sans duplicates
                 sautes.removeAll(possibilitesCourantes);
                 possibilitesCourantes.addAll(sautes);
-
                 VBox vBox = new VBox();
-                ToggleGroup toggleGroup = new ToggleGroup();
-                for (String elem : possibilitesCourantes) {
-                    RadioButton radioButton = new RadioButton(elem);
-                    radioButton.setOnAction(this);
-                    radioButton.setToggleGroup(toggleGroup);
-                    vBox.getChildren().add(radioButton);
+                if (possibilitesCourantes.size() > 0) {
+
+                    ToggleGroup toggleGroup = new ToggleGroup();
+                    for (String elem : possibilitesCourantes) {
+                        RadioButton radioButton = new RadioButton(elem);
+                        radioButton.setOnAction(this);
+                        radioButton.setToggleGroup(toggleGroup);
+                        vBox.getChildren().add(radioButton);
+                    }
+                }
+                else {
+                    vBox.getChildren().add(new Label("Vous êtes arrivés"));
+                    currentPath.add("PresidentFin");
+                    root.getTextItineraire().setText(curentTempIt.getCurrentDistance(currentPath));
                 }
                 root.getScrollPossibilites().setContent(vBox);
             }
