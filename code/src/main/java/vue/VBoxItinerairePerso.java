@@ -4,6 +4,7 @@ import Controleur.ControleurItinerairePerso;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -62,6 +63,7 @@ public class VBoxItinerairePerso extends VBox {
 
         scrollPossibilites.setPrefHeight(300);
         scrollPossibilites.setPrefWidth(715);
+        scrollPossibilites.setPadding(new Insets(10));
 
         int ligne = 0;
 
@@ -76,7 +78,7 @@ public class VBoxItinerairePerso extends VBox {
 
         Button valider = new Button("Valider");
         valider.setOnAction(controleur);
-
+        this.setSpacing(15);
         this.getChildren().addAll(vBoxTitre,comboBoxScenario,gridPane,valider);
     }
 
