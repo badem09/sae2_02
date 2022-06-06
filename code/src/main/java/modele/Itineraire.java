@@ -231,8 +231,9 @@ public class Itineraire {
             if (villes.getMembreToVilles().containsKey(sommet)) {
                 ArrayList<Integer> ligne = villes.getTabDistances().get(listeViles.indexOf(villeSource));
                 String villeProchain = villes.getMembreToVilles().get(sommet);
-                distance.add(String.valueOf(ligne.get(listeViles.indexOf(villeProchain))));
+                distance.add(String.valueOf(ligne.get(listeViles.indexOf(villeProchain))) + " km");
             }
+            else {distance.add("Distance inconnue");}
         }
         return distance;
     }
