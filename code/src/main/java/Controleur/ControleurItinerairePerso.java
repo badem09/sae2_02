@@ -82,9 +82,11 @@ public class ControleurItinerairePerso implements EventHandler {
                         RadioButton radioButton = new RadioButton(prochain);
                         radioButton.setOnAction(this);
                         radioButton.setToggleGroup(toggleGroup);
-                        vBox.getChildren().add(new HBox(radioButton,new Label( " (" +
-                                villes.getMembreToVilles().get(prochain) + ")" + " : " +
-                                distanceCourantes.get(i) + " km")));
+                        Label content = new Label( " (" +
+                                scenario.getMembreInconnus().get(possibilitesCourantes.get(i)) + ")" + " : " +
+                                distanceCourantes.get(i));
+                        content.setId("inline");
+                        vBox.getChildren().add(new HBox(radioButton,content));
                     }
                     root.getScrollPossibilites().setContent(vBox);
             }
@@ -108,25 +110,30 @@ public class ControleurItinerairePerso implements EventHandler {
                 ArrayList<String> sautes = (ArrayList<String>) possibilitesCourantes.clone();
                 sautes.remove(currentSource);
                 possibilitesCourantes = currentItineraire.parcoursProgressif(currentSource,currentPath);
+
+                // pour merge sans duplicates
+                sautes.removeAll(possibilitesCourantes);
+                possibilitesCourantes.addAll(sautes);
                 try {
                     distanceCourantes = currentItineraire.getCurrentDistance(currentSource,possibilitesCourantes);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                // pour merge sans duplicates
-                sautes.removeAll(possibilitesCourantes);
-                possibilitesCourantes.addAll(sautes);
                 VBox vBox = new VBox();
                 vBox.setSpacing(5);
                 System.out.println(distanceCourantes);
+                System.out.println(possibilitesCourantes);
                 if (possibilitesCourantes.size() > 0) {
                     ToggleGroup toggleGroup = new ToggleGroup();
                     for (int i = 0; i<possibilitesCourantes.size() ; i++) {
                         RadioButton radioButton = new RadioButton(possibilitesCourantes.get(i));
                         radioButton.setOnAction(this);
                         radioButton.setToggleGroup(toggleGroup);
-                        vBox.getChildren().add(new HBox(radioButton,new Label( " : "
-                                + distanceCourantes.get(i) + " km")));
+                        Label content = new Label( " (" +
+                                villes.getMembreToVilles().get(possibilitesCourantes.get(i)) + ")" + " : " +
+                                distanceCourantes.get(i));
+                        content.setId("inline");
+                        vBox.getChildren().add(new HBox(radioButton,content));
                     }
                 }
                 else {
