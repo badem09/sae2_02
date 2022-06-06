@@ -24,8 +24,8 @@ public class HBoxPagination extends HBox {
         vBoxItineraire = parVboxIt;
 
         controleurPage = new ControleurPagination(vBoxItineraire,this);
-        labelMaxPage = new Label(" 1 ");
-        labelCurrentPage = new Label("1 ");
+        labelMaxPage = new Label("1");
+        labelCurrentPage = new Label("1");
         buttonAvancer = new Button(">");
         buttonReculer = new Button("<");
         buttonDebut = new Button("<<");
