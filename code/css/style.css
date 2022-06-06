@@ -3,6 +3,9 @@
     -fx-background-color : cornsilk;
 }
 
+#inline{
+    -fx-text-fill: "black" ;
+}
 
 #opaque, .toggle-button{
       -fx-background-color : cornsilk;
