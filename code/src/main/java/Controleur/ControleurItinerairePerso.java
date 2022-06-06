@@ -12,6 +12,7 @@ import modele.TempsItineraire;
 import modele.Villes;
 import vue.VBoxItinerairePerso;
 
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -99,7 +100,7 @@ public class ControleurItinerairePerso implements EventHandler {
         }
 
         if (event.getSource() instanceof Button){
-            if (((Button) event.getSource()).getText() == "Valider" && ! currentPath.contains(currentSource)){
+            if (((Button) event.getSource()).getText() == "Valider" && ! currentPath.contains(currentSource) && currentSource != ""){
                 currentPath.add(currentSource);
                 root.getTextItineraire().setText(curentTempIt.getCurrentDistance(currentPath));
                 root.getTextMembres().appendText(currentSource + " : " +
