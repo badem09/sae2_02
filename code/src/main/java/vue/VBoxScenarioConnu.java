@@ -35,6 +35,7 @@ public class VBoxScenarioConnu extends VBox {
                     Scenario scenario = Scenario.lectureScenario("src/main/resources/" + scenarioCourant,false);
                     PageMain.getvBoxScenario().getGridPaneOrg().setScenario(scenario);
                 } catch (IOException e) {
+                    e.printStackTrace();
                     throw new RuntimeException(e);
                 }
             }
