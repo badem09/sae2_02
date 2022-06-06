@@ -44,8 +44,8 @@ public class HBoxPagination extends HBox {
 
         HBox hBoxNumPage = new HBox(labelCurrentPage,new Label("sur"), labelMaxPage, new Label("pages"));
         hBoxNumPage.setSpacing(3);
+        this.setSpacing(3);
         this.getChildren().addAll(buttonDebut,buttonReculer,hBoxNumPage, buttonAvancer,buttonFin);
-
     }
 
     public void setLabelCurrentPage(String strMin) {
@@ -54,7 +54,6 @@ public class HBoxPagination extends HBox {
 
     public void setLabelMaxPage(String strMax) {
         this.labelMaxPage.setText(strMax);
-
     }
     public Label getLabelMaxPage() {
         return labelMaxPage;
