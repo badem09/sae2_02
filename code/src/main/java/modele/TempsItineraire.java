@@ -138,7 +138,7 @@ public class TempsItineraire {
             sum += villes.getTabDistances().get(indexAvant).get(indexApres);
 
         }
-        String retour = currentPath.toString() + "\n" + sum;
+        String retour = "Chemin : " + currentPath.toString() + "\n" + "Distance : " + sum + " km";
         return retour;
     }
 
