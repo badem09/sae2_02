@@ -1,5 +1,6 @@
 package modele;
 
+import java.io.IOException;
 import java.util.*;
 
 public class Itineraire {
@@ -209,7 +210,7 @@ public class Itineraire {
             return itineraireGen.get(0);
         }
         ArrayList<String> possibilites = mapAdjSortant.get(depart);
-        for (String sommet : (ArrayList<String>)possibilites.clone()){
+        for (String sommet : (ArrayList<String>) possibilites.clone()){
             if (! tousPredecesseurPresent(sommet, currentPath) || currentPath.contains(sommet)) {
                 possibilites.remove(sommet);
             }
@@ -217,4 +218,22 @@ public class Itineraire {
         return possibilites;
     }
 
+    public ArrayList<String> getCurrentDistance(String currentSource, ArrayList<String> possibilitesCourantes) throws IOException {
+        Villes villes = new Villes();
+        ArrayList<String> distance = new ArrayList<>();
+        ArrayList listeViles = villes.getTabVilles();
+        String villeSource = "Velizy";
+
+        for(String sommet : possibilitesCourantes){
+            if (currentSource != ""){
+                villeSource = villes.getMembreToVilles().get(currentSource);
+            }
+            if (villes.getMembreToVilles().containsKey(sommet)) {
+                ArrayList<Integer> ligne = villes.getTabDistances().get(listeViles.indexOf(villeSource));
+                String villeProchain = villes.getMembreToVilles().get(sommet);
+                distance.add(String.valueOf(ligne.get(listeViles.indexOf(villeProchain))));
+            }
+        }
+        return distance;
+    }
 }
