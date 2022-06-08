@@ -24,6 +24,7 @@ public class TempsItineraireTest {
         String[] attenduBestItineraire = new String[]{"PresidentDebut","Sabelettenote", "Sablaireaunote", "Kokiyas", "Chenipan","PresidentFin"};
         for(int i =0;i<tempsItineraire1.getListBest().size();i++)
             assertEquals( attenduBestItineraire[i],tempsItineraire1.getListBest().toArray()[i]);
+        System.out.println("La fonction TempsItineraire est valide");
     }
     void testGetListBest() {
         System.out.println(tempsItineraire1.getListBest());
