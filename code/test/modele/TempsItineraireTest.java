@@ -1,3 +1,5 @@
+package modele;
+
 import modele.Itineraire;
 import modele.Scenario;
 import modele.TempsItineraire;
