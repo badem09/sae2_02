@@ -1,3 +1,5 @@
+package modele;
+
 import modele.Scenario;
 import org.junit.jupiter.api.Test;
 
