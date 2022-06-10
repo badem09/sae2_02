@@ -25,11 +25,14 @@ public class GrapheTest {
             "src/main/resources/scenario_0.txt");
     Graphes g = new Graphes(s);
 
+    String adrDicoGraphe = Integer.toHexString(g.getMapAjdEntrant().hashCode());
+    String adrDicoScenario = Integer.toHexString(s.getDicoAV().hashCode());
+
+
     @Test
     void test1(){
-        System.out.println(Integer.toHexString(g.hashCode()));
-        System.out.println(Integer.toHexString(s.getDicoAV().hashCode()));
-        assertNotEquals(s.getDicoAV().hashCode(),g.getMapAjdEntrant());
+        assertNotEquals(adrDicoGraphe,adrDicoScenario);
+        System.out.println("La fonction est correcte, grosse dedicace a dembou bou");
 
     }
 
