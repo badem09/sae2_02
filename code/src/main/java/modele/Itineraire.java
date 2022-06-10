@@ -1,10 +1,7 @@
 package modele;
 
-import javafx.scene.paint.Stop;
-
+import java.io.IOException;
 import java.util.*;
-
-import static java.lang.System.exit;
 
 public class Itineraire {
 
@@ -145,7 +142,7 @@ public class Itineraire {
         // if (mapAdjSortant.get(source).size() == 0 && tousPresent(currentPath) && ! nouveauPath(currentPath) ) {
         if (currentPath.size() == graphe.getSommets().size() && tousPresent(currentPath)) {// tousPresent inutile
             allItineraire.add(currentPath);
-            System.out.println( allItineraire.size() + " " + currentPath);
+           // System.out.println( allItineraire.size() + " " + currentPath);
         }
     }
 
@@ -202,5 +199,42 @@ public class Itineraire {
      */
     public ArrayList<ArrayList<String>> getItineraireGen() {
         return itineraireGen;
+    }
+
+    public Scenario getScenario(){
+        return  graphe.getScenario();
+    }
+
+    public ArrayList<String> parcoursProgressif(String depart, ArrayList<String> currentPath){
+        if (depart == ""){
+            return itineraireGen.get(0);
+        }
+        ArrayList<String> possibilites = mapAdjSortant.get(depart);
+        for (String sommet : (ArrayList<String>) possibilites.clone()){
+            if (! tousPredecesseurPresent(sommet, currentPath) || currentPath.contains(sommet)) {
+                possibilites.remove(sommet);
+            }
+        }
+        return possibilites;
+    }
+
+    public ArrayList<String> getCurrentDistance(String currentSource, ArrayList<String> possibilitesCourantes) throws IOException {
+        Villes villes = new Villes();
+        ArrayList<String> distance = new ArrayList<>();
+        ArrayList listeViles = villes.getTabVilles();
+        String villeSource = "Velizy";
+
+        for(String sommet : possibilitesCourantes){
+            if (currentSource != ""){
+                villeSource = villes.getMembreToVilles().get(currentSource);
+            }
+            if (villes.getMembreToVilles().containsKey(sommet)) {
+                ArrayList<Integer> ligne = villes.getTabDistances().get(listeViles.indexOf(villeSource));
+                String villeProchain = villes.getMembreToVilles().get(sommet);
+                distance.add(String.valueOf(ligne.get(listeViles.indexOf(villeProchain))) + " km");
+            }
+            else {distance.add("Distance inconnue");}
+        }
+        return distance;
     }
 }

@@ -11,6 +11,8 @@ import modele.TempsItineraire;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class GridPaneOrg extends GridPane {
     String chMembres;
@@ -19,15 +21,19 @@ public class GridPaneOrg extends GridPane {
     TextArea textBestIt ;
     TextArea textMembres;
     TextArea textScenario;
+    private Map<String , TempsItineraire> mapItineraire;
+    private VBoxRoot root;
 
 
 
-    public GridPaneOrg() throws IOException {
+
+    public GridPaneOrg(VBoxRoot parRoot) throws IOException {
         this.setPadding(new Insets(20));
         this.setHgap(10);
         this.setVgap(10);
         this.setGridLinesVisible(false);
-
+        mapItineraire = new HashMap<>();
+        root = parRoot;
 
         textMembres = new TextArea();
 
@@ -63,7 +69,8 @@ public class GridPaneOrg extends GridPane {
     }
 
     private void setContent() throws IOException {
-        TempsItineraire ti =new TempsItineraire(new Itineraire(chScenario));
+        //TempsItineraire ti =new TempsItineraire(new Itineraire(chScenario));
+        TempsItineraire ti = mapItineraire.get(chScenario.getFileName());
         String bestIt = ti.getBestItineraire();
 
         textBestIt.clear();
@@ -90,8 +97,22 @@ public class GridPaneOrg extends GridPane {
         return textBestIt;
     }
 
-    public void setScenario(Scenario scenario) throws IOException {
-        chScenario = scenario;
+    public void setScenario(Scenario parScenario) throws IOException {
+        String fileName = parScenario.getFileName();
+        if ( ! mapItineraire.containsKey(fileName)){
+            TempsItineraire ti = new TempsItineraire(new Itineraire(parScenario));
+            mapItineraire.put(fileName,ti);
+            root.getvBoxAllItineraire().updateMapItineraire(fileName, ti);
+        }
+        chScenario = parScenario;
         setContent();
+    }
+
+    public Map<String, TempsItineraire> getMapItineraire() {
+        return mapItineraire;
+    }
+
+    public void updateMapItineraire(String fileName, TempsItineraire tempsItineraire) {
+        mapItineraire.put(fileName,tempsItineraire);
     }
 }

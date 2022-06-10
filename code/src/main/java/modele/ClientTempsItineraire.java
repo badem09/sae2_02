@@ -6,15 +6,15 @@ import java.util.ArrayList;
 
 public class ClientTempsItineraire {
     public static void main(String [] arg) throws IOException {
-        Scenario s = Scenario.lectureScenario(new File("src/main/resources/scenario_2_1.txt"));
+        Scenario s = Scenario.lectureScenario("src/main/resources/scenario_2_2.txt",true);
 
         Itineraire it = new Itineraire(s);
         System.out.println(it.getItineraireGen());
         TempsItineraire ti = new TempsItineraire(it);
         //System.out.println(ti.getDic: oItineraire());
         //ArrayList<String> best = ti.getBestItinéraire();
-        System.out.println(ti.toString() + "\n");
-        System.out.println(ti.getBestItineraire());
+       // System.out.println(ti.toString() + "\n");
+        //System.out.println(ti.getBestItineraire());
     }
 }
 /*

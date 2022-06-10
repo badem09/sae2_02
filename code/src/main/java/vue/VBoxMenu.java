@@ -1,14 +1,11 @@
 package vue;
 
 import Controleur.ControleurMenu;
-import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.*;
-import javafx.scene.layout.StackPane;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.VBox;
-import modele.Scenario;
-import modele.SuiviScenario;
+import modele.*;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -36,13 +33,19 @@ public class VBoxMenu extends VBox implements IntitulesMenu {
 
         chMenuBar = new MenuBar();
         int i = 0;
+
         for(String intitules : ITEM_MENU) {
             Menu menu = new Menu(intitules);
+            menu.setMnemonicParsing(true);
             chMenuBar.getMenus().add(menu);
             for(int j = 0; j < SOUS_MENU[i].length; j++){
                 MenuItem menuItem = new MenuItem(SOUS_MENU[i][j]);
                 menuItem.setUserData(SOUS_MENU[i][j]);
                 menuItem.setOnAction(controleurMenu);
+               // menuItem.setAccelerator(KeyCombination.keyCombination(
+                 //"shortcut+" + MNEMONIQUES[i][j]));
+               
+                menuItem.setMnemonicParsing(true);
                 chMenuBar.getMenus().get(i).getItems().add(menuItem);
             }
             i++;

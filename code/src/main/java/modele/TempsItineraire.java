@@ -10,12 +10,14 @@ public class TempsItineraire {
     private static Villes villes;
     private HashMap<ArrayList<String>, Integer> dicoItineraire;
     private int nbPages;
+    private HashMap<String, String> membresVilles ;
 
 
     public TempsItineraire(Itineraire parItineraire) throws IOException {
         itineraire = parItineraire;
         dicoItineraire = new HashMap<>();
         villes = new Villes();
+        membresVilles = itineraire.getScenario().getMembreInconnus();
         setDicoItineraire();
         if (itineraire.getAllItineraire().size() % 8 == 0) {
             nbPages = itineraire.getAllItineraire().size() / 8;
@@ -29,19 +31,22 @@ public class TempsItineraire {
 
     private void setDicoItineraire() {
         ArrayList<ArrayList<Integer>> tabDistance = villes.getTabDistances();
-        HashMap<String, String> membresVilles = villes.getMembreToVilles();
+       // HashMap<String, String> membresVilles = villes.getMembreToVilles();
        // System.out.println(this.itineraire.getAllPath());
         for (ArrayList<String> it : itineraire.getAllItineraire()) {
             int sum = 0;
             for (int i = 0; i < it.size() - 1; i++) {
-                //System.out.println(it);
-                //System.out.println(it.get(i));
-                //System.out.println(it.get(i+1));
-                String avant = membresVilles.get(it.get(i));
-                String apres = membresVilles.get(it.get(i+1));
-                int indexAvant = villes.getTabVilles().indexOf(avant);
-                int indexApres = villes.getTabVilles().indexOf(apres);
-                sum += tabDistance.get(indexAvant).get(indexApres);
+                if (membresVilles.get(it.get(i)) == "Ville non renseignée !" ||
+                     membresVilles.get(it.get(i + 1)) == "Ville non renseignée !" ){
+                 break;
+                 //Si 1 ville est inconnue: itinéraire incalculable
+             }
+                    String avant = membresVilles.get(it.get(i));
+                    String apres = membresVilles.get(it.get(i + 1));
+                    int indexAvant = villes.getTabVilles().indexOf(avant);
+                    int indexApres = villes.getTabVilles().indexOf(apres);
+                    sum += tabDistance.get(indexAvant).get(indexApres);
+
             }
 
             dicoItineraire.put(it, sum);
@@ -52,6 +57,7 @@ public class TempsItineraire {
         return dicoItineraire;
     }
     public String  getBestItineraire(){
+        // What if yen a 2?
         String r = "";
         long min = 1000000000;
         ArrayList<String> best = new ArrayList<>();
@@ -61,13 +67,13 @@ public class TempsItineraire {
                 best = s;
             }
         }
-        r += best + "\n" + TempsItineraire.membresToVilles(best)+ "\n"  +
-                "longueur : " + dicoItineraire.get(best) + "\n" +"\n";
+        r += best + "\n" + membresToVilles(best)+ "\n"  +
+                "longueur : " + dicoItineraire.get(best) + " km" + "\n" +"\n";
         return r ;
     }
 
-    public static ArrayList<String> membresToVilles(ArrayList<String> itineraire){
-        HashMap<String, String> membresVilles = villes.getMembreToVilles();
+    public  ArrayList<String> membresToVilles(ArrayList<String> itineraire){
+     //   HashMap<String, String> membresVilles = villes.getMembreToVilles();
         ArrayList<String> retour = new ArrayList<>();
         for (String membre : itineraire){
             //retour.set(retour.indexOf(membre),membresVilles.get(membre));
@@ -80,8 +86,8 @@ public class TempsItineraire {
         String r = "";
         for (ArrayList<String> s : dicoItineraire.keySet()){
          //  System.out.println(s);
-           r += s + "\n" + TempsItineraire.membresToVilles(s)+ "\n"  +
-                   "longueur : " + dicoItineraire.get(s) + "\n" +"\n";
+           r += s + "\n" + membresToVilles(s)+ "\n"  +
+                   "longueur : " + dicoItineraire.get(s) + " km" + "\n" +"\n";
         }
         return r;
     }
@@ -96,8 +102,8 @@ public class TempsItineraire {
         }
         for (int i = start; i < stop ; i++){
             retour += tabItineraire.get(i) + "\n" +
-                    TempsItineraire.membresToVilles(tabItineraire.get(i)) +
-                    "\n" + "longueur : " + dicoItineraire.get(tabItineraire.get(i)) +"\n" +"\n";
+                    membresToVilles(tabItineraire.get(i)) +
+                    "\n" + "longueur : " + dicoItineraire.get(tabItineraire.get(i)) + " km" +"\n" +"\n";
         }
         return retour;
     }
@@ -116,9 +122,38 @@ public class TempsItineraire {
         return best ;
     }
 
+    public String getCurrentDistance(ArrayList<String> currentPath){
+
+        int sum = 0;
+        for (int i = 0; i < currentPath.size() - 1; i++) {
+            if (membresVilles.get(currentPath.get(i)) == "Ville non renseignée !" ||
+                    membresVilles.get(currentPath.get(i + 1)) == "Ville non renseignée !" ){
+                break;
+                //Si 1 ville est inconnue: itinéraire incalculable
+            }
+            String avant = membresVilles.get(currentPath.get(i));
+            String apres = membresVilles.get(currentPath.get(i + 1));
+            int indexAvant = villes.getTabVilles().indexOf(avant);
+            int indexApres = villes.getTabVilles().indexOf(apres);
+            sum += villes.getTabDistances().get(indexAvant).get(indexApres);
+
+        }
+        String retour = "Chemin : " + currentPath.toString() + "\n" + "Distance : " + sum + " km";
+        return retour;
+    }
+
+
     public int getNbPages() {
         return nbPages;
     }
 
+    public int getNbItineraire(){
+        return itineraire.getAllItineraire().size();
+    }
+
+    public Itineraire getItineraire() {
+        return itineraire;
+    }
 }
+
 
