@@ -29,8 +29,12 @@ public class Itineraire {
         ajoutPresident();
     }
 
+
+    public int size(){
+        return allItineraire.size();
+    }
+
     public String getNextSource() { //recherche des sources une par une
-        mapAdjEntrant = graphe.getMapAjdEntrant();
         String source = "";
         for (String elem : mapAdjEntrant.keySet()) {
             if (mapAdjEntrant.get(elem).size() == 0) {
@@ -168,7 +172,7 @@ public class Itineraire {
      *
      * @return retour : Tous les chemins
      */
-    public String allItineraireToString() {
+    public String toString() {
         String retour = "";
         for (ArrayList<String> l : allItineraire) {
             retour += l.toString() + "\n";
@@ -178,8 +182,8 @@ public class Itineraire {
 
     public void ajoutPresident() {
         for (ArrayList<String> path : allItineraire) {
-            path.add(0, "PresidentDebut");
-            path.add(path.size(), "PresidentFin");
+            path.add(0, "President");
+            path.add(path.size(), "President");
         }
     }
 
