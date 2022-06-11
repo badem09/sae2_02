@@ -64,7 +64,7 @@ public class Scenario {
 
     public static Scenario lectureScenario (String path, boolean save) throws IOException {
         boolean succes = true;
-   //     try{
+        try{
             File fichier = new File(path);
             String fileName = fichier.getName();
             FileReader fr =  new FileReader(fichier);
@@ -86,19 +86,14 @@ public class Scenario {
             if (save) {
                 SuiviScenario.writeSuiviScenario(fichier);
             }
-
-  //      }
-     //   catch (Exception e){
-        //    succes = false;
-          //  System.out.println(e);
-            System.out.println(path);
-       //     System.out.println("Le fichier est introuvable.\nVeuillez vérifier son chemin d'accès" ) ;
-         //   System.exit(5);
         scenario.fileName = fileName;
             return scenario;
-
-      //  }
-   //     return null;
+        }
+        catch (FileNotFoundException fnfe){
+            System.out.println("Le fichier est introuvable.\nVeuillez vérifier son chemin d'accès" ) ;
+            System.exit(5);
+        }
+       return null;
     }
 
     public static Scenario lectureScenario (File fichier,boolean save ) throws IOException {
@@ -263,4 +258,4 @@ public class Scenario {
     public String getFileName() {
         return fileName;
     }
-    }
+}
