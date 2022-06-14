@@ -4,12 +4,10 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import modele.Itineraire;
+import modele.Chemin;
 import modele.Scenario;
 import modele.TempsItineraire;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,7 +35,7 @@ public class GridPaneOrg extends GridPane {
 
         textMembres = new TextArea();
 
-     //   TempsItineraire ti =new TempsItineraire(new Itineraire(chScenario));
+     //   TempsItineraire ti =new TempsItineraire(new Chemin(chScenario));
       //  String bestIt = ti.getBestItineraire();
 
         textBestIt = new TextArea();
@@ -50,6 +48,10 @@ public class GridPaneOrg extends GridPane {
         textScenario.setEditable(false);
         textBestIt.setEditable(false);
         textMembres.setEditable(false);
+
+        textBestIt.setPromptText("[Membre1, Membre2, Membre3, ...]\r" + "Distance : distance");
+        textMembres.setPromptText("Membre 1 : Sa ville\rMembre 2 : Sa ville\rMembre 3 : Sa ville\r...");
+        textScenario.setPromptText("Membre 1 vends à Membre 2"+"\r"+"Membre 3 vends à Membre 2\rMembre 4 vends à Membre 1\r");
 
         Label labelScenario = new Label("Détail du scénario.");
         Label labelMembre = new Label("Les membres impliqués");
@@ -69,7 +71,6 @@ public class GridPaneOrg extends GridPane {
     }
 
     private void setContent() throws IOException {
-        //TempsItineraire ti =new TempsItineraire(new Itineraire(chScenario));
         TempsItineraire ti = mapItineraire.get(chScenario.getFileName());
         String bestIt = ti.getBestItineraire();
 
@@ -100,7 +101,7 @@ public class GridPaneOrg extends GridPane {
     public void setScenario(Scenario parScenario) throws IOException {
         String fileName = parScenario.getFileName();
         if ( ! mapItineraire.containsKey(fileName)){
-            TempsItineraire ti = new TempsItineraire(new Itineraire(parScenario));
+            TempsItineraire ti = new TempsItineraire(new Chemin(parScenario));
             mapItineraire.put(fileName,ti);
             root.getvBoxAllItineraire().updateMapItineraire(fileName, ti);
         }
