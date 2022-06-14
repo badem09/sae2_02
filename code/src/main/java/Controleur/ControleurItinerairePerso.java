@@ -1,21 +1,18 @@
 package Controleur;
 
-import javafx.event.ActionEvent;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import modele.Itineraire;
+import modele.Chemin;
 import modele.Scenario;
 import modele.TempsItineraire;
 import modele.Villes;
+import vue.CelluleListe;
 import vue.VBoxItinerairePerso;
-
-import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 public class ControleurItinerairePerso implements EventHandler {
@@ -24,10 +21,8 @@ public class ControleurItinerairePerso implements EventHandler {
     private VBoxItinerairePerso root ;
 
     private String currentSource ;
-
-    private String prochaineSource;
     private ArrayList<String> currentPath;
-    private Itineraire currentItineraire;
+    private Chemin currentItineraire;
     private ArrayList<String> possibilitesCourantes;
     private Villes villes ;
     private TempsItineraire curentTempIt ;
@@ -37,14 +32,8 @@ public class ControleurItinerairePerso implements EventHandler {
     public ControleurItinerairePerso(VBoxItinerairePerso root , Map<String , TempsItineraire> parMap) throws IOException {
         this.root = root;
         this.mapItineraire = parMap;
-        prochaineSource = "";
         villes = new Villes();
-
     }
-
-    // bug quand appuie 2 fois sur valider sans radioButton
-
-
 
     @Override
     public void handle(Event event) {
@@ -55,94 +44,70 @@ public class ControleurItinerairePerso implements EventHandler {
             root.getTextMembres().clear();
             root.getTextItineraire().clear();
 
-
             try {
                 Scenario scenario = Scenario.lectureScenario("src/main/resources/" + fileName, false);
                 if (mapItineraire.containsKey(fileName)) {
                     currentItineraire = mapItineraire.get(fileName).getItineraire();
                     curentTempIt = mapItineraire.get(fileName);
-                    currentSource = "";
-                    currentPath = new ArrayList<>();
-                    currentPath.add("PresidentDebut");
                 } else {
-                    currentItineraire = new Itineraire(scenario);
-                    curentTempIt = new TempsItineraire(currentItineraire);
+                    currentItineraire = new Chemin(scenario);
+                   curentTempIt = new TempsItineraire(currentItineraire);
                     mapItineraire.put(fileName,curentTempIt);
-                    currentSource = "";
-                    currentPath = new ArrayList<>();
-                    currentPath.add("PresidentDebut");
                 }
-                possibilitesCourantes = currentItineraire.parcoursProgressif(currentSource,currentPath);
+                currentSource = "President";
+                currentPath = new ArrayList<>();
+                currentPath.add("President");
+                possibilitesCourantes = currentItineraire.parcoursProgressif(currentSource,currentPath,possibilitesCourantes);
                 distanceCourantes = currentItineraire.getCurrentDistance(currentSource,possibilitesCourantes);
-                    VBox vBox = new VBox();
-                    vBox.setSpacing(5);
-                    ToggleGroup toggleGroup = new ToggleGroup();
-                    for (int i = 0; i < possibilitesCourantes.size() ; i++) {
-                        String prochain = possibilitesCourantes.get(i);
-                        RadioButton radioButton = new RadioButton(prochain);
-                        radioButton.setOnAction(this);
-                        radioButton.setToggleGroup(toggleGroup);
-                        Label content = new Label( " (" +
-                                scenario.getMembreInconnus().get(possibilitesCourantes.get(i)) + ")" + " : " +
-                                distanceCourantes.get(i));
-                        content.setId("inline");
-                        vBox.getChildren().add(new HBox(radioButton,content));
+                ObservableList<CelluleListe> listePossibilites = FXCollections.observableArrayList();
+
+                for (int i = 0; i < possibilitesCourantes.size() ; i++) {
+                    String infos =  " (" + villes.getMembreToVilles().get(possibilitesCourantes.get(i)) + ")" + " : " +
+                            distanceCourantes.get(i);
+                    CelluleListe cell = new CelluleListe(possibilitesCourantes.get(i),infos);
+                    listePossibilites.add(cell);
                     }
-                    root.getScrollPossibilites().setContent(vBox);
+                root.getListView().setItems(listePossibilites);
             }
              catch(IOException e){
                     throw new RuntimeException(e);
             }
         }
 
-        if (event.getSource() instanceof RadioButton){
-
-            currentSource = ((RadioButton) event.getSource()).getText();
-            System.out.println(currentSource);
-        }
-
         if (event.getSource() instanceof Button){
-            if (((Button) event.getSource()).getText() == "Valider" && ! currentPath.contains(currentSource) && currentSource != ""){
+            if (((Button) event.getSource()).getText() == "_Valider" && currentPath.size()>0
+                    && ! currentPath.contains(currentSource) && currentSource != ""){
                 currentPath.add(currentSource);
                 root.getTextItineraire().setText(curentTempIt.getCurrentDistance(currentPath));
-                root.getTextMembres().appendText(currentSource + " : " +
+                 root.getTextMembres().appendText(currentSource + " : " +
                         villes.getMembreToVilles().get(currentSource) + "\n");
-                ArrayList<String> sautes = (ArrayList<String>) possibilitesCourantes.clone();
-                sautes.remove(currentSource);
-                possibilitesCourantes = currentItineraire.parcoursProgressif(currentSource,currentPath);
-
-                // pour merge sans duplicates
-                sautes.removeAll(possibilitesCourantes);
-                possibilitesCourantes.addAll(sautes);
+                possibilitesCourantes = currentItineraire.parcoursProgressif(currentSource,currentPath,possibilitesCourantes);
                 try {
                     distanceCourantes = currentItineraire.getCurrentDistance(currentSource,possibilitesCourantes);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                VBox vBox = new VBox();
-                vBox.setSpacing(5);
-                System.out.println(distanceCourantes);
-                System.out.println(possibilitesCourantes);
+                currentSource = "";
+                ObservableList<CelluleListe> listePossibilites = FXCollections.observableArrayList();
                 if (possibilitesCourantes.size() > 0) {
-                    ToggleGroup toggleGroup = new ToggleGroup();
-                    for (int i = 0; i<possibilitesCourantes.size() ; i++) {
-                        RadioButton radioButton = new RadioButton(possibilitesCourantes.get(i));
-                        radioButton.setOnAction(this);
-                        radioButton.setToggleGroup(toggleGroup);
-                        Label content = new Label( " (" +
-                                villes.getMembreToVilles().get(possibilitesCourantes.get(i)) + ")" + " : " +
-                                distanceCourantes.get(i));
-                        content.setId("inline");
-                        vBox.getChildren().add(new HBox(radioButton,content));
+                    for (int i = 0; i < possibilitesCourantes.size() ; i++) {
+                        String infos =  " (" + villes.getMembreToVilles().get(possibilitesCourantes.get(i)) + ")" + " : " +
+                                distanceCourantes.get(i);
+                        CelluleListe cell = new CelluleListe(possibilitesCourantes.get(i),infos);
+                        listePossibilites.add(cell);
                     }
                 }
                 else {
-                    vBox.getChildren().add(new Label("Vous êtes arrivés !"));
-                    currentPath.add("PresidentFin");
+                    currentPath.add("President");
                     root.getTextItineraire().setText(curentTempIt.getCurrentDistance(currentPath));
+                    listePossibilites.add(new CelluleListe("Vous êtes arrivés !",""));
                 }
-                root.getScrollPossibilites().setContent(vBox);
+                root.getListView().setItems(listePossibilites);
             }
         }
+    }
+
+    public void setCurrentSource(String currentSource) {
+        this.currentSource = currentSource;
     }
 }
