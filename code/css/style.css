@@ -9,7 +9,12 @@
 
 #opaque, .toggle-button{
       -fx-background-color : cornsilk;
+}
 
+#text{
+      -fx-text-fill : #4682b4 ;
+      -fx-font-size: 1em;
+      -fx-font-weight : bold;
 }
 .label {
     -fx-text-fill : #4682b4 ;
