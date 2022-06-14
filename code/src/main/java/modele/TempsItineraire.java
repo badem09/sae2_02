@@ -6,24 +6,24 @@ import java.util.HashMap;
 
 public class TempsItineraire {
 
-    private Itineraire itineraire;
+    private Chemin itineraire;
     private static Villes villes;
     private HashMap<ArrayList<String>, Integer> dicoItineraire;
     private int nbPages;
     private HashMap<String, String> membresVilles ;
 
 
-    public TempsItineraire(Itineraire parItineraire) throws IOException {
+    public TempsItineraire(Chemin parItineraire) throws IOException {
         itineraire = parItineraire;
         dicoItineraire = new HashMap<>();
         villes = new Villes();
         membresVilles = itineraire.getScenario().getMembreInconnus();
         setDicoItineraire();
-        if (itineraire.getAllItineraire().size() % 8 == 0) {
-            nbPages = itineraire.getAllItineraire().size() / 8;
+        if (itineraire.getAllChemin().size() % 8 == 0) {
+            nbPages = itineraire.getAllChemin().size() / 8;
         }
         else {
-            nbPages = itineraire.getAllItineraire().size() / 8+1;
+            nbPages = itineraire.getAllChemin().size() / 8+1;
 
         }
 
@@ -33,7 +33,7 @@ public class TempsItineraire {
         ArrayList<ArrayList<Integer>> tabDistance = villes.getTabDistances();
        // HashMap<String, String> membresVilles = villes.getMembreToVilles();
        // System.out.println(this.itineraire.getAllPath());
-        for (ArrayList<String> it : itineraire.getAllItineraire()) {
+        for (ArrayList<String> it : itineraire.getAllChemin()) {
             int sum = 0;
             for (int i = 0; i < it.size() - 1; i++) {
                 if (membresVilles.get(it.get(i)) == "Ville non renseignée !" ||
@@ -92,7 +92,7 @@ public class TempsItineraire {
         return r;
     }
     public String toString(int start, int stop){
-        ArrayList<ArrayList<String>> tabItineraire = itineraire.getAllItineraire();
+        ArrayList<ArrayList<String>> tabItineraire = itineraire.getAllChemin();
         String retour = "";
         if(stop > tabItineraire.size()){
             stop = tabItineraire.size();
@@ -148,10 +148,10 @@ public class TempsItineraire {
     }
 
     public int getNbItineraire(){
-        return itineraire.getAllItineraire().size();
+        return itineraire.getAllChemin().size();
     }
 
-    public Itineraire getItineraire() {
+    public Chemin getItineraire() {
         return itineraire;
     }
 }
