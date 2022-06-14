@@ -3,28 +3,27 @@ package modele;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ItineraireTest {
+class CheminTest {
 
-    private Itineraire it0;
-    private Itineraire it1;
-    private Itineraire it2;
-    private Itineraire it3;
-    private Itineraire it4;
+    private Chemin it0;
+    private Chemin it1;
+    private Chemin it2;
+    private Chemin it3;
+    private Chemin it4;
 
-    ItineraireTest() throws IOException {
-       it0 = new Itineraire(Scenario.lectureScenario(
+    CheminTest() throws IOException {
+       it0 = new Chemin(Scenario.lectureScenario(
                "src/main/resources/scenario_0.txt",true));
-       it1 = new Itineraire(Scenario.lectureScenario(
+       it1 = new Chemin(Scenario.lectureScenario(
                 "src/main/resources/scenario_1_1.txt",true));
-       it2 = new Itineraire(Scenario.lectureScenario(
+       it2 = new Chemin(Scenario.lectureScenario(
                 "src/main/resources/scenario_1_2.txt",true));
-       it3 = new Itineraire(Scenario.lectureScenario(
+       it3 = new Chemin(Scenario.lectureScenario(
                 "src/main/resources/scenario_2_1.txt",true));
     }
 
@@ -71,7 +70,7 @@ class ItineraireTest {
 
     @Test
     void parcoursProgressif() {
-        
+
     }
 
     @Test
