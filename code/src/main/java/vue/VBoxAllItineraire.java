@@ -9,9 +9,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import modele.Itineraire;
+import modele.Chemin;
 import modele.Scenario;
 import modele.SuiviScenario;
 import modele.TempsItineraire;
@@ -55,12 +54,12 @@ public class VBoxAllItineraire extends VBox {
                 String scenarioCourant = (String) ((ComboBox<?>) event.getSource()).getSelectionModel().getSelectedItem();
                 try {
                     currentScenario = Scenario.lectureScenario("src/main/resources/" + scenarioCourant,false);
-                  //  Itineraire it = new Itineraire(currentScenario);
+                  //  Chemin it = new Chemin(currentScenario);
                    // tempsItineraire = new TempsItineraire(it);
                    // tempsItineraire = root.getVboxScenario().getGridPaneOrg().getMapItineraire().get(scenarioCourant);
                     // textItineraire.setText(tempsItineraire.toString(0,8));
                     if ( ! mapItineraire.containsKey(scenarioCourant)){
-                        Itineraire it = new Itineraire(currentScenario);
+                        Chemin it = new Chemin(currentScenario);
                         tempsItineraire = new TempsItineraire(it);
                         root.getVboxScenario().getGridPaneOrg().updateMapItineraire(scenarioCourant,tempsItineraire);
                     }
