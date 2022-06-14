@@ -1,13 +1,8 @@
 package modele;
 
-import modele.Itineraire;
-import modele.Scenario;
-import modele.TempsItineraire;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -16,7 +11,7 @@ public class TempsItineraireTest {
     }
 
     Scenario s1 = Scenario.lectureScenario("src/main/resources/scenario_0.txt",false);
-    TempsItineraire tempsItineraire1 = new TempsItineraire(new Itineraire(s1));
+    TempsItineraire tempsItineraire1 = new TempsItineraire(new Chemin(s1));
 
     @Test
     void testTempsItineraire() {
