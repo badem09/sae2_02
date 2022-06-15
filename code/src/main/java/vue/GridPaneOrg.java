@@ -5,8 +5,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import modele.Chemin;
+import modele.Itineraire;
 import modele.Scenario;
-import modele.TempsItineraire;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -16,10 +16,10 @@ public class GridPaneOrg extends GridPane {
     String chMembres;
     Scenario chScenario;
 
-    TextArea textBestIt ;
+    TextArea textBestChemin;
     TextArea textMembres;
     TextArea textScenario;
-    private Map<String , TempsItineraire> mapItineraire;
+    private Map<String , Itineraire> mapItineraire;
     private VBoxRoot root;
 
 
@@ -34,22 +34,18 @@ public class GridPaneOrg extends GridPane {
         root = parRoot;
 
         textMembres = new TextArea();
-
-     //   TempsItineraire ti =new TempsItineraire(new Chemin(chScenario));
-      //  String bestIt = ti.getBestItineraire();
-
-        textBestIt = new TextArea();
-        textBestIt.setWrapText(true);
+        textBestChemin = new TextArea();
+        textBestChemin.setWrapText(true);
 
         textScenario = new TextArea();
         textScenario.setPrefHeight(300);
         textScenario.setPrefWidth(700);
 
         textScenario.setEditable(false);
-        textBestIt.setEditable(false);
+        textBestChemin.setEditable(false);
         textMembres.setEditable(false);
 
-        textBestIt.setPromptText("[Membre1, Membre2, Membre3, ...]\r" + "Distance : distance");
+        textBestChemin.setPromptText("[Membre1, Membre2, Membre3, ...]\r" + "Distance : distance");
         textMembres.setPromptText("Membre 1 : Sa ville\rMembre 2 : Sa ville\rMembre 3 : Sa ville\r...");
         textScenario.setPromptText("Membre 1 vends à Membre 2"+"\r"+"Membre 3 vends à Membre 2\rMembre 4 vends à Membre 1\r");
 
@@ -67,15 +63,15 @@ public class GridPaneOrg extends GridPane {
         ligne +=1;
         this.add(labelBestit,0,ligne,1,1);
         ligne +=1;
-        this.add(textBestIt,0,ligne,2,1);
+        this.add(textBestChemin,0,ligne,2,1);
     }
 
     private void setContent() throws IOException {
-        TempsItineraire ti = mapItineraire.get(chScenario.getFileName());
+        Itineraire ti = mapItineraire.get(chScenario.getFileName());
         String bestIt = ti.getBestItineraire();
 
-        textBestIt.clear();
-        textBestIt.setText(bestIt);
+        textBestChemin.clear();
+        textBestChemin.setText(bestIt);
 
         textMembres.clear();
         textMembres.setText(chScenario.getMembreToString());
@@ -94,14 +90,14 @@ public class GridPaneOrg extends GridPane {
     public TextArea getTextScenario() {
         return textScenario;
     }
-    public TextArea getTextBestIt() {
-        return textBestIt;
+    public TextArea getTextBestChemin() {
+        return textBestChemin;
     }
 
     public void setScenario(Scenario parScenario) throws IOException {
         String fileName = parScenario.getFileName();
         if ( ! mapItineraire.containsKey(fileName)){
-            TempsItineraire ti = new TempsItineraire(new Chemin(parScenario));
+            Itineraire ti = new Itineraire(new Chemin(parScenario));
             mapItineraire.put(fileName,ti);
             root.getvBoxAllItineraire().updateMapItineraire(fileName, ti);
         }
@@ -109,11 +105,11 @@ public class GridPaneOrg extends GridPane {
         setContent();
     }
 
-    public Map<String, TempsItineraire> getMapItineraire() {
+    public Map<String, Itineraire> getMapItineraire() {
         return mapItineraire;
     }
 
-    public void updateMapItineraire(String fileName, TempsItineraire tempsItineraire) {
+    public void updateMapItineraire(String fileName, Itineraire tempsItineraire) {
         mapItineraire.put(fileName,tempsItineraire);
     }
 }
