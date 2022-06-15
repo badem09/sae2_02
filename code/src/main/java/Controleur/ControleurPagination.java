@@ -22,7 +22,7 @@ public class ControleurPagination implements EventHandler {
                     int anciennePage = Integer.valueOf(pagination.getLabelCurrentPage().getText()) +1;
                     String newPageNumber = " " + String.valueOf(anciennePage);
                     pagination.setLabelCurrentPage(String.valueOf(anciennePage));
-                    String currentPage = vBoxItineraire.getTempsItineraire().toString(8*(anciennePage-1), 8*anciennePage);
+                    String currentPage = vBoxItineraire.getItineraire().toString(8*(anciennePage-1), 8*anciennePage);
                     vBoxItineraire.getTextItineraire().setText(currentPage);
                 }
             }
@@ -32,7 +32,7 @@ public class ControleurPagination implements EventHandler {
                 if (pagination.getCurrentPage() > 1) {
                     int anciennePage = Integer.valueOf(pagination.getLabelCurrentPage().getText()) -1;
                     pagination.setLabelCurrentPage(String.valueOf(anciennePage));
-                    String currentPage = vBoxItineraire.getTempsItineraire().toString(8*(anciennePage-1), 8*anciennePage);
+                    String currentPage = vBoxItineraire.getItineraire().toString(8*(anciennePage-1), 8*anciennePage);
                     vBoxItineraire.getTextItineraire().setText(currentPage);
 
                 }
@@ -42,7 +42,7 @@ public class ControleurPagination implements EventHandler {
             if (((Button) event.getSource()).getAccessibleText() == "fin") {
                 if (pagination.getCurrentPage() < pagination.getMaxPage()) {
                     pagination.setLabelCurrentPage(pagination.getLabelMaxPage().getText());
-                    String currentPage = vBoxItineraire.getTempsItineraire().toString(
+                    String currentPage = vBoxItineraire.getItineraire().toString(
                             pagination.getMaxPage()*8 - 8, (pagination.getMaxPage()+1)*8);
                     vBoxItineraire.getTextItineraire().setText(currentPage);
                 }
@@ -52,7 +52,7 @@ public class ControleurPagination implements EventHandler {
             if (((Button) event.getSource()).getAccessibleText() == "debut") {
                 if (pagination.getCurrentPage() > 1) {
                     pagination.setLabelCurrentPage("1");
-                    String currentPage = vBoxItineraire.getTempsItineraire().toString(0, 8);
+                    String currentPage = vBoxItineraire.getItineraire().toString(0, 8);
                     vBoxItineraire.getTextItineraire().setText(currentPage);
                 }
             }

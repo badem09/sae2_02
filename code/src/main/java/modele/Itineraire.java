@@ -4,36 +4,32 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class TempsItineraire {
+public class Itineraire {
 
-    private Chemin itineraire;
+    private Chemin chemin;
     private static Villes villes;
     private HashMap<ArrayList<String>, Integer> dicoItineraire;
     private int nbPages;
     private HashMap<String, String> membresVilles ;
 
 
-    public TempsItineraire(Chemin parItineraire) throws IOException {
-        itineraire = parItineraire;
+    public Itineraire(Chemin parItineraire) throws IOException {
+        chemin = parItineraire;
         dicoItineraire = new HashMap<>();
         villes = new Villes();
-        membresVilles = itineraire.getScenario().getMembreInconnus();
+        membresVilles = chemin.getScenario().getMembreInconnus();
         setDicoItineraire();
-        if (itineraire.getAllChemin().size() % 8 == 0) {
-            nbPages = itineraire.getAllChemin().size() / 8;
+        if (chemin.getAllChemin().size() % 8 == 0) {
+            nbPages = chemin.getAllChemin().size() / 8;
         }
         else {
-            nbPages = itineraire.getAllChemin().size() / 8+1;
-
+            nbPages = chemin.getAllChemin().size() / 8+1;
         }
-
     }
 
     private void setDicoItineraire() {
         ArrayList<ArrayList<Integer>> tabDistance = villes.getTabDistances();
-       // HashMap<String, String> membresVilles = villes.getMembreToVilles();
-       // System.out.println(this.itineraire.getAllPath());
-        for (ArrayList<String> it : itineraire.getAllChemin()) {
+        for (ArrayList<String> it : chemin.getAllChemin()) {
             int sum = 0;
             for (int i = 0; i < it.size() - 1; i++) {
                 if (membresVilles.get(it.get(i)) == "Ville non renseignée !" ||
@@ -46,9 +42,7 @@ public class TempsItineraire {
                     int indexAvant = villes.getTabVilles().indexOf(avant);
                     int indexApres = villes.getTabVilles().indexOf(apres);
                     sum += tabDistance.get(indexAvant).get(indexApres);
-
             }
-
             dicoItineraire.put(it, sum);
         }
     }
@@ -56,6 +50,7 @@ public class TempsItineraire {
     public HashMap<ArrayList<String>, Integer> getDicoItineraire(){
         return dicoItineraire;
     }
+
     public String  getBestItineraire(){
         // What if yen a 2?
         String r = "";
@@ -91,8 +86,15 @@ public class TempsItineraire {
         }
         return r;
     }
+
+    /**
+     * Second toString() utilisé pour la pagination voir HBoxPagination
+     * @param start (int) indice du premier itinéraire.
+     * @param stop (int) indice du dernier itinéraire (exclus).
+     * @return
+     */
     public String toString(int start, int stop){
-        ArrayList<ArrayList<String>> tabItineraire = itineraire.getAllChemin();
+        ArrayList<ArrayList<String>> tabItineraire = chemin.getAllChemin();
         String retour = "";
         if(stop > tabItineraire.size()){
             stop = tabItineraire.size();
@@ -113,10 +115,10 @@ public class TempsItineraire {
         String r = "";
         long min = 1000000000;
         ArrayList<String> best = new ArrayList<>();
-        for (ArrayList<String> s : dicoItineraire.keySet()){
-            if (dicoItineraire.get(s)<min){
-                min = dicoItineraire.get(s);
-                best = s;
+        for (ArrayList<String> it : dicoItineraire.keySet()){
+            if (dicoItineraire.get(it)<min){
+                min = dicoItineraire.get(it);
+                best = it;
             }
         }
         return best ;
@@ -148,11 +150,11 @@ public class TempsItineraire {
     }
 
     public int getNbItineraire(){
-        return itineraire.getAllChemin().size();
+        return chemin.getAllChemin().size();
     }
 
-    public Chemin getItineraire() {
-        return itineraire;
+    public Chemin getChemin() {
+        return chemin;
     }
 }
 

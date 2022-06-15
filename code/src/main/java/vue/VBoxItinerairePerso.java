@@ -8,15 +8,11 @@ import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import modele.Chemin;
+import modele.Itineraire;
 import modele.SuiviScenario;
-import modele.TempsItineraire;
-import org.controlsfx.control.spreadsheet.Grid;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,7 +24,7 @@ public class VBoxItinerairePerso extends VBox {
     private ComboBox<String> comboBoxScenario;
     private StackPane scrollPossibilites ;
     private ListView listView;
-    private Map<String , TempsItineraire> mapItineraire;
+    private Map<String , Itineraire> mapItineraire;
     private TextArea textItineraire;
     private TextArea textMembres;
     private ControleurItinerairePerso controleur ;

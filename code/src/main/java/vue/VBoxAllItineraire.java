@@ -11,9 +11,9 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import modele.Chemin;
+import modele.Itineraire;
 import modele.Scenario;
 import modele.SuiviScenario;
-import modele.TempsItineraire;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,12 +27,13 @@ public class VBoxAllItineraire extends VBox {
     private ComboBox<String> comboBoxScenario;
     private  int nbPages;
     private HBoxPagination pagination;
-    private TempsItineraire tempsItineraire;
+    private Itineraire itineraire;
     private Label labelNbItineraire;
     private VBoxRoot root ;
-    private Map<String,TempsItineraire> mapItineraire;
+    private Map<String, Itineraire> mapItineraire;
 
     public VBoxAllItineraire(VBoxRoot parRoot){
+
         this.setId("opaque");
         this.setSpacing(10);
         mapItineraire = new HashMap<>();
@@ -49,34 +50,28 @@ public class VBoxAllItineraire extends VBox {
         comboBoxScenario.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                //   ((ComboBox<?>) event.getSource()).setVisible(isVisible());
                 System.out.println(((ComboBox<?>) event.getSource()).getSelectionModel().getSelectedItem());
                 String scenarioCourant = (String) ((ComboBox<?>) event.getSource()).getSelectionModel().getSelectedItem();
                 try {
                     currentScenario = Scenario.lectureScenario("src/main/resources/" + scenarioCourant,false);
-                  //  Chemin it = new Chemin(currentScenario);
-                   // tempsItineraire = new TempsItineraire(it);
-                   // tempsItineraire = root.getVboxScenario().getGridPaneOrg().getMapItineraire().get(scenarioCourant);
-                    // textItineraire.setText(tempsItineraire.toString(0,8));
                     if ( ! mapItineraire.containsKey(scenarioCourant)){
                         Chemin it = new Chemin(currentScenario);
-                        tempsItineraire = new TempsItineraire(it);
-                        root.getVboxScenario().getGridPaneOrg().updateMapItineraire(scenarioCourant,tempsItineraire);
+                        itineraire = new Itineraire(it);
+                        root.getVboxScenario().getGridPaneOrg().updateMapItineraire(scenarioCourant, itineraire);
                     }
                     else {
-                        tempsItineraire = mapItineraire.get(scenarioCourant);
+                        itineraire = mapItineraire.get(scenarioCourant);
                     }
-                    nbPages = tempsItineraire.getNbPages();
+                    nbPages = itineraire.getNbPages();
                     pagination.setLabelCurrentPage("1");
-                    textItineraire.setText(tempsItineraire.toString(0,8));
+                    textItineraire.setText(itineraire.toString(0,8));
                     pagination.setLabelMaxPage(String.valueOf(nbPages));
-                    labelNbItineraire.setText("Total : " + tempsItineraire.getNbItineraire() + " itinéraires");
+                    labelNbItineraire.setText("Total : " + itineraire.getNbItineraire() + " itinéraires");
                     System.out.println(nbPages);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
             }
-
         });
 
         Label labelTitre = new Label("Tous les itinéraires");
@@ -97,15 +92,15 @@ public class VBoxAllItineraire extends VBox {
         return currentScenario;
     }
 
-    public TempsItineraire getTempsItineraire() {
-        return tempsItineraire;
+    public Itineraire getItineraire() {
+        return itineraire;
     }
 
     public void updateCombo(ObservableList<String> liste){
         comboBoxScenario.setItems(liste);
     }
 
-    public void updateMapItineraire(String fileName , TempsItineraire ti){
+    public void updateMapItineraire(String fileName , Itineraire ti){
         mapItineraire.put(fileName,ti);
     }
 }
