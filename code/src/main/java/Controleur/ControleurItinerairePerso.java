@@ -11,11 +11,13 @@ import modele.Itineraire;
 import modele.Villes;
 import vue.CelluleListe;
 import vue.VBoxItinerairePerso;
+
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class ControleurItinerairePerso implements EventHandler {
+public class ControleurItinerairePerso implements EventHandler{
 
     private Map<String , Itineraire> mapItineraire;
     private VBoxItinerairePerso root ;
@@ -43,11 +45,11 @@ public class ControleurItinerairePerso implements EventHandler {
                     .getSelectionModel().getSelectedItem();
             root.getTextMembres().clear();
             root.getTextItineraire().clear();
-            root.getTextMembres().setText("President (vous) : Vélizy");
+            root.getTextMembres().setText("President (vous) : Vélizy\n");
             root.getTextItineraire().setText("Chemin : [Président] \n" + "Distance : 0");
 
             try {
-                Scenario scenario = Scenario.lectureScenario("src/main/resources/" + fileName, false);
+                Scenario scenario = Scenario.lectureScenario("src/main/resources/data/" + fileName, false);
                 if (mapItineraire.containsKey(fileName)) {
                     currentChemin = mapItineraire.get(fileName).getChemin();
                     curentItineraire = mapItineraire.get(fileName);
@@ -103,13 +105,22 @@ public class ControleurItinerairePerso implements EventHandler {
                         for (int i = 0; i < possibilitesCourantes.size(); i++) {
                             String infos = " (" + villes.getMembreToVilles().get(possibilitesCourantes.get(i)) +
                                     ")" + " : " + distanceCourantes.get(i);
-                            CelluleListe cell = new CelluleListe(possibilitesCourantes.get(i), infos);
+                            CelluleListe cell = null;
+                            try {
+                                cell = new CelluleListe(possibilitesCourantes.get(i), infos);
+                            } catch (FileNotFoundException e) {
+                                throw new RuntimeException(e);
+                            }
                             listePossibilites.add(cell);
                         }
                     } else {
                         currentPath.add("President");
                         root.getTextItineraire().setText(curentItineraire.getCurrentDistance(currentPath));
-                        listePossibilites.add(new CelluleListe("Vous êtes arrivés !", ""));
+                        try {
+                            listePossibilites.add(new CelluleListe("Vous êtes arrivés !", ""));
+                        } catch (FileNotFoundException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     root.getListView().setItems(listePossibilites);
                 }
