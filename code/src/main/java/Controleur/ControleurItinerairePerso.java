@@ -7,7 +7,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import modele.Chemin;
 import modele.Scenario;
-import modele.TempsItineraire;
+import modele.Itineraire;
 import modele.Villes;
 import vue.CelluleListe;
 import vue.VBoxItinerairePerso;
@@ -17,19 +17,19 @@ import java.util.Map;
 
 public class ControleurItinerairePerso implements EventHandler {
 
-    private Map<String , TempsItineraire> mapItineraire;
+    private Map<String , Itineraire> mapItineraire;
     private VBoxItinerairePerso root ;
 
     private String currentSource ;
     private ArrayList<String> currentPath;
-    private Chemin currentItineraire;
+    private Chemin currentChemin;
     private ArrayList<String> possibilitesCourantes;
     private Villes villes ;
-    private TempsItineraire curentTempIt ;
+    private Itineraire curentItineraire; // r
     private ArrayList<String> distanceCourantes;
 
 
-    public ControleurItinerairePerso(VBoxItinerairePerso root , Map<String , TempsItineraire> parMap) throws IOException {
+    public ControleurItinerairePerso(VBoxItinerairePerso root , Map<String , Itineraire> parMap) throws IOException {
         this.root = root;
         this.mapItineraire = parMap;
         villes = new Villes();
@@ -43,66 +43,76 @@ public class ControleurItinerairePerso implements EventHandler {
                     .getSelectionModel().getSelectedItem();
             root.getTextMembres().clear();
             root.getTextItineraire().clear();
+            root.getTextMembres().setText("President (vous) : Vélizy");
+            root.getTextItineraire().setText("Chemin : [Président] \n" + "Distance : 0");
 
             try {
                 Scenario scenario = Scenario.lectureScenario("src/main/resources/" + fileName, false);
                 if (mapItineraire.containsKey(fileName)) {
-                    currentItineraire = mapItineraire.get(fileName).getItineraire();
-                    curentTempIt = mapItineraire.get(fileName);
+                    currentChemin = mapItineraire.get(fileName).getChemin();
+                    curentItineraire = mapItineraire.get(fileName);
                 } else {
-                    currentItineraire = new Chemin(scenario);
-                   curentTempIt = new TempsItineraire(currentItineraire);
-                    mapItineraire.put(fileName,curentTempIt);
+                    currentChemin = new Chemin(scenario);
+                    curentItineraire = new Itineraire(currentChemin);
+                    mapItineraire.put(fileName, curentItineraire);
                 }
                 currentSource = "President";
                 currentPath = new ArrayList<>();
                 currentPath.add("President");
-                possibilitesCourantes = currentItineraire.parcoursProgressif(currentSource,currentPath,possibilitesCourantes);
-                distanceCourantes = currentItineraire.getCurrentDistance(currentSource,possibilitesCourantes);
+                possibilitesCourantes = currentChemin.parcoursProgressif(currentSource, currentPath, possibilitesCourantes);
+                distanceCourantes = currentChemin.getCurrentDistance(currentSource, possibilitesCourantes);
                 ObservableList<CelluleListe> listePossibilites = FXCollections.observableArrayList();
 
-                for (int i = 0; i < possibilitesCourantes.size() ; i++) {
-                    String infos =  " (" + villes.getMembreToVilles().get(possibilitesCourantes.get(i)) + ")" + " : " +
+                for (int i = 0; i < possibilitesCourantes.size(); i++) {
+                    String infos = " (" + villes.getMembreToVilles().get(possibilitesCourantes.get(i)) + ")" + " : " +
                             distanceCourantes.get(i);
-                    CelluleListe cell = new CelluleListe(possibilitesCourantes.get(i),infos);
+                    CelluleListe cell = new CelluleListe(possibilitesCourantes.get(i), infos);
                     listePossibilites.add(cell);
-                    }
+                }
                 root.getListView().setItems(listePossibilites);
-            }
-             catch(IOException e){
-                    throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }
 
-        if (event.getSource() instanceof Button){
-            if (((Button) event.getSource()).getText() == "_Valider" && currentPath.size()>0
-                    && ! currentPath.contains(currentSource) && currentSource != ""){
-                currentPath.add(currentSource);
-                root.getTextItineraire().setText(curentTempIt.getCurrentDistance(currentPath));
-                 root.getTextMembres().appendText(currentSource + " : " +
-                        villes.getMembreToVilles().get(currentSource) + "\n");
-                possibilitesCourantes = currentItineraire.parcoursProgressif(currentSource,currentPath,possibilitesCourantes);
-                try {
-                    distanceCourantes = currentItineraire.getCurrentDistance(currentSource,possibilitesCourantes);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                currentSource = "";
-                ObservableList<CelluleListe> listePossibilites = FXCollections.observableArrayList();
-                if (possibilitesCourantes.size() > 0) {
-                    for (int i = 0; i < possibilitesCourantes.size() ; i++) {
-                        String infos =  " (" + villes.getMembreToVilles().get(possibilitesCourantes.get(i)) + ")" + " : " +
-                                distanceCourantes.get(i);
-                        CelluleListe cell = new CelluleListe(possibilitesCourantes.get(i),infos);
-                        listePossibilites.add(cell);
+        if (event.getSource() instanceof Button) {
+            System.out.println("currentPath : " + currentPath + "source : " + currentSource);
+            if (((Button) event.getSource()).getText() == "_Valider" ){ //&& ! currentPath.contains(currentSource)) {
+                System.out.println("valider ok ");
+                if (currentPath.contains(currentSource) || currentSource == "No selection" ) {
+                    Alert mauvaisformat = new Alert(Alert.AlertType.ERROR);
+                    mauvaisformat.setHeaderText("Aucune Selection");
+                    mauvaisformat.setContentText("Oups. Il semblerait que vous n'avez selectionné aucun membre." +
+                            "\n" + "Veuillez en selectionner un parmis ceux proposés.");
+                    mauvaisformat.showAndWait();
+                } else {
+                    currentPath.add(currentSource);
+                    root.getTextItineraire().setText(curentItineraire.getCurrentDistance(currentPath));
+                    root.getTextMembres().appendText(currentSource + " : " +
+                            villes.getMembreToVilles().get(currentSource) + "\n");
+                    possibilitesCourantes = currentChemin.parcoursProgressif(currentSource,
+                            currentPath, possibilitesCourantes);
+                    try {
+                        distanceCourantes = currentChemin.getCurrentDistance(currentSource, possibilitesCourantes);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
                     }
+                    currentSource = "No selection";
+                    ObservableList<CelluleListe> listePossibilites = FXCollections.observableArrayList();
+                    if (possibilitesCourantes.size() > 0) {
+                        for (int i = 0; i < possibilitesCourantes.size(); i++) {
+                            String infos = " (" + villes.getMembreToVilles().get(possibilitesCourantes.get(i)) +
+                                    ")" + " : " + distanceCourantes.get(i);
+                            CelluleListe cell = new CelluleListe(possibilitesCourantes.get(i), infos);
+                            listePossibilites.add(cell);
+                        }
+                    } else {
+                        currentPath.add("President");
+                        root.getTextItineraire().setText(curentItineraire.getCurrentDistance(currentPath));
+                        listePossibilites.add(new CelluleListe("Vous êtes arrivés !", ""));
+                    }
+                    root.getListView().setItems(listePossibilites);
                 }
-                else {
-                    currentPath.add("President");
-                    root.getTextItineraire().setText(curentTempIt.getCurrentDistance(currentPath));
-                    listePossibilites.add(new CelluleListe("Vous êtes arrivés !",""));
-                }
-                root.getListView().setItems(listePossibilites);
             }
         }
     }
