@@ -29,7 +29,7 @@ public class PageMain extends Application {
         File css = new File("css"+File.separator+"style.css");
         scene.getStylesheets().add(css.toURI().toString());
         stage.getIcons().add(new Image(new FileInputStream(
-                "src/main/resources/pokeman.png")));        //controleurMenu = new ControleurMenu(root.getVBoxMenu());
+                "src/main/resources/images/pokeman.png")));        //controleurMenu = new ControleurMenu(root.getVBoxMenu());
         stage.setTitle("APLI");
         stage.show();
     }

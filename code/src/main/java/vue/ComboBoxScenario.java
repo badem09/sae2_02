@@ -26,7 +26,7 @@ public class ComboBoxScenario extends ComboBox {
                 System.out.println(((ComboBox<?>) event.getSource()).getSelectionModel().getSelectedItem());
                 String scenarioCourant = (String) ((ComboBox<?>) event.getSource()).getSelectionModel().getSelectedItem();
                 try {
-                    Scenario scenario = Scenario.lectureScenario("src/main/resources/" + scenarioCourant,false);
+                    Scenario scenario = Scenario.lectureScenario("src/main/resources/data/" + scenarioCourant,false);
                     PageMain.getvBoxScenario().getGridPaneOrg().setScenario(scenario);
                 } catch (IOException e) {
                     throw new RuntimeException(e);

@@ -32,7 +32,7 @@ public class VBoxScenarioConnu extends VBox {
                 System.out.println(((ComboBox<?>) event.getSource()).getSelectionModel().getSelectedItem());
                 String scenarioCourant = (String) ((ComboBox<?>) event.getSource()).getSelectionModel().getSelectedItem();
                 try {
-                    Scenario scenario = Scenario.lectureScenario("src/main/resources/" + scenarioCourant,false);
+                    Scenario scenario = Scenario.lectureScenario("src/main/resources/data/" + scenarioCourant,false);
                     PageMain.getvBoxScenario().getGridPaneOrg().setScenario(scenario);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -47,6 +47,7 @@ public class VBoxScenarioConnu extends VBox {
         VBox vBoxTitre = new VBox(labelTitre);
         vBoxTitre.setAlignment(Pos.CENTER);
         this.getChildren().addAll(vBoxTitre,comboBoxScenario,gridPaneOrg);
+        this.setFillWidth(true);
     }
 
     public VBoxMenu getvBoxMenu() {

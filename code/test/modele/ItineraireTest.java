@@ -10,7 +10,7 @@ public class ItineraireTest {
     ItineraireTest() throws IOException {
     }
 
-    Scenario s1 = Scenario.lectureScenario("src/main/resources/scenario_0.txt",false);
+    Scenario s1 = Scenario.lectureScenario("src/main/resources/data/scenario_0.txt",false);
     Itineraire tempsItineraire1 = new Itineraire(new Chemin(s1));
 
     @Test

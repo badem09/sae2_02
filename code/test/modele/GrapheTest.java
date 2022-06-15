@@ -22,7 +22,7 @@ import java.io.IOException;
 public class GrapheTest {
     GrapheTest() throws IOException {
     }
-    Scenario s = Scenario.lectureScenario("src/main/resources/scenario_0.txt",false);
+    Scenario s = Scenario.lectureScenario("src/main/resources/data/scenario_0.txt",false);
     Graphes g = new Graphes(s);
     HashMap<String,ArrayList<String>> dicoScenario = s.getDicoAV();
     HashMap<String,ArrayList<String>> dicoGraphe = s.getDicoAV();

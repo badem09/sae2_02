@@ -86,7 +86,8 @@ public class Scenario {
             return scenario;
         }
         catch (FileNotFoundException fnfe){
-            System.out.println("Le fichier est introuvable.\nVeuillez vérifier son chemin d'accès" ) ;
+            fnfe.printStackTrace();
+            System.out.println("Le fichier est introuvable.\nVeuillez vérifier son chemin d'accès_n") ;
             System.exit(5);
         }
        return null;

@@ -18,13 +18,13 @@ class CheminTest {
 
     CheminTest() throws IOException {
        it0 = new Chemin(Scenario.lectureScenario(
-               "src/main/resources/scenario_0.txt",true));
+               "src/main/resources/data/scenario_0.txt",true));
        it1 = new Chemin(Scenario.lectureScenario(
-                "src/main/resources/scenario_1_1.txt",true));
+                "src/main/resources/data/scenario_1_1.txt",true));
        it2 = new Chemin(Scenario.lectureScenario(
-                "src/main/resources/scenario_1_2.txt",true));
+                "src/main/resources/data/scenario_1_2.txt",true));
        it3 = new Chemin(Scenario.lectureScenario(
-                "src/main/resources/scenario_2_1.txt",true));
+                "src/main/resources/data/scenario_2_1.txt",true));
     }
 
     @Test

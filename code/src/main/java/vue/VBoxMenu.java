@@ -27,7 +27,7 @@ public class VBoxMenu extends VBox implements IntitulesMenu {
        // controleurStage = PageMain.getControleurStage();
 
         scenario = new Scenario();
-        File suiviScenario = new File("src/main/resources/suivi_scenarios.txt");
+        File suiviScenario = new File("src/main/resources/data/suivi_scenarios.txt");
         SuiviScenario.RecupereListeSuivi(suiviScenario);
 
 

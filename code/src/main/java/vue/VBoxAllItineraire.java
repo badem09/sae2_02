@@ -53,7 +53,7 @@ public class VBoxAllItineraire extends VBox {
                 System.out.println(((ComboBox<?>) event.getSource()).getSelectionModel().getSelectedItem());
                 String scenarioCourant = (String) ((ComboBox<?>) event.getSource()).getSelectionModel().getSelectedItem();
                 try {
-                    currentScenario = Scenario.lectureScenario("src/main/resources/" + scenarioCourant,false);
+                    currentScenario = Scenario.lectureScenario("src/main/resources/data/" + scenarioCourant,false);
                     if ( ! mapItineraire.containsKey(scenarioCourant)){
                         Chemin it = new Chemin(currentScenario);
                         itineraire = new Itineraire(it);
