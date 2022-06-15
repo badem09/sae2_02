@@ -8,7 +8,7 @@ public class ClientVilles {
         Villes v1 = new Villes();
         //Scenario s = Scenario.lectureScenario("src/main/resources/scenario_0.txt");
 
-        //  System.out.println(v1.getTabVilles());
+        System.out.println(v1.getMembreToVilles().get("President"));
        // System.out.println(v1.getTabDistances());
        // System.out.println(v1.getSuiviScenario());
     }

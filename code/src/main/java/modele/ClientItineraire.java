@@ -1,18 +1,13 @@
 package modele;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.*;
 
 public class ClientItineraire {
     public static void main(String[] args) throws IOException {
         Scenario s = Scenario.lectureScenario(
-                "src/main/resources/scenario_1_1.txt",true);
-        Itineraire it = new Itineraire(s);
-        ArrayList<String> list = new ArrayList<>();
-        list.add("Soporifik");
-        System.out.println(it.parcoursProgressif("Soporifik", list));
-
+                "src/main/resources/data/scenario_1_2.txt",true);
+        Chemin it = new Chemin(s);
+        System.out.println(it.size());
         //it.get()
 
 
