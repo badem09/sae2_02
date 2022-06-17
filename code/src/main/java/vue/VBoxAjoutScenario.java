@@ -28,6 +28,7 @@ public class VBoxAjoutScenario extends VBox {
     private File selectedFile;
 
     public VBoxAjoutScenario(Stage stage,VBoxRoot root){
+        this.setId("opaque");
         FileChooser fileChooser = new FileChooser();
         textAreaScenario = new TextArea();
         Label labelTransition = new Label("Le fichier séléctionné : ");
