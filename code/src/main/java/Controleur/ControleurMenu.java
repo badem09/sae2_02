@@ -1,12 +1,9 @@
 package Controleur;
 
+import javafx.scene.control.*;
 import modele.*;
 import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
 import javafx.scene.layout.StackPane;
 
 import vue.*;
@@ -78,7 +75,18 @@ public class ControleurMenu implements EventHandler,IntitulesMenu {
                     stackPane.getChildren().get(0).toFront();
                 }
             }
+
+            if (((MenuItem) event.getSource()).getUserData() == SOUS_MENU[2][0]) {
+                StackPane stackPane = root.getStackPane();
+                int last = stackPane.getChildren().size() - 1;
+                while (!(stackPane.getChildren().get(last) instanceof VBoxAide)) {
+                    stackPane.getChildren().get(0).toFront();
+                }
+            }
+
         }
+
+    System.out.println(event.getSource().getClass() + " : " + event.getSource());
     }
 }
 
