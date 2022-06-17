@@ -22,6 +22,7 @@ public class VBoxRoot extends VBox {
     private static VBoxAllItineraire vBoxAllItineraire;
     private static VBoxAjoutPreview vBoxAjoutPreview;
     private VBoxItinerairePerso vBoxItinerairePerso;
+    private VBoxAide vBoxAide;
     private static ControleurMenu controleurMenu;
     private ComboBoxScenario comboBoxScenario;
 
@@ -34,13 +35,15 @@ public class VBoxRoot extends VBox {
         vBoxAjoutPreview = new VBoxAjoutPreview(this);
         comboBoxScenario = new ComboBoxScenario();
         vBoxItinerairePerso = new VBoxItinerairePerso(this);
+        vBoxAide = new VBoxAide();
 
-        Node [] components = new Node[5];
+        Node [] components = new Node[6];
         components[0] = vBoxScenario;
         components[1] = vBoxAjout;
         components[2] = vBoxAllItineraire;
         components[3] = vBoxAjoutPreview;
         components[4] = vBoxItinerairePerso;
+        components[5] = vBoxAide;
 
         System.out.println(components);
         stackPane = new StackPane(components);
