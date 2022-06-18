@@ -87,7 +87,7 @@ public class ControleurMenu implements EventHandler,IntitulesMenu {
             if (((MenuItem) event.getSource()).getUserData() == SOUS_MENU[1][0]) {
                 StackPane stackPane = root.getStackPane();
                 int last = stackPane.getChildren().size() - 1;
-                while (!(stackPane.getChildren().get(last) instanceof VBoxMembres)) {
+                while (!(stackPane.getChildren().get(last) instanceof HBoxInfo)) {
                     stackPane.getChildren().get(0).toFront();
                 }
             }
