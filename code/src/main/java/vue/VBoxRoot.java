@@ -1,16 +1,12 @@
 package vue;
 
 import Controleur.ControleurMenu;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.awt.font.TextHitInfo;
 import java.io.IOException;
 
 public class VBoxRoot extends VBox {
@@ -25,7 +21,7 @@ public class VBoxRoot extends VBox {
     private VBoxAide vBoxAide;
     private static ControleurMenu controleurMenu;
     private ComboBoxScenario comboBoxScenario;
-    private VBoxMembres vBoxMembres;
+    private HBoxInfo hBoxInfo;
 
 
     public VBoxRoot(Stage stage) throws IOException {
@@ -37,7 +33,7 @@ public class VBoxRoot extends VBox {
         comboBoxScenario = new ComboBoxScenario();
         vBoxItinerairePerso = new VBoxItinerairePerso(this);
         vBoxAide = new VBoxAide();
-        vBoxMembres = new VBoxMembres();
+        hBoxInfo = new HBoxInfo(vBoxMenu);
 
 
         Node [] components = new Node[7];
@@ -47,7 +43,7 @@ public class VBoxRoot extends VBox {
         components[3] = vBoxAjoutPreview;
         components[4] = vBoxItinerairePerso;
         components[5] = vBoxAide;
-        components[6] = vBoxMembres;
+        components[6] = hBoxInfo;
 
         System.out.println(components);
         stackPane = new StackPane(components);
