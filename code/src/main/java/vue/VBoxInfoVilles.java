@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -19,7 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class VBoxMembres extends VBox {
+public class VBoxInfoVilles extends VBox {
     TextField textField;
     Villes villes;
     String currentInput;
@@ -29,7 +30,8 @@ public class VBoxMembres extends VBox {
     ListView<CelluleListe> listViewAffichageMembre;
 
 
-    public VBoxMembres() throws IOException {
+    public VBoxInfoVilles() throws IOException {
+        setSpacing(10);
         listViewAffichageMembre = new ListView<>();
         currentListeVille = new ArrayList<>();
         textField = new TextField();
@@ -46,8 +48,9 @@ public class VBoxMembres extends VBox {
                 listViewChoixVille.setItems(FXCollections.observableArrayList(liste));
             }
             currentInput = newValue;
+            currentListeVille = (ArrayList<String>) liste.clone();
             for (String ville : (ArrayList<String>) currentListeVille.clone()){
-                if  (! ( containsIgnoreCase(ville,currentInput)  && equalsIgnoreCase(currentInput.charAt(currentInput.length() - 1), ville.charAt(currentInput.length() -1)))){
+                if  (!  equalsIgnoreCase(ville, currentInput)){
                     currentListeVille.remove(ville);
                 }
             }
@@ -69,8 +72,10 @@ public class VBoxMembres extends VBox {
             }
         });
 
-        Button buttonRecommencer = new Button("Recommencer");
-        buttonRecommencer.setOnAction(new EventHandler<>() {
+        Button buttonClear = new Button("Clear");
+        //buttonClear.setAlignment(Pos.BOTTOM_RIGHT);
+        buttonClear.setOnAction(new EventHandler<>() {
+
             @Override
             public void handle(ActionEvent actionEvent) {
                 currentListeVille.removeAll(liste);
@@ -83,8 +88,10 @@ public class VBoxMembres extends VBox {
         listViewAffichageMembre.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<>() {
             @Override
             public void handle(MouseEvent event) {event.consume();}});
-        this.getChildren().addAll(new VBox(new Label("Recherche de membres"),textField,
-                new HBox(listViewChoixVille, listViewAffichageMembre), buttonRecommencer));
+        Label titre = new Label("Recherche de Villes");
+        titre.setAlignment(Pos.TOP_LEFT);
+        this.getChildren().addAll(titre,textField,
+                new HBox(listViewChoixVille, listViewAffichageMembre), buttonClear);
     }
 
     private void setContent(ListView<CelluleListe> listViewMembre, String villeChoisie) throws FileNotFoundException {
@@ -98,16 +105,14 @@ public class VBoxMembres extends VBox {
 
     }
 
-    private boolean containsIgnoreCase(String ville, String input){
-        for ( char lettre : input.toCharArray()){
-            if (  ville.contains(String.valueOf(lettre).toLowerCase()) ||  ville.contains(String.valueOf(lettre).toUpperCase())){
-                return true;
+    private boolean equalsIgnoreCase(String membre, String input){
+        membre = membre.toLowerCase();
+        input = input.toLowerCase();
+        for(int i = 0; i < input.length() ; i++){
+            if ( membre.charAt(i) != input.charAt(i)){
+                return false;
             }
         }
-        return false;
-    }
-
-    private boolean equalsIgnoreCase(char c1, char c2){
-        return String.valueOf(c1).equalsIgnoreCase(String.valueOf(c2));
+        return true;
     }
 }
