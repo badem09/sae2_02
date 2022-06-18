@@ -98,8 +98,8 @@ public class VBoxInfoVilles extends VBox {
         ArrayList<String> listeMembre = villes.getVillesToMembre().get(villeChoisie);
         Collections.sort(listeMembre);
         ObservableList<CelluleListe> content = FXCollections.observableArrayList();
-        for (String membre : listeMembre){
-            content.add(new CelluleListe(membre,""));
+        for (int i = 0 ; i< listeMembre.size() ; i++){
+            content.add(new CelluleListe(i + ". ",listeMembre.get(i)));
         }
         listViewMembre.setItems(content);
 
