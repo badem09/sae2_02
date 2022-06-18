@@ -1,0 +1,41 @@
+.root {
+    -fx-padding : 15;
+    -fx-background-color : cornsilk;
+}
+
+#inline{
+    -fx-text-fill: "black" ;
+}
+
+#opaque, .toggle-button{
+      -fx-background-color : cornsilk;
+}
+
+#text{
+      -fx-text-fill : #4682b4 ;
+      -fx-font-size: 1em;
+      -fx-font-weight : bold;
+}
+.label {
+    -fx-text-fill : #4682b4 ;
+    -fx-font-size: 1em;
+    -fx-font-weight : bold;
+}
+
+#today {
+-fx-text-fill: "red" ;
+}
+#horsMois {
+-fx-background-color : gainsboro}
+
+.scroll-pane{
+    -fx-background: #ddf5ee;
+    -fx-border-color : #5F9EA0;
+}
+
+.toggle-button{
+    -fx-background-color : white}
+
+ .toggle-button:selected {
+     -fx-background-color : grey}
+

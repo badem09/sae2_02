@@ -6,8 +6,8 @@ import java.io.IOException;
 public class ClientGraphes {
     public static void main(String[] args) throws IOException {
 
-        Scenario s = Scenario.lectureScenario(new File(
-                "src/main/resources/scenario_1_1.txt"));
+        Scenario s = Scenario.lectureScenario(
+                "src/main/resources/data/scenario_1_1.txt",true);
         Graphes g = new Graphes(s);
        // System.out.println(s.membresToVilles(s.getDicoAV()));
        // System.out.println(g.getSource());

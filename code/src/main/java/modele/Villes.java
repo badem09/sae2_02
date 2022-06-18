@@ -19,17 +19,11 @@ public class Villes {
     public Villes() throws IOException {
 
         fileDistances =new File(
-                "src/main/resources/distances.txt");
+                "src/main/resources/data/distances.txt");
         fileMembre = new File(
                 "src/main/resources/membres_APLI.txt");
-<<<<<<< HEAD
-        tabVilles = new ArrayList<String>();
-        tabDistances = new  ArrayList<ArrayList<Integer>>();
-        dicoDistances = new HashMap<>();
-=======
         listeVilles = new ArrayList<>();
         tabDistances = new  ArrayList<>();
->>>>>>> rework
         membreToVilles = new HashMap<>();
         villesToMembre = new HashMap<>();
 

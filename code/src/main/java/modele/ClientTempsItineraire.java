@@ -1,24 +1,19 @@
 package modele;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class ClientTempsItineraire {
     public static void main(String [] arg) throws IOException {
-<<<<<<< HEAD
-        Scenario s = Scenario.lectureScenario(new File(
-                "src/main/resources/scenario_1_1.txt"));
-=======
-        Scenario s = Scenario.lectureScenario(new File("src/main/resources/scenario_2_1.txt"));
->>>>>>> rework
 
-        Itineraire it = new Itineraire(s);
+        Scenario s = Scenario.lectureScenario("src/main/resources/data/scenario_1_1.txt",true);
+
+
+        Chemin it = new Chemin(s);
         System.out.println(it.getItineraireGen());
-        TempsItineraire ti = new TempsItineraire(it);
+        Itineraire ti = new Itineraire(it);
         //System.out.println(ti.getDic: oItineraire());
         //ArrayList<String> best = ti.getBestItinéraire();
-        System.out.println(ti.toString() + "\n");
+       // System.out.println(ti.toString() + "\n");
         System.out.println(ti.getBestItineraire());
     }
 }

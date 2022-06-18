@@ -1,20 +1,12 @@
 package modele;
-import modele.Scenario;
-
-import java.io.File;
 
 public class ClientScenario {
     public static void main(String[] args) throws Exception{
-        Scenario s1 = new Scenario();
-<<<<<<< HEAD
-        s1 = Scenario.lectureScenario(new File(
-                "/src/main/resources/scenario_1_1.txt"));
-        System.out.println(s1.getVilles().getTabDistances());
-=======
-        s1 = Scenario.lectureScenario(new File("src/main/resources/scenario_0.txt"));
-        System.out.println(s1.getDicoAV());
-        System.out.println(s1.getDicoVA());
->>>>>>> rework
+
+        Scenario s1 = Scenario.lectureScenario("src/main/resources/data/scenario_0.txt",true);
+        Scenario s2 = Scenario.lectureScenario("src/main/resources/data/scenario_1_1.txt",true);
+        System.out.println(s1.getMembreToString());
+        System.out.println(s2.getMembreToString());
 
 
     }
