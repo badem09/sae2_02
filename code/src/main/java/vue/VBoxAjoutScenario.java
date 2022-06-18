@@ -2,7 +2,6 @@ package vue;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -64,7 +63,7 @@ public class VBoxAjoutScenario extends VBox {
                         stackPane.getChildren().get(0).toFront();
                     }
                 } catch (Exception e) {
-                    System.out.println(e);
+                    e.printStackTrace();
                     Alert mauvaisformat = new Alert(Alert.AlertType.ERROR);
                     mauvaisformat.setHeaderText("Mauvais format");
                     mauvaisformat.setContentText("Le contenu du fichier n'est pas approprié." +
