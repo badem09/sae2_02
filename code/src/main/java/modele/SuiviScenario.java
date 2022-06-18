@@ -23,15 +23,20 @@ public class SuiviScenario {
      * @throws IOException (FileNotFoundException)
      */
     public static void RecupereListeSuivi(File fileSuivi) throws IOException {
-        BufferedReader bufferEntree = new BufferedReader(new FileReader(fileSuivi));
-        String ligne;
-        do {
-            ligne = bufferEntree.readLine();
-            if (ligne != null && ! listeScenarioSuivi.contains(ligne)) {
-                listeScenarioSuivi.add(ligne);
+        try {
+            BufferedReader bufferEntree = new BufferedReader(new FileReader(fileSuivi));
+            String ligne;
+            do {
+                ligne = bufferEntree.readLine();
+                if (ligne != null && !listeScenarioSuivi.contains(ligne)) {
+                    listeScenarioSuivi.add(ligne);
+                }
             }
+            while (ligne != null);
+        } catch (FileNotFoundException fnfe) {
+            System.out.println("Suivi scenario pas encore crée");
+            //fnfe.printStackTrace();
         }
-        while (ligne != null);
     }
 
     /**
