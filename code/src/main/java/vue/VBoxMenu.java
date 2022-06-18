@@ -52,7 +52,7 @@ public class VBoxMenu extends VBox implements IntitulesMenu {
             }
             i++;
 
-            if (intitules == "_Aide"){
+            if (intitules == "_Aide" || intitules == "_Membres"){
                 System.out.println(intitules);
                 menu.showingProperty().addListener(
                         (observableValue, oldValue, newValue) -> {

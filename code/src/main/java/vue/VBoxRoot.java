@@ -25,6 +25,7 @@ public class VBoxRoot extends VBox {
     private VBoxAide vBoxAide;
     private static ControleurMenu controleurMenu;
     private ComboBoxScenario comboBoxScenario;
+    private VBoxMembres vBoxMembres;
 
 
     public VBoxRoot(Stage stage) throws IOException {
@@ -36,14 +37,17 @@ public class VBoxRoot extends VBox {
         comboBoxScenario = new ComboBoxScenario();
         vBoxItinerairePerso = new VBoxItinerairePerso(this);
         vBoxAide = new VBoxAide();
+        vBoxMembres = new VBoxMembres();
 
-        Node [] components = new Node[6];
+
+        Node [] components = new Node[7];
         components[0] = vBoxScenario;
         components[1] = vBoxAjout;
         components[2] = vBoxAllItineraire;
         components[3] = vBoxAjoutPreview;
         components[4] = vBoxItinerairePerso;
         components[5] = vBoxAide;
+        components[6] = vBoxMembres;
 
         System.out.println(components);
         stackPane = new StackPane(components);
