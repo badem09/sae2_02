@@ -13,15 +13,11 @@ import java.util.ArrayList;
 
 public class ControleurMenu implements EventHandler,IntitulesMenu {
 
-    private VBoxRoot root;
-    private VBoxMenu vBoxMenu;
-    private Scenario scenario;
-    private ArrayList<String> listeScenario;
+    private final VBoxRoot root;
 
     public ControleurMenu(VBoxMenu parVBox, VBoxRoot root) throws IOException {
         this.root = root;
-        vBoxMenu = parVBox;
-        listeScenario = SuiviScenario.getListeScenarioSuivi();
+        ArrayList<String> listeScenario = SuiviScenario.getListeScenarioSuivi();
         if (listeScenario == null) {
             Scenario s1 = Scenario.lectureScenario("src/main/resources/data/scenario_0.txt",true);
             Scenario s2 = Scenario.lectureScenario("src/main/resources/data/scenario_1_1.txt",true);
@@ -34,13 +30,9 @@ public class ControleurMenu implements EventHandler,IntitulesMenu {
     @Override
     public void handle(Event event) {
         //"Scénarios connus"
-        MenuBar menuBar = vBoxMenu.getChMenuBar();
         if (event.getSource() instanceof MenuItem) {
-            System.out.println(((MenuItem) event.getSource()).getUserData());
 
             if (((MenuItem) event.getSource()).getUserData() == SOUS_MENU[0][0]) {
-                System.out.println(SuiviScenario.getListeScenarioSuivi());
-                System.out.println(((MenuItem) event.getSource()).getUserData());
                 StackPane stackPane = root.getStackPane();
                 int last = stackPane.getChildren().size() - 1;
                 while (!(stackPane.getChildren().get(last) instanceof VBoxAjoutScenario)) {
@@ -49,7 +41,6 @@ public class ControleurMenu implements EventHandler,IntitulesMenu {
             }
 
             if (((MenuItem) event.getSource()).getUserData() == SOUS_MENU[0][1]) {
-                System.out.println(SuiviScenario.getListeScenarioSuivi());
                 StackPane stackPane = root.getStackPane();
                 int last = stackPane.getChildren().size() - 1;
                 while (!(stackPane.getChildren().get(last) instanceof VBoxScenarioConnu)) {
@@ -57,8 +48,6 @@ public class ControleurMenu implements EventHandler,IntitulesMenu {
                 }
             }
             if (((MenuItem) event.getSource()).getUserData() == SOUS_MENU[2][1]) {
-                System.out.println(SuiviScenario.getListeScenarioSuivi());
-                System.out.println(((MenuItem) event.getSource()).getUserData());
                 StackPane stackPane = root.getStackPane();
                 int last = stackPane.getChildren().size() - 1;
                 while (!(stackPane.getChildren().get(last) instanceof VBoxAllItineraire)) {
@@ -67,8 +56,6 @@ public class ControleurMenu implements EventHandler,IntitulesMenu {
             }
 
             if (((MenuItem) event.getSource()).getUserData() == SOUS_MENU[2][0]) {
-                System.out.println(SuiviScenario.getListeScenarioSuivi());
-                System.out.println(((MenuItem) event.getSource()).getUserData());
                 StackPane stackPane = root.getStackPane();
                 int last = stackPane.getChildren().size() - 1;
                 while (!(stackPane.getChildren().get(last) instanceof VBoxItinerairePerso)) {
@@ -92,8 +79,6 @@ public class ControleurMenu implements EventHandler,IntitulesMenu {
                 }
             }
         }
-
-    System.out.println(event.getSource().getClass() + " : " + event.getSource());
     }
 }
 

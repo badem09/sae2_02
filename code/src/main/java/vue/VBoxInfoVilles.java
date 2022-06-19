@@ -21,17 +21,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class VBoxInfoVilles extends VBox {
-    TextField textField;
-    Villes villes;
-    String currentInput;
-    ListView<String> listViewChoixVille;
-    ArrayList<String> currentListeVille;
-    String villeChoisie;
-    ListView<CelluleListe> listViewAffichageMembre;
+    private final TextField textField;
+    private final Villes villes;
+    private String currentInput;
+    private final ListView<String> listViewChoixVille;
+    private ArrayList<String> currentListeVille;
+    private  String villeChoisie;
+    private final ListView<CelluleListe> listViewAffichageMembre;
 
 
     public VBoxInfoVilles() throws IOException {
+        setId("opaque");
         setSpacing(10);
+
         listViewAffichageMembre = new ListView<>();
         currentListeVille = new ArrayList<>();
         textField = new TextField();
@@ -39,10 +41,12 @@ public class VBoxInfoVilles extends VBox {
         ArrayList<String> liste = villes.getTabVilles();
         Collections.sort(liste);
         listViewChoixVille = new ListView<>(FXCollections.observableArrayList(liste));
-        this.setId("opaque");
         textField.setPromptText("Veuillez rentrer une ville");
 
+        // À l'écoute des saisies dans le textField
         textField.textProperty().addListener((observable, oldValue, newValue) -> {
+
+            // si aucune Saisie
             if (currentListeVille.size() == 0 || textField.getText() == ""){
                 currentListeVille = (ArrayList<String>) liste.clone();
                 listViewChoixVille.setItems(FXCollections.observableArrayList(liste));
@@ -50,14 +54,14 @@ public class VBoxInfoVilles extends VBox {
             currentInput = newValue;
             currentListeVille = (ArrayList<String>) liste.clone();
             for (String ville : (ArrayList<String>) currentListeVille.clone()){
-                if  (!  equalsIgnoreCase(ville, currentInput)){
+                if  (! equalsIgnoreCase(ville, currentInput)){
                     currentListeVille.remove(ville);
                 }
             }
-            System.out.println("textfield changed from " + oldValue + " to " + newValue);
             listViewChoixVille.setItems(FXCollections.observableList(currentListeVille));
         });
 
+        //Recupère la ville selectionnée et affiche les membres associés
         listViewChoixVille.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -72,10 +76,9 @@ public class VBoxInfoVilles extends VBox {
             }
         });
 
+        // Efface le contenu de la listeView d'affichage des villes
         Button buttonClear = new Button("Clear");
-        //buttonClear.setAlignment(Pos.BOTTOM_RIGHT);
         buttonClear.setOnAction(new EventHandler<>() {
-
             @Override
             public void handle(ActionEvent actionEvent) {
                 currentListeVille.removeAll(liste);
@@ -85,15 +88,24 @@ public class VBoxInfoVilles extends VBox {
                 listViewAffichageMembre.setItems(FXCollections.observableArrayList(new ArrayList<>()));
             }
         });
+
+        //Rend le click impossible sur les membres.
         listViewAffichageMembre.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<>() {
             @Override
             public void handle(MouseEvent event) {event.consume();}});
+
         Label titre = new Label("Recherche de Villes");
         titre.setAlignment(Pos.TOP_LEFT);
         this.getChildren().addAll(titre,textField,
                 new HBox(listViewChoixVille, listViewAffichageMembre), buttonClear);
     }
 
+    /**
+     * Peuple la listeViewMembre (ListeView affichant les membres de la ville séléctionnée).
+     * @param listViewMembre (ListeView)
+     * @param villeChoisie (String)
+     * @throws FileNotFoundException
+     */
     private void setContent(ListView<CelluleListe> listViewMembre, String villeChoisie) throws FileNotFoundException {
         ArrayList<String> listeMembre = villes.getVillesToMembre().get(villeChoisie);
         Collections.sort(listeMembre);
@@ -102,9 +114,14 @@ public class VBoxInfoVilles extends VBox {
             content.add(new CelluleListe(listeMembre.get(i),String.valueOf(i)));
         }
         listViewMembre.setItems(content);
-
     }
 
+    /**
+     * Sert à comparer deux chaînes de caractère en ignorant la case.
+     * @param membre (String).
+     * @param input (String) entrée de l'utilisateur.
+     * @return boolean
+     */
     private boolean equalsIgnoreCase(String membre, String input){
         membre = membre.toLowerCase();
         input = input.toLowerCase();

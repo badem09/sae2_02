@@ -7,8 +7,8 @@ import vue.HBoxPagination;
 import vue.VBoxAllItineraire;
 
 public class ControleurPagination implements EventHandler {
-    private VBoxAllItineraire vBoxItineraire;
-    private HBoxPagination pagination;
+    private final VBoxAllItineraire vBoxItineraire;
+    private final HBoxPagination pagination;
 
     public ControleurPagination(VBoxAllItineraire parVboxIt, HBoxPagination pagination){
         vBoxItineraire = parVboxIt;
@@ -19,8 +19,7 @@ public class ControleurPagination implements EventHandler {
         if (event.getSource() instanceof Button){
             if (((Button) event.getSource()).getAccessibleText() == "avancer") {
                 if (pagination.getMaxPage() > pagination.getCurrentPage()) {
-                    int anciennePage = Integer.valueOf(pagination.getLabelCurrentPage().getText()) +1;
-                    String newPageNumber = " " + String.valueOf(anciennePage);
+                    int anciennePage = Integer.parseInt(pagination.getLabelCurrentPage().getText()) +1;
                     pagination.setLabelCurrentPage(String.valueOf(anciennePage));
                     String currentPage = vBoxItineraire.getItineraire().toString(8*(anciennePage-1), 8*anciennePage);
                     vBoxItineraire.getTextItineraire().setText(currentPage);
@@ -30,7 +29,7 @@ public class ControleurPagination implements EventHandler {
         if (event.getSource() instanceof Button){
             if (((Button) event.getSource()).getAccessibleText() == "reculer") {
                 if (pagination.getCurrentPage() > 1) {
-                    int anciennePage = Integer.valueOf(pagination.getLabelCurrentPage().getText()) -1;
+                    int anciennePage = Integer.parseInt(pagination.getLabelCurrentPage().getText()) -1;
                     pagination.setLabelCurrentPage(String.valueOf(anciennePage));
                     String currentPage = vBoxItineraire.getItineraire().toString(8*(anciennePage-1), 8*anciennePage);
                     vBoxItineraire.getTextItineraire().setText(currentPage);

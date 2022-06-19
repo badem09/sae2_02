@@ -19,14 +19,13 @@ import java.util.Map;
 
 public class ControleurItinerairePerso implements EventHandler{
 
-    private Map<String , Itineraire> mapItineraire;
-    private VBoxItinerairePerso root ;
-
+    private final Map<String , Itineraire> mapItineraire;
+    private final VBoxItinerairePerso root ;
     private String currentSource ;
     private ArrayList<String> currentPath;
     private Chemin currentChemin;
     private ArrayList<String> possibilitesCourantes;
-    private Villes villes ;
+    private final Villes villes ;
     private Itineraire curentItineraire; // r
     private ArrayList<String> distanceCourantes;
 
@@ -105,7 +104,7 @@ public class ControleurItinerairePerso implements EventHandler{
                         for (int i = 0; i < possibilitesCourantes.size(); i++) {
                             String infos = " (" + villes.getMembreToVilles().get(possibilitesCourantes.get(i)) +
                                     ")" + " : " + distanceCourantes.get(i);
-                            CelluleListe cell = null;
+                            CelluleListe cell;
                             try {
                                 cell = new CelluleListe(possibilitesCourantes.get(i), infos);
                             } catch (FileNotFoundException e) {

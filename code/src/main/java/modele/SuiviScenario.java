@@ -35,8 +35,9 @@ public class SuiviScenario {
             while (ligne != null);
         } catch (FileNotFoundException fnfe) {
             System.out.println("Suivi scenario pas encore crée");
-            //fnfe.printStackTrace();
+            fnfe.printStackTrace();
         }
+        Collections.sort(listeScenarioSuivi);
     }
 
     /**

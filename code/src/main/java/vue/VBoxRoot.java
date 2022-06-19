@@ -12,14 +12,13 @@ import java.io.IOException;
 public class VBoxRoot extends VBox {
 
     private StackPane stackPane;
-    private static VBoxAjoutScenario vBoxAjout ;
-    private static VBoxScenarioConnu vBoxScenario;
-    private static VBoxMenu vBoxMenu;
-    private static VBoxAllItineraire vBoxAllItineraire;
-    private static VBoxAjoutPreview vBoxAjoutPreview;
+    private  VBoxAjoutScenario vBoxAjout ;
+    private  VBoxScenarioConnu vBoxScenario;
+    private  VBoxMenu vBoxMenu;
+    private  VBoxAllItineraire vBoxAllItineraire;
+    private  VBoxAjoutPreview vBoxAjoutPreview;
     private VBoxItinerairePerso vBoxItinerairePerso;
     private VBoxAide vBoxAide;
-    private static ControleurMenu controleurMenu;
     private ComboBoxScenario comboBoxScenario;
     private HBoxInfo hBoxInfo;
 
@@ -30,7 +29,7 @@ public class VBoxRoot extends VBox {
         vBoxAjout = new VBoxAjoutScenario(stage,this);
         vBoxAllItineraire = new VBoxAllItineraire(this);
         vBoxAjoutPreview = new VBoxAjoutPreview(this);
-        comboBoxScenario = new ComboBoxScenario();
+        comboBoxScenario = new ComboBoxScenario(this);
         vBoxItinerairePerso = new VBoxItinerairePerso(this);
         vBoxAide = new VBoxAide();
         hBoxInfo = new HBoxInfo(vBoxMenu);
@@ -45,7 +44,6 @@ public class VBoxRoot extends VBox {
         components[5] = vBoxAide;
         components[6] = hBoxInfo;
 
-        System.out.println(components);
         stackPane = new StackPane(components);
         stackPane.getChildren().get(0).toFront();
         this.setPadding(new Insets(10));
@@ -65,11 +63,15 @@ public class VBoxRoot extends VBox {
         return vBoxScenario.getvBoxMenu();
     }
 
-    public static VBoxAjoutPreview getvBoxAjoutPreview() {
+    public  VBoxAjoutPreview getvBoxAjoutPreview() {
         return vBoxAjoutPreview;
     }
 
-    public static VBoxAllItineraire getvBoxAllItineraire() {
+    public  VBoxAllItineraire getvBoxAllItineraire() {
         return vBoxAllItineraire;
+    }
+
+    public VBoxScenarioConnu getvBoxScenario() {
+        return vBoxScenario;
     }
 }

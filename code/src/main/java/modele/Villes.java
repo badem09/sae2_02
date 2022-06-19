@@ -108,7 +108,7 @@ public class Villes {
                 String membre = tokenizer.nextToken();
                 String ville = tokenizer.nextToken();
                 if (! villesToMembre.containsKey(ville)) {
-                    villesToMembre.put(ville, new ArrayList<String>());
+                    villesToMembre.put(ville, new ArrayList<>());
                     villesToMembre.get(ville).add(membre);
                 }
                 else {

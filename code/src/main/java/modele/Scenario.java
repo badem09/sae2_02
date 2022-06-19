@@ -127,7 +127,6 @@ public class Scenario {
         }
         catch (FileNotFoundException fnfe){
             System.out.println("Le fichier est introuvable.\nVeuillez vérifier son chemin d'accès" ) ;
-           // System.exit(5);
 
         }
         return null;
