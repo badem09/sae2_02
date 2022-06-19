@@ -4,7 +4,9 @@
 }
 
 #inline{
-    -fx-text-fill: "black" ;
+    -fx-text-fill : #3067B2 ;
+    -fx-font-size:  1em;
+    -fx-font-weight : bold;
 }
 
 #opaque{
