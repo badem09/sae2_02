@@ -41,13 +41,6 @@ public class VBoxAide extends VBox {
         );
         label.setWrapText(true);
         this.getChildren().add(label);
-
-        Image imageExemple = (new Image(new FileInputStream("src/main/resources/images/exemple1.jpg")));
-        ImageView viewExemple = new ImageView(imageExemple);
-
-        this.getChildren().add(viewExemple);
-
-
     }
 
 }
