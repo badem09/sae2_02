@@ -11,28 +11,24 @@ import java.io.IOException;
 
 public class VBoxRoot extends VBox {
 
-    private StackPane stackPane;
-    private  VBoxAjoutScenario vBoxAjout ;
-    private  VBoxScenarioConnu vBoxScenario;
-    private  VBoxMenu vBoxMenu;
-    private  VBoxAllItineraire vBoxAllItineraire;
-    private  VBoxAjoutPreview vBoxAjoutPreview;
-    private VBoxItinerairePerso vBoxItinerairePerso;
-    private VBoxAide vBoxAide;
-    private ComboBoxScenario comboBoxScenario;
-    private HBoxInfo hBoxInfo;
+    private final StackPane stackPane;
+    private final VBoxScenarioConnu vBoxScenario;
+    private final VBoxAllItineraire vBoxAllItineraire;
+    private final VBoxAjoutPreview vBoxAjoutPreview;
 
 
     public VBoxRoot(Stage stage) throws IOException {
-        vBoxMenu = new VBoxMenu(this);
+
+        VBoxMenu vBoxMenu = new VBoxMenu(this);
         vBoxScenario = new VBoxScenarioConnu(this);
-        vBoxAjout = new VBoxAjoutScenario(stage,this);
+        VBoxAjoutScenario vBoxAjout = new VBoxAjoutScenario(stage, this);
         vBoxAllItineraire = new VBoxAllItineraire(this);
         vBoxAjoutPreview = new VBoxAjoutPreview(this);
-        comboBoxScenario = new ComboBoxScenario(this);
-        vBoxItinerairePerso = new VBoxItinerairePerso(this);
-        vBoxAide = new VBoxAide();
-        hBoxInfo = new HBoxInfo(vBoxMenu);
+        ComboBoxScenario comboBoxScenario = new ComboBoxScenario(this);
+        VBoxItinerairePerso vBoxItinerairePerso = new VBoxItinerairePerso(this);
+
+        VBoxAide vBoxAide = new VBoxAide();
+        HBoxInfo hBoxInfo = new HBoxInfo(vBoxMenu);
 
 
         Node [] components = new Node[7];
@@ -57,10 +53,6 @@ public class VBoxRoot extends VBox {
 
     public VBoxScenarioConnu getVboxScenario() {
         return vBoxScenario;
-    }
-
-    public VBoxMenu getVBoxMenu() {
-        return vBoxScenario.getvBoxMenu();
     }
 
     public  VBoxAjoutPreview getvBoxAjoutPreview() {

@@ -7,10 +7,10 @@ import java.util.HashMap;
 public class Itineraire {
 
     private final Chemin chemin;
-    private static Villes villes;
-    private HashMap<ArrayList<String>, Integer> dicoItineraire;
+    private final Villes villes;
+    private final HashMap<ArrayList<String>, Integer> dicoItineraire;
     private final int nbPages;
-    private HashMap<String, String> membresVilles ;
+    private final HashMap<String, String> membresVilles ;
 
 
     public Itineraire(Chemin parItineraire) throws IOException {

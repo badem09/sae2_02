@@ -27,7 +27,6 @@ public class ControleurItinerairePerso implements EventHandler{
     private ArrayList<String> possibilitesCourantes;
     private final Villes villes ;
     private Itineraire curentItineraire; // r
-    private ArrayList<String> distanceCourantes;
 
 
     public ControleurItinerairePerso(VBoxItinerairePerso root , Map<String , Itineraire> parMap) throws IOException {
@@ -39,6 +38,7 @@ public class ControleurItinerairePerso implements EventHandler{
     @Override
     public void handle(Event event) {
 
+        ArrayList<String> distanceCourantes;
         if (event.getSource() instanceof ComboBox<?>) {
             String fileName = (String) ((ComboBox<?>) event.getSource())
                     .getSelectionModel().getSelectedItem();

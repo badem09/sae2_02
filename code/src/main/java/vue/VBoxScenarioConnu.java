@@ -16,10 +16,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class VBoxScenarioConnu extends VBox {
-    private VBoxMenu vBoxMenu;
-    private GridPaneOrg gridPaneOrg;
-   private  ComboBox<String> comboBoxScenario;
-   private VBoxRoot root;
+
+    private final GridPaneOrg gridPaneOrg;
+    private final ComboBox<String> comboBoxScenario;
+    private final VBoxRoot root;
 
     public VBoxScenarioConnu(VBoxRoot root) throws IOException {
         this.setId("opaque");
@@ -53,10 +53,6 @@ public class VBoxScenarioConnu extends VBox {
         this.setFillWidth(true);
         this.setPadding(new Insets(20));
         setSpacing(10);
-    }
-
-    public VBoxMenu getvBoxMenu() {
-        return vBoxMenu;
     }
 
     public GridPaneOrg getGridPaneOrg() {

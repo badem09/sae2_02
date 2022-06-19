@@ -20,15 +20,14 @@ import java.util.Map;
 public class VBoxItinerairePerso extends VBox {
 
     private ListView<CelluleListe> listView;
-    private Map<String , Itineraire> mapItineraire;
     private final TextArea textItineraire;
     private final TextArea textMembres;
     private final ControleurItinerairePerso controleur ;
 
     public VBoxItinerairePerso(VBoxRoot root) throws IOException {
         this.setId("opaque");
-        mapItineraire = root.getVboxScenario().getGridPaneOrg().getMapItineraire();
-        controleur = new ControleurItinerairePerso(this,mapItineraire);
+        Map<String, Itineraire> mapItineraire = root.getVboxScenario().getGridPaneOrg().getMapItineraire();
+        controleur = new ControleurItinerairePerso(this, mapItineraire);
 
         listView = new ListView<>();
         listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<CelluleListe>() {

@@ -9,7 +9,7 @@ public class Chemin {
     private final ArrayList<ArrayList<String>> allChemin;
     private HashMap<String, ArrayList<String>> mapAdjEntrant;
 
-    private HashMap<String, ArrayList<String>> mapAdjSortant;
+    private final HashMap<String, ArrayList<String>> mapAdjSortant;
 
     private final ArrayList<ArrayList<String>> cheminGen; // chemin Général.
 

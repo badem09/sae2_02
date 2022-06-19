@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * ComboBox ayant pour éléments les scénarios engisgtrés jusqu'ici.
+ */
 public class ComboBoxScenario extends ComboBox<String> {
 
     public ComboBoxScenario(VBoxRoot root){
