@@ -1,39 +1,21 @@
 package vue;
 
 import Controleur.ControleurMenu;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyCombination;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import modele.*;
-
-
 import java.io.File;
 import java.io.IOException;
 
 public class VBoxMenu extends VBox implements IntitulesMenu {
 
     private ControleurMenu controleurMenu;
-    private MenuBar chMenuBar;
-    private Scenario scenario;
-    private VBoxRoot vBoxRoot;
-
-
-    private ComboBox<String> comboBoxScenario;
+    private final MenuBar chMenuBar;
     public VBoxMenu(VBoxRoot parVboxRoot) throws IOException {
-        vBoxRoot = parVboxRoot;
-        controleurMenu = new ControleurMenu(this,parVboxRoot);
-        System.out.println(this.getParent());
-       // PageMain.getControleurStage().setVBoxMenu(this);
-       // controleurStage = PageMain.getControleurStage();
 
-        scenario = new Scenario();
+        controleurMenu = new ControleurMenu(this,parVboxRoot);
         File suiviScenario = new File("src/main/resources/data/suivi_scenarios.txt");
         SuiviScenario.RecupereListeSuivi(suiviScenario);
-
-
         chMenuBar = new MenuBar();
         int i = 0;
 
@@ -52,12 +34,12 @@ public class VBoxMenu extends VBox implements IntitulesMenu {
             }
             i++;
 
-            if (intitules == "_Aide"){
-                System.out.println(intitules);
+            if (intitules == "_Aide" || intitules == "_Membres"){
+                // sert à ne pas afficher le menuItem et mais à éxecuter son action associé automatiquement.
+                // Son action devient celle du menu.
                 menu.showingProperty().addListener(
                         (observableValue, oldValue, newValue) -> {
                             if (newValue) {
-                                // the first menuItem is triggered
                                 menu.getItems().get(0).fire();
                             }
                         }
@@ -66,13 +48,4 @@ public class VBoxMenu extends VBox implements IntitulesMenu {
         }
         this.getChildren().addAll(chMenuBar);
     }
-
-    public MenuBar getChMenuBar(){
-        return  chMenuBar;
-    }
-    public ComboBox<String> getComboBoxScenario() {
-        return comboBoxScenario;
-    }
-
-
 }

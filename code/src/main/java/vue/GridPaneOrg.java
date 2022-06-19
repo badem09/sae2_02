@@ -13,20 +13,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GridPaneOrg extends GridPane {
-    String chMembres;
-    Scenario chScenario;
+    private Scenario chScenario;
 
-    TextArea textBestChemin;
-    TextArea textMembres;
-    TextArea textScenario;
-    private Map<String , Itineraire> mapItineraire;
-    private VBoxRoot root;
-
+    private final TextArea textBestChemin;
+    private final TextArea textMembres;
+    private final TextArea textScenario;
+    private final Map<String , Itineraire> mapItineraire;
+    private final VBoxRoot root;
 
 
 
-    public GridPaneOrg(VBoxRoot parRoot) throws IOException {
-        this.setPadding(new Insets(20));
+
+    public GridPaneOrg(VBoxRoot parRoot){
+      //  this.setPadding(new Insets(20));
         this.setHgap(10);
         this.setVgap(10);
         this.setGridLinesVisible(false);
@@ -66,7 +65,7 @@ public class GridPaneOrg extends GridPane {
         this.add(textBestChemin,0,ligne,2,1);
     }
 
-    private void setContent() throws IOException {
+    private void setContent(){
         Itineraire ti = mapItineraire.get(chScenario.getFileName());
         String bestIt = ti.getBestItineraire();
 
@@ -79,9 +78,6 @@ public class GridPaneOrg extends GridPane {
         textScenario.clear();
         textScenario.setText(chScenario.toString());
 
-    }
-    public void setChMembres(String chMembres) {
-        this.chMembres = chMembres;
     }
 
     public TextArea getTextMembres() {

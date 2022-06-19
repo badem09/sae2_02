@@ -1,6 +1,5 @@
 package vue;
 
-
 import Controleur.ControleurItinerairePerso;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -13,7 +12,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import modele.Itineraire;
 import modele.SuiviScenario;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,14 +19,11 @@ import java.util.Map;
 
 public class VBoxItinerairePerso extends VBox {
 
-    private ComboBox<String> comboBoxScenario;
-    private StackPane scrollPossibilites ;
-    private ListView listView;
+    private ListView<CelluleListe> listView;
     private Map<String , Itineraire> mapItineraire;
-    private TextArea textItineraire;
-    private TextArea textMembres;
-    private ControleurItinerairePerso controleur ;
-    GridPane gridPane;
+    private final TextArea textItineraire;
+    private final TextArea textMembres;
+    private final ControleurItinerairePerso controleur ;
 
     public VBoxItinerairePerso(VBoxRoot root) throws IOException {
         this.setId("opaque");
@@ -41,14 +36,14 @@ public class VBoxItinerairePerso extends VBox {
             @Override
             public void changed(ObservableValue<? extends CelluleListe> observable, CelluleListe oldValue, CelluleListe newValue) {
                 if (listView.getSelectionModel().getSelectedItem() != null){
-                CelluleListe choix = (CelluleListe) listView.getSelectionModel().getSelectedItem();
+                CelluleListe choix = listView.getSelectionModel().getSelectedItem();
                 controleur.setCurrentSource(choix.getMembre());}
             }
         });
 
         ArrayList<String> liste = SuiviScenario.getListeScenarioSuivi();
         Collections.sort(liste);
-        comboBoxScenario = new ComboBox<>(FXCollections.observableArrayList(liste));
+        ComboBox<String> comboBoxScenario = new ComboBox<>(FXCollections.observableArrayList(liste));
         comboBoxScenario.setValue("Séléctionner votre Scénario");
 
         comboBoxScenario.setOnAction(controleur);
@@ -57,7 +52,7 @@ public class VBoxItinerairePerso extends VBox {
         VBox vBoxTitre = new VBox(labelTitre);
         vBoxTitre.setAlignment(Pos.CENTER);
 
-        gridPane = new GridPane();
+        GridPane gridPane = new GridPane();
         gridPane.setHgap(10);
         gridPane.setVgap(10);
 
@@ -65,7 +60,7 @@ public class VBoxItinerairePerso extends VBox {
         Label labelMembre = new Label("Les membres rentrés jusqu'ici :");
         Label labelItineraire = new Label("L'itinéraire jusqu'ici :");
 
-        scrollPossibilites = new StackPane();
+        StackPane scrollPossibilites = new StackPane();
         textItineraire = new TextArea();
         textMembres = new TextArea();
         textItineraire.setPromptText("[Membre1, Membre2, Membre3, ...]\r" + "Distance : distance");
@@ -98,8 +93,10 @@ public class VBoxItinerairePerso extends VBox {
         valider.setMnemonicParsing(true);
         valider.setOnAction(controleur);
         scrollPossibilites.getChildren().add(listView);
-        this.setSpacing(15);
-        this.getChildren().addAll(vBoxTitre,comboBoxScenario,gridPane,valider);
+
+        setPadding(new Insets(20));
+        setSpacing(10);
+        this.getChildren().addAll(vBoxTitre, comboBoxScenario, gridPane,valider);
     }
 
     public TextArea getTextItineraire() {
@@ -110,11 +107,11 @@ public class VBoxItinerairePerso extends VBox {
         return textMembres;
     }
 
-    public ListView getListView() {
+    public ListView<CelluleListe> getListView() {
         return listView;
     }
 
-    public void setListView(ListView listView) {
+    public void setListView(ListView<CelluleListe> listView) {
         this.listView = listView;
     }
 }

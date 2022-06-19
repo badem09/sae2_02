@@ -1,14 +1,16 @@
 .root {
     -fx-padding : 15;
-    -fx-background-color : cornsilk;
+    -fx-background-color : #3067B2;
 }
 
 #inline{
-    -fx-text-fill: "black" ;
+    -fx-text-fill : #3067B2 ;
+    -fx-font-size:  1em;
+    -fx-font-weight : bold;
 }
 
-#opaque, .toggle-button{
-      -fx-background-color : cornsilk;
+#opaque{
+      -fx-background-color : #ffe680;
 }
 
 #text{
@@ -17,25 +19,7 @@
       -fx-font-weight : bold;
 }
 .label {
-    -fx-text-fill : #4682b4 ;
-    -fx-font-size: 1em;
+    -fx-text-fill : #3067B2 ;
+    -fx-font-size: 15;
     -fx-font-weight : bold;
 }
-
-#today {
--fx-text-fill: "red" ;
-}
-#horsMois {
--fx-background-color : gainsboro}
-
-.scroll-pane{
-    -fx-background: #ddf5ee;
-    -fx-border-color : #5F9EA0;
-}
-
-.toggle-button{
-    -fx-background-color : white}
-
- .toggle-button:selected {
-     -fx-background-color : grey}
-

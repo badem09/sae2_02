@@ -15,6 +15,7 @@ public class Villes {
     private final HashMap<String,ArrayList<String>> villesToMembre; // ville = liste de membres
 
     private final HashMap<String,String> membreToVilles; // membre = ville
+    private final ArrayList<String> listeMembre;
 
     public Villes() throws IOException {
 
@@ -26,6 +27,7 @@ public class Villes {
         tabDistances = new  ArrayList<>();
         membreToVilles = new HashMap<>();
         villesToMembre = new HashMap<>();
+        listeMembre = new ArrayList<>();
 
         updateTabVilles();
         updateTabDistance();
@@ -33,7 +35,10 @@ public class Villes {
         updateMembreVilles();
     }
 
-
+    /**
+     * Lis le fichier membres.txt et remplit le dictionnaire
+     * @throws IOException (FileNotFoundException)
+     */
     private void updateMembreVilles() throws IOException {
         BufferedReader bufferEntree = new BufferedReader(new FileReader (fileMembre));
         String ligne ;
@@ -44,8 +49,9 @@ public class Villes {
                 tokenizer = new StringTokenizer(ligne," ");
                 String membre = tokenizer.nextToken();
                 String ville = tokenizer.nextToken();
-                membreToVilles.put(membre,ville)
-;            }
+                membreToVilles.put(membre,ville);
+                listeMembre.add(membre);
+            }
         }
         while (ligne != null);
         bufferEntree.close();
@@ -102,13 +108,12 @@ public class Villes {
                 String membre = tokenizer.nextToken();
                 String ville = tokenizer.nextToken();
                 if (! villesToMembre.containsKey(ville)) {
-                    villesToMembre.put(ville, new ArrayList<String>());
+                    villesToMembre.put(ville, new ArrayList<>());
                     villesToMembre.get(ville).add(membre);
                 }
                 else {
                     villesToMembre.get(ville).add(membre);
                 }
-
             }
         }
         while (ligne != null);
@@ -129,5 +134,7 @@ public class Villes {
         return villesToMembre;
     }
 
-
+    public ArrayList<String> getListeMembre() {
+        return listeMembre;
+    }
 }

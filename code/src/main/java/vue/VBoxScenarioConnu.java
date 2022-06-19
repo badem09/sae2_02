@@ -3,6 +3,7 @@ package vue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -18,10 +19,12 @@ public class VBoxScenarioConnu extends VBox {
     private VBoxMenu vBoxMenu;
     private GridPaneOrg gridPaneOrg;
    private  ComboBox<String> comboBoxScenario;
+   private VBoxRoot root;
 
     public VBoxScenarioConnu(VBoxRoot root) throws IOException {
         this.setId("opaque");
 
+        this.root = root;
         ArrayList<String> liste = SuiviScenario.getListeScenarioSuivi();
         Collections.sort(liste);
         comboBoxScenario = new ComboBox<>(FXCollections.observableArrayList(liste));
@@ -33,7 +36,7 @@ public class VBoxScenarioConnu extends VBox {
                 String scenarioCourant = (String) ((ComboBox<?>) event.getSource()).getSelectionModel().getSelectedItem();
                 try {
                     Scenario scenario = Scenario.lectureScenario("src/main/resources/data/" + scenarioCourant,false);
-                    PageMain.getvBoxScenario().getGridPaneOrg().setScenario(scenario);
+                    root.getvBoxScenario().getGridPaneOrg().setScenario(scenario);
                 } catch (IOException e) {
                     e.printStackTrace();
                     throw new RuntimeException(e);
@@ -48,6 +51,8 @@ public class VBoxScenarioConnu extends VBox {
         vBoxTitre.setAlignment(Pos.CENTER);
         this.getChildren().addAll(vBoxTitre,comboBoxScenario,gridPaneOrg);
         this.setFillWidth(true);
+        this.setPadding(new Insets(20));
+        setSpacing(10);
     }
 
     public VBoxMenu getvBoxMenu() {
@@ -59,7 +64,7 @@ public class VBoxScenarioConnu extends VBox {
     }
 
     public void setScenario(Scenario parScenario) throws IOException {
-        PageMain.getvBoxScenario().getGridPaneOrg().setScenario(parScenario);
+        root.getvBoxScenario().getGridPaneOrg().setScenario(parScenario);
     }
 
     public ComboBox<String> getCombo(){

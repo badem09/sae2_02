@@ -6,10 +6,10 @@ import java.util.HashMap;
 
 public class Itineraire {
 
-    private Chemin chemin;
+    private final Chemin chemin;
     private static Villes villes;
     private HashMap<ArrayList<String>, Integer> dicoItineraire;
-    private int nbPages;
+    private final int nbPages;
     private HashMap<String, String> membresVilles ;
 
 
@@ -47,12 +47,7 @@ public class Itineraire {
         }
     }
 
-    public HashMap<ArrayList<String>, Integer> getDicoItineraire(){
-        return dicoItineraire;
-    }
-
     public String  getBestItineraire(){
-        // What if yen a 2?
         String r = "";
         long min = 1000000000;
         ArrayList<String> best = new ArrayList<>();
@@ -68,10 +63,8 @@ public class Itineraire {
     }
 
     public  ArrayList<String> membresToVilles(ArrayList<String> itineraire){
-     //   HashMap<String, String> membresVilles = villes.getMembreToVilles();
         ArrayList<String> retour = new ArrayList<>();
         for (String membre : itineraire){
-            //retour.set(retour.indexOf(membre),membresVilles.get(membre));
             retour.add(membresVilles.get(membre));
         }
         return retour;
@@ -140,8 +133,7 @@ public class Itineraire {
             sum += villes.getTabDistances().get(indexAvant).get(indexApres);
 
         }
-        String retour = "Chemin : " + currentPath.toString() + "\n" + "Distance : " + sum + " km";
-        return retour;
+        return "Chemin : " + currentPath.toString() + "\n" + "Distance : " + sum + " km";
     }
 
 
