@@ -6,6 +6,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -32,7 +33,7 @@ public class CelluleListe extends HBox {
         imageView.setFitHeight(20);
         imageView.setFitWidth(20);
         HBox vBoxImage = new HBox(imageView);
-        getChildren().addAll(vBoxImage,new Label(membre + " " + infos));
+        getChildren().addAll(vBoxImage,new Text(membre + " " + infos));
         setSpacing(10);
      //   vBoxImage.setAlignment(Pos.CENTER_RIGHT); ne marche pas
     }
@@ -41,6 +42,11 @@ public class CelluleListe extends HBox {
     public String toString() {
         return membre + " " + infos;
     }
+
+    public String toStringInverse() {
+        return membre + " " + infos;
+    }
+
 
     public String getMembre() {
         return membre;

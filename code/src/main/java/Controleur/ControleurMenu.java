@@ -56,7 +56,7 @@ public class ControleurMenu implements EventHandler,IntitulesMenu {
                     stackPane.getChildren().get(0).toFront();
                 }
             }
-            if (((MenuItem) event.getSource()).getUserData() == SOUS_MENU[1][0]) {
+            if (((MenuItem) event.getSource()).getUserData() == SOUS_MENU[2][1]) {
                 System.out.println(SuiviScenario.getListeScenarioSuivi());
                 System.out.println(((MenuItem) event.getSource()).getUserData());
                 StackPane stackPane = root.getStackPane();
@@ -66,7 +66,7 @@ public class ControleurMenu implements EventHandler,IntitulesMenu {
                 }
             }
 
-            if (((MenuItem) event.getSource()).getUserData() == SOUS_MENU[1][1]) {
+            if (((MenuItem) event.getSource()).getUserData() == SOUS_MENU[2][0]) {
                 System.out.println(SuiviScenario.getListeScenarioSuivi());
                 System.out.println(((MenuItem) event.getSource()).getUserData());
                 StackPane stackPane = root.getStackPane();
@@ -76,7 +76,7 @@ public class ControleurMenu implements EventHandler,IntitulesMenu {
                 }
             }
 
-            if (((MenuItem) event.getSource()).getUserData() == SOUS_MENU[2][0]) {
+            if (((MenuItem) event.getSource()).getUserData() == SOUS_MENU[3][0]) {
                 StackPane stackPane = root.getStackPane();
                 int last = stackPane.getChildren().size() - 1;
                 while (!(stackPane.getChildren().get(last) instanceof VBoxAide)) {
@@ -84,6 +84,13 @@ public class ControleurMenu implements EventHandler,IntitulesMenu {
                 }
             }
 
+            if (((MenuItem) event.getSource()).getUserData() == SOUS_MENU[1][0]) {
+                StackPane stackPane = root.getStackPane();
+                int last = stackPane.getChildren().size() - 1;
+                while (!(stackPane.getChildren().get(last) instanceof HBoxInfo)) {
+                    stackPane.getChildren().get(0).toFront();
+                }
+            }
         }
 
     System.out.println(event.getSource().getClass() + " : " + event.getSource());

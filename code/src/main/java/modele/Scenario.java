@@ -190,16 +190,25 @@ public class Scenario {
     }
 
     public String toString() {
+        boolean connu;
         String retour = "";
         for (int i = 0; i < listAcheteurs.size(); i++){
             String a = listAcheteurs.get(i);
             String v = listVendeurs.get(i);
-            int indexVilleA = villes.getTabVilles().indexOf(membreToVille.get(a));
-            int indexVilleV = villes.getTabVilles().indexOf(membreToVille.get(v));
+            if ( ! villes.getTabVilles().contains(membreToVille.get(a)) ||
+                  !  villes.getTabVilles().contains(membreToVille.get(v) )){
+                retour += i + " : "+ a + " vends à " + v + " :  " + membreToVille.get(a) +
+                        " ----> " +  membreToVille.get(v) + " soit " +
+                        "Distance inconnue. " + "\n";
+            }
+            else {
+                int indexVilleA = villes.getTabVilles().indexOf(membreToVille.get(a));
+                int indexVilleV = villes.getTabVilles().indexOf(membreToVille.get(v));
 
-            retour += i + " : "+ a + " vends à " + v + " :  " + membreToVille.get(a) +
-                    " ----> " +  membreToVille.get(v) + " soit " +
-                    villes.getTabDistances().get(indexVilleA).get(indexVilleV) + " km." +"\n";
+                retour += i + " : " + a + " vends à " + v + " :  " + membreToVille.get(a) +
+                        " ----> " + membreToVille.get(v) + " soit " +
+                        villes.getTabDistances().get(indexVilleA).get(indexVilleV) + " km." + "\n";
+            }
         }
         return retour;
     }
