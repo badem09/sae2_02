@@ -20,7 +20,6 @@ public class CelluleListe extends HBox {
         this.infos = infos;
         this.membre = membre;
         ImageView imageView;
-        System.out.println(membre);
         try {
              imageView = new ImageView(new Image(new FileInputStream(
                     "src/main/resources/images/" + membre + ".jpg")));
@@ -33,15 +32,16 @@ public class CelluleListe extends HBox {
         imageView.setFitHeight(20);
         imageView.setFitWidth(20);
         HBox vBoxImage = new HBox(imageView);
-        getChildren().addAll(vBoxImage,new Text(membre + " " + infos));
+        try {
+            int intValue = Integer.parseInt(infos);
+            getChildren().addAll(vBoxImage,new Text(infos + ". " + membre));
+        } catch (NumberFormatException e) {
+            getChildren().addAll(vBoxImage,new Text(membre + " " + infos));
+        }
         setSpacing(10);
      //   vBoxImage.setAlignment(Pos.CENTER_RIGHT); ne marche pas
     }
 
-    @Override
-    public String toString() {
-        return membre + " " + infos;
-    }
 
     public String toStringInverse() {
         return membre + " " + infos;
