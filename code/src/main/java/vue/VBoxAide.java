@@ -37,14 +37,14 @@ public class VBoxAide extends VBox {
                 " bas a gauche de votre écran. \n" +
                 "Quand vous avez fini votre parcours vous avez accès aux membre rentrés ainsi que le chemin et la distance\n"+
                 "1.5 Membres\n"+
-                "Cette rubrique vous permet soit a partir d'une ville de trouver ses membres, soit a partir d'un membre de trouver sa ville"
+                "Cette rubrique vous permet soit a partir d'une ville de trouver ses membres, soit a partir d'un membre de trouver sa ville."
         );
         label.setWrapText(true);
         this.getChildren().add(label);
 
         Image imageExemple = (new Image(new FileInputStream("src/main/resources/images/exemple1.jpg")));
         ImageView viewExemple = new ImageView(imageExemple);
-        
+
         this.getChildren().add(viewExemple);
 
 
