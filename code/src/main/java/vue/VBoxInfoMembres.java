@@ -3,13 +3,11 @@ package vue;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -23,7 +21,7 @@ public class VBoxInfoMembres extends VBox {
     TextField textField;
     Villes villes;
     String currentInput;
-    ListView<String> listViewChoixMembre;
+    ListView<CelluleListe> listViewChoixMembre;
     ArrayList<String> currentListeMembre;
     String membreChoisie;
     ListView<String> listViewAffichageVille;
@@ -37,14 +35,19 @@ public class VBoxInfoMembres extends VBox {
         villes = new Villes();
         ArrayList<String> liste = villes.getListeMembre();
         Collections.sort(liste);
-        listViewChoixMembre = new ListView<>(FXCollections.observableArrayList(liste));
+        ObservableList<CelluleListe> observableList = FXCollections.observableArrayList(new ArrayList<>());
+       for (int i = 0; i< liste.size() ; i++){
+           observableList.add(new CelluleListe(liste.get(i),String.valueOf(i)));
+       }
+       listViewChoixMembre = new ListView<>(observableList);
+        //listViewChoixMembre = new ListView<>(FXCollections.observableArrayList(liste));
         this.setId("opaque");
         textField.setPromptText("Veuillez rentrer le nom d'un membre");
 
         textField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (currentListeMembre.size() == 0 || textField.getText() == ""){
                 currentListeMembre = (ArrayList<String>) liste.clone();
-                listViewChoixMembre.setItems(FXCollections.observableArrayList(liste));
+                listViewChoixMembre.setItems(observableList);
             }
             currentInput = newValue;
             currentListeMembre = (ArrayList<String>) liste.clone();
@@ -54,14 +57,14 @@ public class VBoxInfoMembres extends VBox {
                 }
             }
             System.out.println("textfield changed from " + oldValue + " to " + newValue);
-            listViewChoixMembre.setItems(FXCollections.observableList(currentListeMembre));
+            listViewChoixMembre.setItems(observableList);
         });
 
-        listViewChoixMembre.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<>() {
+        listViewChoixMembre.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<CelluleListe>() {
             @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+            public void changed(ObservableValue<? extends CelluleListe> observable, CelluleListe oldValue, CelluleListe newValue) {
                 if (listViewChoixMembre.getSelectionModel().getSelectedItem() != null){
-                    membreChoisie = listViewChoixMembre.getSelectionModel().getSelectedItem();
+                    membreChoisie = listViewChoixMembre.getSelectionModel().getSelectedItem().getMembre();
                     try {
                         setContent(listViewAffichageVille, membreChoisie);
                     } catch (FileNotFoundException e) {
@@ -77,7 +80,7 @@ public class VBoxInfoMembres extends VBox {
             public void handle(ActionEvent actionEvent) {
                 currentListeMembre.removeAll(liste);
                 currentListeMembre.addAll(liste);
-                listViewChoixMembre.setItems(FXCollections.observableArrayList(liste));
+                listViewChoixMembre.setItems(observableList);
                 textField.clear();
                 listViewAffichageVille.setItems(FXCollections.observableArrayList(new ArrayList<>()));
             }
