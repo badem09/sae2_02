@@ -15,9 +15,11 @@ public class ControleurMenu implements EventHandler,IntitulesMenu {
 
     private final VBoxRoot root;
 
-    public ControleurMenu(VBoxMenu parVBox, VBoxRoot root) throws IOException {
+    public ControleurMenu(VBoxRoot root) throws IOException {
         this.root = root;
         ArrayList<String> listeScenario = SuiviScenario.getListeScenarioSuivi();
+
+        // si aucun scenario enregistré pour l'instant, je les stocke.
         if (listeScenario == null) {
             Scenario s1 = Scenario.lectureScenario("src/main/resources/data/scenario_0.txt",true);
             Scenario s2 = Scenario.lectureScenario("src/main/resources/data/scenario_1_1.txt",true);
