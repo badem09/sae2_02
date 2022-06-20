@@ -25,7 +25,8 @@ public class VBoxItinerairePerso extends VBox {
     private final ControleurItinerairePerso controleur ;
 
     public VBoxItinerairePerso(VBoxRoot root) throws IOException {
-        this.setId("opaque");
+
+        setId("opaque");
         Map<String, Itineraire> mapItineraire = root.getVboxScenario().getGridPaneOrg().getMapItineraire();
         controleur = new ControleurItinerairePerso(this, mapItineraire);
 
@@ -59,29 +60,29 @@ public class VBoxItinerairePerso extends VBox {
         Label labelMembre = new Label("Les membres rentrés jusqu'ici :");
         Label labelItineraire = new Label("L'itinéraire jusqu'ici :");
 
-        StackPane scrollPossibilites = new StackPane();
+        StackPane stackPossibilites = new StackPane();
         textItineraire = new TextArea();
         textMembres = new TextArea();
         textItineraire.setPromptText("[Membre1, Membre2, Membre3, ...]\r" + "Distance : distance");
         textMembres.setPromptText("Membre 1 : Sa ville\rMembre 2 : Sa ville\rMembre 3 : Sa ville\r...");
 
 
-        scrollPossibilites.setPrefHeight(300);
-        scrollPossibilites.setPrefWidth(715);
-        scrollPossibilites.setPadding(new Insets(1));
+        stackPossibilites.setPrefHeight(300);
+        stackPossibilites.setPrefWidth(715);
+        stackPossibilites.setPadding(new Insets(1));
 
 
-        listView.setMinHeight(scrollPossibilites.getPrefHeight());
-        listView.setMaxHeight(scrollPossibilites.getPrefHeight());
-        listView.setMinWidth(scrollPossibilites.getPrefWidth());
-        listView.setMaxWidth(scrollPossibilites.getPrefWidth());
+        listView.setMinHeight(stackPossibilites.getPrefHeight());
+        listView.setMaxHeight(stackPossibilites.getPrefHeight());
+        listView.setMinWidth(stackPossibilites.getPrefWidth());
+        listView.setMaxWidth(stackPossibilites.getPrefWidth());
 
         int ligne = 0;
 
         gridPane.add(labelPossibilite,0,ligne,1,1);
         gridPane.add(labelMembre,1,ligne,1,1);
         ligne ++;
-        gridPane.add(scrollPossibilites,0,ligne,1,1);
+        gridPane.add(stackPossibilites,0,ligne,1,1);
         gridPane.add(textMembres,1,ligne,1,1);
         ligne ++;
         gridPane.add(labelItineraire,0,ligne,1,1);
@@ -91,7 +92,7 @@ public class VBoxItinerairePerso extends VBox {
 
         valider.setMnemonicParsing(true);
         valider.setOnAction(controleur);
-        scrollPossibilites.getChildren().add(listView);
+        stackPossibilites.getChildren().add(listView);
 
         setPadding(new Insets(20));
         setSpacing(10);
