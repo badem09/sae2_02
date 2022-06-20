@@ -50,9 +50,7 @@ public class VBoxAllItineraire extends VBox {
         comboBoxScenario.setValue("Séléctionner votre Scénario");
         comboBoxScenario.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent event) {
-                System.out.println(((ComboBox<?>) event.getSource()).getSelectionModel().getSelectedItem());
-                String scenarioCourant = (String) ((ComboBox<?>) event.getSource()).getSelectionModel().getSelectedItem();
+            public void handle(ActionEvent event) {String scenarioCourant = (String) ((ComboBox<?>) event.getSource()).getSelectionModel().getSelectedItem();
                 try {
                     currentScenario = Scenario.lectureScenario("src/main/resources/data/" + scenarioCourant,false);
                     if ( ! mapItineraire.containsKey(scenarioCourant)){
@@ -68,7 +66,6 @@ public class VBoxAllItineraire extends VBox {
                     textItineraire.setText(itineraire.toString(0,8));
                     pagination.setLabelMaxPage(String.valueOf(nbPages));
                     labelNbItineraire.setText("Total : " + itineraire.getNbItineraire() + " itinéraires");
-                    System.out.println(nbPages);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
