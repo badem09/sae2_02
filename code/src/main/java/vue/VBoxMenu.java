@@ -13,7 +13,7 @@ public class VBoxMenu extends VBox implements IntitulesMenu {
     private final MenuBar chMenuBar;
     public VBoxMenu(VBoxRoot parVboxRoot) throws IOException {
 
-        controleurMenu = new ControleurMenu(this,parVboxRoot);
+        controleurMenu = new ControleurMenu(parVboxRoot);
         File suiviScenario = new File("src/main/resources/data/suivi_scenarios.txt");
         SuiviScenario.RecupereListeSuivi(suiviScenario);
         chMenuBar = new MenuBar();
