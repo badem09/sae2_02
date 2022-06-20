@@ -32,14 +32,15 @@ public class VBoxScenarioConnu extends VBox {
         comboBoxScenario.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                System.out.println(((ComboBox<?>) event.getSource()).getSelectionModel().getSelectedItem());
-                String scenarioCourant = (String) ((ComboBox<?>) event.getSource()).getSelectionModel().getSelectedItem();
-                try {
-                    Scenario scenario = Scenario.lectureScenario("src/main/resources/data/" + scenarioCourant,false);
-                    root.getvBoxScenario().getGridPaneOrg().setScenario(scenario);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    throw new RuntimeException(e);
+                if (((ComboBox<?>) event.getSource()).getSelectionModel().getSelectedItem() != null) {
+                    String scenarioCourant = (String) ((ComboBox<?>) event.getSource()).getSelectionModel().getSelectedItem();
+                    try {
+                        Scenario scenario = Scenario.lectureScenario("src/main/resources/data/" + scenarioCourant, false);
+                        root.getvBoxScenario().getGridPaneOrg().setScenario(scenario);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        throw new RuntimeException(e);
+                    }
                 }
             }
         });
