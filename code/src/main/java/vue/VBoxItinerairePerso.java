@@ -65,6 +65,8 @@ public class VBoxItinerairePerso extends VBox {
         textMembres = new TextArea();
         textItineraire.setPromptText("[Membre1, Membre2, Membre3, ...]\r" + "Distance : distance");
         textMembres.setPromptText("Membre 1 : Sa ville\rMembre 2 : Sa ville\rMembre 3 : Sa ville\r...");
+        textMembres.setWrapText(true);
+        textItineraire.setWrapText(true);
 
 
         stackPossibilites.setPrefHeight(300);
