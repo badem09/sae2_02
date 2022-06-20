@@ -1,5 +1,4 @@
-PrésidentDébut Velizy
-PrésidentFin Velizy
+Président Velizy
 Bulbizarre Brest
 Herbizarre Perpignan
 Florizarrenote Brest
