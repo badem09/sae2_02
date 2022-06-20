@@ -95,7 +95,7 @@ public class VBoxInfoMembres extends VBox {
 
         Label titre = new Label("Recherche de Membres");
         titre.setAlignment(Pos.TOP_LEFT);
-        this.getChildren().addAll(titre,textField,
+        this.getChildren().addAll(new Label(""), titre, textField,
                 new HBox(listViewChoixMembre, listViewAffichageVille), buttonClear);
     }
 

@@ -99,7 +99,10 @@ public class VBoxInfoVilles extends VBox {
 
         Label titre = new Label("Recherche de Villes");
         titre.setAlignment(Pos.TOP_LEFT);
-        this.getChildren().addAll(titre,textField,
+        Label labelAttention = new Label("Attention: Si les Mnémoniques sont ativées, " +
+                "désactivez les en pressant la touche ALT.");
+        labelAttention.setId("inline");
+        this.getChildren().addAll(labelAttention,titre,textField,
                 new HBox(listViewChoixVille, listViewAffichageMembre), buttonClear);
     }
 
