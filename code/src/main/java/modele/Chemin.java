@@ -12,13 +12,15 @@ public class Chemin {
     private final HashMap<String, ArrayList<String>> mapAdjSortant;
 
     private final ArrayList<ArrayList<String>> cheminGen; // chemin Général.
+    private final Villes villes;
 
-    public Chemin(Scenario parScenario) {
+    public Chemin(Scenario parScenario) throws IOException {
         graphe = new Graphes(parScenario);
         mapAdjEntrant = new HashMap<>(graphe.getMapAjdEntrant());
         mapAdjSortant = new HashMap<>(graphe.getMapAjdSortant());
         cheminGen = new ArrayList<>();
         allChemin = new ArrayList<>();
+        villes = new Villes();
 
         setCheminGen();
         updateMapAdjSortant();
@@ -185,9 +187,8 @@ public class Chemin {
      * @return distance (ArrayList<String>) : distance aux sommets (selon l'indice).
      * @throws IOException (FileNotFoundException).
      */
-    public ArrayList<String> getCurrentDistance(String currentSource, ArrayList<String> possibilitesCourantes) throws IOException {
+    public ArrayList<String> getCurrentDistance(String currentSource, ArrayList<String> possibilitesCourantes){
 
-        Villes villes = new Villes();
         ArrayList<String> distance = new ArrayList<>();
         ArrayList listeViles = villes.getListeVilles();
         String villeSource = "";
