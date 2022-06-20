@@ -3,7 +3,6 @@ package vue;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -22,7 +21,7 @@ public class VBoxInfoMembres extends VBox {
     private final TextField textField;
     private final Villes villes;
     private String currentInput;
-    private final ListView<CelluleListe> listViewChoixMembre;
+    private final ListView<String> listViewChoixMembre;
     private ArrayList<String> currentListeMembre;
     private String membreChoisi;
     private final ListView<String> listViewAffichageVille;
@@ -41,18 +40,14 @@ public class VBoxInfoMembres extends VBox {
         ArrayList<String> liste = villes.getListeMembre();
         Collections.sort(liste);
 
-        ObservableList<CelluleListe> observableList = FXCollections.observableArrayList(new ArrayList<>());
-        for (int i = 0; i< liste.size() ; i++){
-           observableList.add(new CelluleListe(liste.get(i),String.valueOf(i)));
-        }
-       listViewChoixMembre = new ListView<>(observableList);
+        listViewChoixMembre = new ListView<>(FXCollections.observableArrayList(liste));
 
         // A l'écoute des saisies dans le textField
         textField.textProperty().addListener((observable, oldValue, newValue) -> {
             // si aucune Saisie
             if (currentListeMembre.size() == 0 || textField.getText() == ""){
                 currentListeMembre = (ArrayList<String>) liste.clone();
-                listViewChoixMembre.setItems(observableList);
+                listViewChoixMembre.setItems(FXCollections.observableArrayList(liste));
             }
             currentInput = newValue;
             currentListeMembre = (ArrayList<String>) liste.clone();
@@ -62,15 +57,15 @@ public class VBoxInfoMembres extends VBox {
                 }
             }
             System.out.println("textfield changed from " + oldValue + " to " + newValue);
-            listViewChoixMembre.setItems(observableList);
+            listViewChoixMembre.setItems(FXCollections.observableArrayList(currentListeMembre));
         });
 
         //Recupère la membre selectionné et affiche la ville associée.
-        listViewChoixMembre.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<CelluleListe>() {
+        listViewChoixMembre.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<>() {
             @Override
-            public void changed(ObservableValue<? extends CelluleListe> observable, CelluleListe oldValue, CelluleListe newValue) {
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 if (listViewChoixMembre.getSelectionModel().getSelectedItem() != null){
-                    membreChoisi = listViewChoixMembre.getSelectionModel().getSelectedItem().getMembre();
+                    membreChoisi = listViewChoixMembre.getSelectionModel().getSelectedItem();
                     try {
                         setContent(listViewAffichageVille, membreChoisi);
                     } catch (FileNotFoundException e) {
@@ -87,7 +82,7 @@ public class VBoxInfoMembres extends VBox {
             public void handle(ActionEvent actionEvent) {
                 currentListeMembre.removeAll(liste);
                 currentListeMembre.addAll(liste);
-                listViewChoixMembre.setItems(observableList);
+                listViewChoixMembre.setItems(FXCollections.observableArrayList(liste));
                 textField.clear();
                 listViewAffichageVille.setItems(FXCollections.observableArrayList(new ArrayList<>()));
             }
