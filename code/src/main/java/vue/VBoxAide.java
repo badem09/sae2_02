@@ -36,7 +36,10 @@ public class VBoxAide extends VBox {
 
                           1.5 Membres.
 
-                               Cette rubrique vous permet soit a partir d'une ville de trouver ses membres, soit à partir d'un membre de trouver sa ville."""
+                               Cette rubrique vous permet soit a partir d'une ville de trouver ses membres, soit à partir d'un membre de trouver sa ville.
+                               
+                 PRO TIP : Vous pouvez appuyer sur la touche ALT pour déverrouiller des raccourcis. Pour accéder a une page, vous n'aurez plus qu'à sélectionner la touche soulignée.
+                 ATTENTION : Dans le menu 'Membres', veuillez re-appuyer sur ALT pour désactiver les mnémoniques et faire votre recherche."""
         );
         label.setId("inline");
         label.setWrapText(true);
