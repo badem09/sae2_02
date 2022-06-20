@@ -58,6 +58,9 @@ public class VBoxInfoVilles extends VBox {
                     currentListeVille.remove(ville);
                 }
             }
+            if (currentListeVille.size() == 0){
+                currentListeVille.add("Aucun résultat.");
+            }
             listViewChoixVille.setItems(FXCollections.observableList(currentListeVille));
         });
 

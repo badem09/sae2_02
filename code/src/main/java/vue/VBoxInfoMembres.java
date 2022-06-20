@@ -56,7 +56,9 @@ public class VBoxInfoMembres extends VBox {
                     currentListeMembre.remove(membre);
                 }
             }
-            System.out.println("textfield changed from " + oldValue + " to " + newValue);
+            if (currentListeMembre.size() == 0){
+                currentListeMembre.add("Aucun résultat.");
+            }
             listViewChoixMembre.setItems(FXCollections.observableArrayList(currentListeMembre));
         });
 
