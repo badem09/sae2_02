@@ -35,7 +35,7 @@ public class Itineraire {
                 if (membresVilles.get(it.get(i)) == "Ville non renseignée !" ||
                      membresVilles.get(it.get(i + 1)) == "Ville non renseignée !" ){
                  break;
-                 //Si 1 ville est inconnue: itinéraire incalculable
+                 //Si 1 des villes est inconnue: itinéraire incalculable
              }
                     String avant = membresVilles.get(it.get(i));
                     String apres = membresVilles.get(it.get(i + 1));
