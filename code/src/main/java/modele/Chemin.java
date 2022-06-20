@@ -189,7 +189,7 @@ public class Chemin {
 
         Villes villes = new Villes();
         ArrayList<String> distance = new ArrayList<>();
-        ArrayList listeViles = villes.getTabVilles();
+        ArrayList listeViles = villes.getListeVilles();
         String villeSource = "";
 
         for(String sommet : possibilitesCourantes){

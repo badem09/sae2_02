@@ -39,8 +39,8 @@ public class Itineraire {
              }
                     String avant = membresVilles.get(it.get(i));
                     String apres = membresVilles.get(it.get(i + 1));
-                    int indexAvant = villes.getTabVilles().indexOf(avant);
-                    int indexApres = villes.getTabVilles().indexOf(apres);
+                    int indexAvant = villes.getListeVilles().indexOf(avant);
+                    int indexApres = villes.getListeVilles().indexOf(apres);
                     sum += tabDistance.get(indexAvant).get(indexApres);
             }
             dicoItineraire.put(it, sum);
@@ -128,8 +128,8 @@ public class Itineraire {
             }
             String avant = membresVilles.get(currentPath.get(i));
             String apres = membresVilles.get(currentPath.get(i + 1));
-            int indexAvant = villes.getTabVilles().indexOf(avant);
-            int indexApres = villes.getTabVilles().indexOf(apres);
+            int indexAvant = villes.getListeVilles().indexOf(avant);
+            int indexApres = villes.getListeVilles().indexOf(apres);
             sum += villes.getTabDistances().get(indexAvant).get(indexApres);
 
         }

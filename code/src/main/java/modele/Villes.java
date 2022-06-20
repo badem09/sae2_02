@@ -29,7 +29,7 @@ public class Villes {
         villesToMembre = new HashMap<>();
         listeMembre = new ArrayList<>();
 
-        updateTabVilles();
+        updateListeVilles();
         updateTabDistance();
         updateVillesMembres();
         updateMembreVilles();
@@ -57,7 +57,7 @@ public class Villes {
         bufferEntree.close();
     }
 
-    public void updateTabVilles() throws IOException {
+    public void updateListeVilles() throws IOException {
         BufferedReader bufferEntree = new BufferedReader(new FileReader (fileDistances));
         String ligne ;
         StringTokenizer tokenizer;
@@ -120,7 +120,7 @@ public class Villes {
         bufferEntree.close();
     }
 
-    public ArrayList<String> getTabVilles(){
+    public ArrayList<String> getListeVilles(){
         return listeVilles;
     }
     public ArrayList<ArrayList<Integer>> getTabDistances(){

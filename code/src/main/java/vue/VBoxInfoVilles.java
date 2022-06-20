@@ -38,7 +38,7 @@ public class VBoxInfoVilles extends VBox {
         currentListeVille = new ArrayList<>();
         textField = new TextField();
         villes = new Villes();
-        ArrayList<String> liste = villes.getTabVilles();
+        ArrayList<String> liste = villes.getListeVilles();
         Collections.sort(liste);
         listViewChoixVille = new ListView<>(FXCollections.observableArrayList(liste));
         textField.setPromptText("Veuillez rentrer une ville");
