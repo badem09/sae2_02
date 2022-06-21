@@ -20,8 +20,9 @@ public class ControleurPagination implements EventHandler {
             if (((Button) event.getSource()).getAccessibleText() == "avancer") {
                 if (pagination.getMaxPage() > pagination.getCurrentPage()) {
                     int anciennePage = Integer.parseInt(pagination.getLabelCurrentPage().getText()) +1;
+                    // +1 car la pagination commence à 1.
                     pagination.setLabelCurrentPage(String.valueOf(anciennePage));
-                    String currentPage = vBoxItineraire.getItineraire().toString(8*(anciennePage-1), 8*anciennePage);
+                    String currentPage = vBoxItineraire.getItineraire().toString(8 * (anciennePage - 1), 8 * anciennePage);
                     vBoxItineraire.getTextItineraire().setText(currentPage);
                 }
             }
@@ -31,7 +32,7 @@ public class ControleurPagination implements EventHandler {
                 if (pagination.getCurrentPage() > 1) {
                     int anciennePage = Integer.parseInt(pagination.getLabelCurrentPage().getText()) -1;
                     pagination.setLabelCurrentPage(String.valueOf(anciennePage));
-                    String currentPage = vBoxItineraire.getItineraire().toString(8*(anciennePage-1), 8*anciennePage);
+                    String currentPage = vBoxItineraire.getItineraire().toString(8 * (anciennePage - 1), 8 * anciennePage);
                     vBoxItineraire.getTextItineraire().setText(currentPage);
 
                 }
@@ -42,7 +43,7 @@ public class ControleurPagination implements EventHandler {
                 if (pagination.getCurrentPage() < pagination.getMaxPage()) {
                     pagination.setLabelCurrentPage(pagination.getLabelMaxPage().getText());
                     String currentPage = vBoxItineraire.getItineraire().toString(
-                            pagination.getMaxPage()*8 - 8, (pagination.getMaxPage()+1)*8);
+                            (pagination.getMaxPage() - 1) * 8, (pagination.getMaxPage() + 1) * 8);
                     vBoxItineraire.getTextItineraire().setText(currentPage);
                 }
             }
