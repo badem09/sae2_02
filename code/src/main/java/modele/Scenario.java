@@ -197,8 +197,7 @@ public class Scenario {
             if ( ! villes.getListeVilles().contains(membreToVille.get(a)) ||
                   !  villes.getListeVilles().contains(membreToVille.get(v) )){
                 retour += i + " : "+ a + " vends à " + v + " :  " + membreToVille.get(a) +
-                        " ----> " +  membreToVille.get(v) + " soit " +
-                        "Distance inconnue. " + "\n";
+                        " ----> " +  membreToVille.get(v)  + " (Distance inconnue.)" + "\n";
             }
             else {
                 int indexVilleA = villes.getListeVilles().indexOf(membreToVille.get(a));
