@@ -12,7 +12,7 @@ public class Graphes {
     public Graphes(Scenario parScenario)  {
         scenario = parScenario;
         mapAjdEntrant = new HashMap<>(scenario.getDicoAV()); // degrés entrants
-        mapAjdSortant =  new HashMap<>(scenario.getDicoVA());
+        mapAjdSortant =  new HashMap<>(scenario.getDicoVA()); // degrés sortants
     }
 
     public HashMap<String, ArrayList<String>> getMapAjdEntrant(){
