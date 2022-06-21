@@ -31,8 +31,8 @@ public class ControleurMenu implements EventHandler,IntitulesMenu {
 
     @Override
     public void handle(Event event) {
-        //"Scénarios connus"
         if (event.getSource() instanceof MenuItem) {
+            //"Nouveau Scénario"
 
             if (((MenuItem) event.getSource()).getUserData() == SOUS_MENU[0][0]) {
                 StackPane stackPane = root.getStackPane();
@@ -42,6 +42,7 @@ public class ControleurMenu implements EventHandler,IntitulesMenu {
                 }
             }
 
+            //Scénario Enregistrés
             if (((MenuItem) event.getSource()).getUserData() == SOUS_MENU[0][1]) {
                 StackPane stackPane = root.getStackPane();
                 int last = stackPane.getChildren().size() - 1;
@@ -49,6 +50,8 @@ public class ControleurMenu implements EventHandler,IntitulesMenu {
                     stackPane.getChildren().get(0).toFront();
                 }
             }
+
+            //Itinéraire --→ Tous les Itinéraires
             if (((MenuItem) event.getSource()).getUserData() == SOUS_MENU[2][1]) {
                 StackPane stackPane = root.getStackPane();
                 int last = stackPane.getChildren().size() - 1;
@@ -57,6 +60,7 @@ public class ControleurMenu implements EventHandler,IntitulesMenu {
                 }
             }
 
+            // Itinéraire --> Itinéraire Personnalisé
             if (((MenuItem) event.getSource()).getUserData() == SOUS_MENU[2][0]) {
                 StackPane stackPane = root.getStackPane();
                 int last = stackPane.getChildren().size() - 1;
@@ -65,6 +69,7 @@ public class ControleurMenu implements EventHandler,IntitulesMenu {
                 }
             }
 
+            //Aide
             if (((MenuItem) event.getSource()).getUserData() == SOUS_MENU[3][0]) {
                 StackPane stackPane = root.getStackPane();
                 int last = stackPane.getChildren().size() - 1;
@@ -73,6 +78,7 @@ public class ControleurMenu implements EventHandler,IntitulesMenu {
                 }
             }
 
+            //Membres
             if (((MenuItem) event.getSource()).getUserData() == SOUS_MENU[1][0]) {
                 StackPane stackPane = root.getStackPane();
                 int last = stackPane.getChildren().size() - 1;
