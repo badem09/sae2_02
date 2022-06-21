@@ -133,6 +133,8 @@ public class Chemin {
         currentPath.add(source);
         ArrayList<String> prochainSommets = (ArrayList<String>) mapAdjSortant.get(source).clone();
         if (listeProchainSautes.size() != 0) {
+
+            // recherche des sommets sautés
             for (String e : listeProchainSautes) {
                 if (!currentPath.contains(e) && !prochainSommets.contains(e) && !mapAdjEntrant.get(e).contains(source)) {
                     prochainSommets.add(e);
@@ -156,11 +158,11 @@ public class Chemin {
     }
 
     /**
-     * Etant donné un sommet de départ et un chemin parcouru jusque là,
+     * Etant donné un sommet de départ et un chemin parcouru jusque-là,
      * retourne les possibilités de sommets suivants.
      * @param depart (String) : sommet de départ.
      * @param currentPath (Arraylist<String>) : Chemin courant.
-     * @return possibilites (Arraylist<String>) : Sommets possible d'atteindre comprenant les sommets sautes.
+     * @return possibilites (Arraylist<String>) : Sommets possible d'atteindre comprenant les sommets sautés.
      */
     public ArrayList<String> parcoursProgressif(String depart, ArrayList<String> currentPath,
                                                 ArrayList<String> possibilitesCourantes){
@@ -181,21 +183,19 @@ public class Chemin {
     }
 
     /**
-     * Renvoie la distance d'un sommet aux sommets atteignables parmis ses sommets ajdacent (en sortie).
+     * Renvoie la distance d'un sommet aux sommets atteignables parmi ses sommets adjacent (en sortie).
      * @param currentSource (String) : Sommet.
-     * @param possibilitesCourantes (Arraylist<String>) : Sommets atteingnables.
+     * @param possibilitesCourantes (Arraylist<String>) : Sommets atteignables.
      * @return distance (ArrayList<String>) : distance aux sommets (selon l'indice).
-     * @throws IOException (FileNotFoundException).
      */
     public ArrayList<String> getCurrentDistance(String currentSource, ArrayList<String> possibilitesCourantes){
 
         ArrayList<String> distance = new ArrayList<>();
-        ArrayList listeViles = villes.getListeVilles();
-        String villeSource = "";
+        ArrayList<String> listeViles = villes.getListeVilles();
 
         for(String sommet : possibilitesCourantes){
-            villeSource = villes.getMembreToVilles().get(currentSource);
-            if (villes.getMembreToVilles().containsKey(sommet)) {
+            String villeSource = villes.getMembreToVilles().get(currentSource);
+            if (villeSource != "Ville non renseignée !" && villes.getMembreToVilles().containsKey(sommet)) {
                 ArrayList<Integer> ligne = villes.getTabDistances().get(listeViles.indexOf(villeSource));
                 String villeProchain = villes.getMembreToVilles().get(sommet);
                 distance.add(ligne.get(listeViles.indexOf(villeProchain)) + " km");
