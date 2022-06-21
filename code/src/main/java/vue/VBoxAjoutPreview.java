@@ -27,7 +27,7 @@ public class VBoxAjoutPreview extends VBox {
 
         gridPaneOrg = new GridPaneOrg(root);
 
-        // Renvoie sur la page Scenario Enrgistrés.
+        // Renvoie sur la page Scenario Enregistrés.
         Button buttonValider = new Button("Valider");
         buttonValider.setAccessibleText("validerAjoutScenario");
         buttonValider.setOnAction(new EventHandler<ActionEvent>() {
