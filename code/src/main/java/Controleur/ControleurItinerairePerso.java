@@ -82,7 +82,7 @@ public class ControleurItinerairePerso implements EventHandler{
             }
         }
 
-        // Si en au milieu d'un itinéraire.
+        // Si au milieu d'un itinéraire.
         if (event.getSource() instanceof Button) {
             if (((Button) event.getSource()).getText() == "_Valider" ){
 
