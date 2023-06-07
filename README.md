@@ -17,4 +17,5 @@ domiciliation des membres (leur ville d’origine) et de les regrouper par ville
 
 voir *Documents/Rapport_BA_ZIHOUNE_2.02_2.01.pdf* et *Documents/Manuel* d'utilisation pour plus d'informations.
 
+Le motif d'architecture logicielle suivi est Modèle-vue-contrôleur (MCV).
 Vous pourrez éxecuter l'application dans l'IDE IntelliJ Idea.
