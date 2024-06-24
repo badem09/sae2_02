@@ -27,4 +27,6 @@ Pour exécuter le projet facilement :
 java -jar sae2_02/code/target/Scenario-1.0-SNAPSHOT-shaded.jar
 ```
 
+[Ici](https://youtu.be/EyYb0GmtEX4?si=vx2_ulShEAUeUply) pour la méthode pour générer le .jar 
+
 Vous pouvez aussi exécuter l'application dans l'IDE IntelliJ Idea en ouvrant le projet /sae_2_02 (exécuter la clasee PageMain.java ou Main.java)
