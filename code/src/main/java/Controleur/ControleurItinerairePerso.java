@@ -94,7 +94,14 @@ public class ControleurItinerairePerso implements EventHandler{
                             "\n" + "Veuillez en selectionner un parmis ceux proposés.");
                     mauvaisformat.showAndWait();
 
+                } else if (currentSource == "Vous êtes arrivés !") {
+                    Alert mauvaisformat = new Alert(Alert.AlertType.ERROR);
+                    mauvaisformat.setHeaderText("Fin de l'itineraire");
+                    mauvaisformat.setContentText("Vous êtes arrivés !");
+                    mauvaisformat.showAndWait();
+
                 } else {
+                    System.out.println(currentSource);
                     currentPath.add(currentSource);
                     root.getTextItineraire().setText(curentItineraire.getCurrentDistance(currentPath));
                     root.getTextMembres().appendText(currentSource + " : " +
