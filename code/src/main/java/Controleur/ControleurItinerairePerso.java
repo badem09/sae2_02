@@ -51,7 +51,7 @@ public class ControleurItinerairePerso implements EventHandler{
 
             //Stockage des itinéraire dans une map
             try {
-                Scenario scenario = Scenario.lectureScenario("src/main/resources/data/" + fileName, false);
+                Scenario scenario = Scenario.lectureScenario("code/src/main/resources/data/" + fileName, false);
                 if (mapItineraire.containsKey(fileName)) {
                     currentChemin = mapItineraire.get(fileName).getChemin();
                     curentItineraire = mapItineraire.get(fileName);
@@ -94,7 +94,14 @@ public class ControleurItinerairePerso implements EventHandler{
                             "\n" + "Veuillez en selectionner un parmis ceux proposés.");
                     mauvaisformat.showAndWait();
 
+                } else if (currentSource == "Vous êtes arrivés !") {
+                    Alert mauvaisformat = new Alert(Alert.AlertType.ERROR);
+                    mauvaisformat.setHeaderText("Fin de l'itineraire");
+                    mauvaisformat.setContentText("Vous êtes arrivés !");
+                    mauvaisformat.showAndWait();
+
                 } else {
+                    System.out.println(currentSource);
                     currentPath.add(currentSource);
                     root.getTextItineraire().setText(curentItineraire.getCurrentDistance(currentPath));
                     root.getTextMembres().appendText(currentSource + " : " +

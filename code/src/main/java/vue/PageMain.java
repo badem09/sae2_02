@@ -15,10 +15,10 @@ public class PageMain extends Application {
         VBoxRoot root = new VBoxRoot(stage);
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        File css = new File("css"+File.separator+"style.css");
+        File css = new File("code/css"+File.separator+"style.css");
         scene.getStylesheets().add(css.toURI().toString());
         stage.getIcons().add(new Image(new FileInputStream(
-                "src/main/resources/images/pokeman.png")));
+                "code/src/main/resources/images/pokeman.png")));
         stage.setTitle("APLI");
         stage.show();
     }

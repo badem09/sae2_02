@@ -19,11 +19,11 @@ public class CelluleListe extends HBox {
         ImageView imageView;
         try {
              imageView = new ImageView(new Image(new FileInputStream(
-                    "src/main/resources/images/" + membre + ".jpg")));
+                    "code/src/main/resources/images/" + membre + ".jpg")));
         }
         catch (FileNotFoundException fnfe){
             imageView = new ImageView(new Image(new FileInputStream(
-                    "src/main/resources/images/unknown.jpg")));
+                    "code/src/main/resources/images/unknown.jpg")));
         }
 
         imageView.setFitHeight(20);

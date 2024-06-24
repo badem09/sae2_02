@@ -20,9 +20,9 @@ public class Villes {
     public Villes() throws IOException {
 
         fileDistances =new File(
-                "src/main/resources/data/distances.txt");
+                "code/src/main/resources/data/distances.txt");
         fileMembre = new File(
-                "src/main/resources/data/membres_APLI.txt");
+                "code/src/main/resources/data/membres_APLI.txt");
         listeVilles = new ArrayList<>();
         tabDistances = new  ArrayList<>();
         membreToVilles = new HashMap<>();
