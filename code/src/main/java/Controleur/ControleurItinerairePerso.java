@@ -51,7 +51,7 @@ public class ControleurItinerairePerso implements EventHandler{
 
             //Stockage des itinéraire dans une map
             try {
-                Scenario scenario = Scenario.lectureScenario("src/main/resources/data/" + fileName, false);
+                Scenario scenario = Scenario.lectureScenario("code/src/main/resources/data/" + fileName, false);
                 if (mapItineraire.containsKey(fileName)) {
                     currentChemin = mapItineraire.get(fileName).getChemin();
                     curentItineraire = mapItineraire.get(fileName);

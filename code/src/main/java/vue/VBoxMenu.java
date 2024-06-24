@@ -14,7 +14,7 @@ public class VBoxMenu extends VBox implements IntitulesMenu {
     public VBoxMenu(VBoxRoot parVboxRoot) throws IOException {
 
         controleurMenu = new ControleurMenu(parVboxRoot);
-        File suiviScenario = new File("src/main/resources/data/suivi_scenarios.txt");
+        File suiviScenario = new File("code/src/main/resources/data/suivi_scenarios.txt");
         SuiviScenario.RecupereListeSuivi(suiviScenario);
         chMenuBar = new MenuBar();
         int i = 0;

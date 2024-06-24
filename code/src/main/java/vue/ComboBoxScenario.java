@@ -22,7 +22,7 @@ public class ComboBoxScenario extends ComboBox<String> {
         this.setOnAction(event -> {
             String scenarioCourant = (String) ((ComboBox<?>) event.getSource()).getSelectionModel().getSelectedItem();
             try {
-                Scenario scenario = Scenario.lectureScenario("src/main/resources/data/" + scenarioCourant,false);
+                Scenario scenario = Scenario.lectureScenario("code/src/main/resources/data/" + scenarioCourant,false);
                 root.getvBoxScenario().getGridPaneOrg().setScenario(scenario);
             } catch (IOException e) {
                 throw new RuntimeException(e);

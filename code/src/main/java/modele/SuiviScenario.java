@@ -13,7 +13,7 @@ public class SuiviScenario {
 
     public SuiviScenario() throws IOException {
         listeScenarioSuivi = new ArrayList<>();
-        RecupereListeSuivi(new File("src/main/resources/data/suivi_scenarios.txt"));
+        RecupereListeSuivi(new File("code/src/main/resources/data/suivi_scenarios.txt"));
     }
 
     /**
@@ -47,7 +47,7 @@ public class SuiviScenario {
      */
     public static void writeSuiviScenario(File fileScenario) throws  IOException {
 
-        File suiviScenario = new File("src/main/resources/data/suivi_scenarios.txt");
+        File suiviScenario = new File("code/src/main/resources/data/suivi_scenarios.txt");
         RecupereListeSuivi(suiviScenario);
         if (!listeScenarioSuivi.contains(fileScenario.getName())) {
             BufferedWriter writer = new BufferedWriter(new FileWriter(suiviScenario, true));

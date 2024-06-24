@@ -52,7 +52,7 @@ public class VBoxAllItineraire extends VBox {
             @Override
             public void handle(ActionEvent event) {String scenarioCourant = (String) ((ComboBox<?>) event.getSource()).getSelectionModel().getSelectedItem();
                 try {
-                    currentScenario = Scenario.lectureScenario("src/main/resources/data/" + scenarioCourant,false);
+                    currentScenario = Scenario.lectureScenario("code/src/main/resources/data/" + scenarioCourant,false);
                     if ( ! mapItineraire.containsKey(scenarioCourant)){
                         Chemin it = new Chemin(currentScenario);
                         itineraire = new Itineraire(it);

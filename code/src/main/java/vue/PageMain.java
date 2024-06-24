@@ -18,7 +18,7 @@ public class PageMain extends Application {
         File css = new File("css"+File.separator+"style.css");
         scene.getStylesheets().add(css.toURI().toString());
         stage.getIcons().add(new Image(new FileInputStream(
-                "src/main/resources/images/pokeman.png")));
+                "code/src/main/resources/images/pokeman.png")));
         stage.setTitle("APLI");
         stage.show();
     }

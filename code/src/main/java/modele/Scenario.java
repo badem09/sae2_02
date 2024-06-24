@@ -54,7 +54,7 @@ public class Scenario {
 
     /**Méthode de lecture des fichiers scénario à partir d'un path.
      *
-     * @param path (String): Chemin absolu ou relatif (depuis /src) au fichier
+     * @param path (String): Chemin absolu ou relatif (depuis /code/src) au fichier
      * @param save (boolean) : Sauvegarde le nom du fichier si true.
      * @return Scenario scenario.
      * @throws IOException (FileNotFoundExeption)
@@ -95,7 +95,7 @@ public class Scenario {
 
     /**Méthode de lecture des fichiers scénario à partir d'un fichier.
      *
-     * @param fichier (String): Chemin absolu ou relatif (depuis /src) au fichier
+     * @param fichier (String): Chemin absolu ou relatif (depuis /code/src) au fichier
      * @param save (boolean) : Sauvegarde le nom du fichier si true.
      * @return Scenario scenario.
      * @throws IOException (FileNotFoundExeption)

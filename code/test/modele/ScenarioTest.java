@@ -16,7 +16,7 @@ class ScenarioTest {
     }
     Scenario s1 = new Scenario();
 
-    Scenario s2 = Scenario.lectureScenario("src/main/resources/data/scenario_0.txt",true);
+    Scenario s2 = Scenario.lectureScenario("code/src/main/resources/data/scenario_0.txt",true);
     @Test
     void testLectureScenarioNotNull()  {
         assertNotEquals(s1, s2);

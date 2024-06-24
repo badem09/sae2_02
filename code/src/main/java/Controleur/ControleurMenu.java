@@ -21,11 +21,11 @@ public class ControleurMenu implements EventHandler,IntitulesMenu {
 
         // si aucun scenario enregistré pour l'instant, je les stocke.
         if (listeScenario == null) {
-            Scenario s1 = Scenario.lectureScenario("src/main/resources/data/scenario_0.txt",true);
-            Scenario s2 = Scenario.lectureScenario("src/main/resources/data/scenario_1_1.txt",true);
-            Scenario s3 = Scenario.lectureScenario("src/main/resources/data/scenario_1_2.txt",true);
-            Scenario s4 = Scenario.lectureScenario("src/main/resources/data/scenario_2_1.txt",true);
-            Scenario s5 = Scenario.lectureScenario("src/main/resources/data/scenario_2_2.txt",true);
+            Scenario s1 = Scenario.lectureScenario("code/src/main/resources/data/scenario_0.txt",true);
+            Scenario s2 = Scenario.lectureScenario("code/src/main/resources/data/scenario_1_1.txt",true);
+            Scenario s3 = Scenario.lectureScenario("code/src/main/resources/data/scenario_1_2.txt",true);
+            Scenario s4 = Scenario.lectureScenario("code/src/main/resources/data/scenario_2_1.txt",true);
+            Scenario s5 = Scenario.lectureScenario("code/src/main/resources/data/scenario_2_2.txt",true);
         }
     }
 
