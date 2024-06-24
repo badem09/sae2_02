@@ -24,7 +24,8 @@ Le motif d'architecture logicielle suivi est Modèle-vue-contrôleur (MCV).
 Pour exécuter le projet facilement : 
 
 ```console
-java -jar sae2_02/code/target/Scenario-1.0-SNAPSHOT-shaded.jar
+cd sae2_02
+java -jar code/target/Scenario-1.0-SNAPSHOT-shaded.jar
 ```
 
 [Ici](https://youtu.be/EyYb0GmtEX4?si=vx2_ulShEAUeUply) pour la méthode pour générer le .jar 
