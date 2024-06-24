@@ -3,7 +3,7 @@ Projet réalisé dans le cadre du BUT Informatique. Application Java implementan
 # SAÉ 1 (Situation d'Apprentissage et d'Évaluation) - Semestre 2 : Interface Homme Machine (IHM)
 
 
-
+## Contexte
 Dans le cadre des SAE 2.01, 2.02 et 2.05, nous avons eu l’occasion de nous
 mettre dans la peau de vrais développeurs ayant pour objectif de mener à bien leur
 projet. Celui-ci était principalement centré autour de la résolution algorithmique d’un
@@ -18,4 +18,13 @@ domiciliation des membres (leur ville d’origine) et de les regrouper par ville
 voir *Documents/Rapport_BA_ZIHOUNE_2.02_2.01.pdf* et *Documents/Manuel* d'utilisation pour plus d'informations.
 
 Le motif d'architecture logicielle suivi est Modèle-vue-contrôleur (MCV).
-Vous pourrez éxecuter l'application dans l'IDE IntelliJ Idea.
+
+## Exécution
+
+Pour exécuter le projet facilement : 
+
+```console
+java -jar sae2_02/code/target/Scenario-1.0-SNAPSHOT-shaded.jar
+```
+
+Vous pouvez aussi exécuter l'application dans l'IDE IntelliJ Idea en ouvrant le projet /sae_2_02 (exécuter la clasee PageMain.java ou Main.java)
